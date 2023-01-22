@@ -1,0 +1,955 @@
+---
+import Layout from '../layouts/Layout-tlc.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+import '/src/Styles/checkout.scss';
+
+import '/src/Styles/_module.button.scss';
+import '/src/Styles/_module.form.scss';
+import '/src/Styles/basket.scss';
+
+import '/src/Styles/_module.modal.scss';
+import '/src/Styles/modal-dialog.scss';
+
+// import "/src/js/jquery.address-finder.js"
+// import "/src/js/jquery.modal-dialog.js"
+// import "/src/js/basket.js"
+---
+
+<Layout title="Basket">
+  <Breadcrumbs crumbs={[{text: 'Basket'}]} />
+
+  <div class="site-width-wrapper">
+    <header class="basket-header js-validation-message-marker">
+      <p class="basket-header__intro">Select a delivery method to view your basket with a delivery estimate:</p>
+      <div class="basket-header__controls">
+        <div class="basket-header__delivery-selector">
+          <div class="delivery-selector">
+            <div class="delivery-selector__option js-delivery-method-selector" data-delivery-method="collection">
+              <span class="delivery-selector__option-label">
+                <span class="delivery-selector__option-icon delivery-selector__option-icon--collect"></span>
+                <span class="delivery-selector__option-text">
+                  <span class="delivery-selector__option-text-title">Collect from a branch</span>
+                  <span class="delivery-selector__option-text-description">Ready in as little as 2 hours.</span>
+                </span>
+              </span>
+            </div>
+            <div class="delivery-selector__option js-delivery-method-selector" data-delivery-method="delivery">
+              <span class="delivery-selector__option-label">
+                <span class="delivery-selector__option-icon delivery-selector__option-icon--deliver"></span>
+                <span class="delivery-selector__option-text">
+                  <span class="delivery-selector__option-text-title">Deliver my order</span>
+                  <span class="delivery-selector__option-text-description">Get your order delivered to your doorstep.</span>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="basket-header__proceed-button">
+          <form class="proceed-button js__checkout" id="form_1_xxxxx" action="/tcl/orders/552957/checkout" method="POST" novalidate="novalidate">
+            <button class="button button--rounded button--positive button--large button--disabled js-checkout-button" id="checkout_1" name="checkout_1" type="submit" value="submit" disabled="">
+              <span class="icon icon--arrow-right pull-right"></span>Proceed To Checkout
+            </button>
+            <input type="hidden" name="_authenticity_token" value="xxxxx">
+          </form>
+        </div>
+      </div>
+    </header>
+    <section class="basket">
+      <header class="basket__thead">
+        <div class="basket__th basket__th--title">Basket Items</div>
+        <div class="basket__th basket__th--image"></div>
+        <div class="basket__th basket__th--order-code">Order Code</div>
+        <div class="basket__th basket__th--description">Description</div>
+        <div class="basket__th basket__th--price js-show-vat-modal">Price <span class="vat-preference-text vat-preference-text--table-heading js__include_vat"></span>
+        </div>
+        <div class="basket__th basket__th--qty">Quantity</div>
+        <div class="basket__th basket__th--total">Total</div>
+        <div class="basket__th basket__th--remove"></div>
+      </header>
+      <form class="js__products" id="form_2_1567670068" action="/tcl/orders/552957" method="POST" data-order-number="552957" novalidate="novalidate">
+        <div class="basket__tbody js__products_wrapper is-loading">
+          <div class="template order-empty js__order_empty">Your order is empty</div>
+          <div class="order-loading">
+            <div class="ajax-spinner"></div> Loading your order…
+          </div>
+          <div class="basket-item template js__product">
+            <div class="basket-item__image">
+              <a class="js__product_link">
+                <img class="js__product_image" src="data:," alt="">
+              </a>
+            </div>
+            <a class="basket-item__order-code js__product_code js__special-delivery-label js__product_link"></a>
+            <a class="basket-item__description js__description js__product_link"></a>
+            <div class="basket-item__price">
+              <h2 class="basket-item__label js-show-vat-modal">Price <span class="vat-preference-text js__include_vat"></span>:</h2>
+              <p class="basket-item__price-text js__price_description"></p>
+            </div>
+            <div class="basket-item__quantity js__qty-update">
+              <div class="basket-item__quantity-spinner fieldset">
+                <div class="field field--no-label field--quantity-spinner">
+                  <div class="field__wrapper">
+                    <div class="field__input-wrapper">
+                      <span class="field__spinner-button field__spinner-button--down">−</span>
+                      <input class="field__input js__qty" id="quantity" name="quantity" value="" inputmode="numeric" pattern="[0-9]*" disabled="disabled">
+                      <span class="field__spinner-button field__spinner-button--up">&plus;</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="basket-item__total">
+              <h2 class="basket-item__label">Total:</h2>
+              <p class="js__line_price"></p>
+            </div>
+            <div class="basket-item__remove">
+              <button class="basket-item__remove-control js__remove_product" title="Remove Item" type="button" name="remove" value="true">Remove</button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f">
+        <input type="hidden" value="PUT" name="_method">
+      </form>
+      <div class="basket__tfoot">
+        <div class="quick-entry-forms">
+          <!-- Quick Entry Form.-->
+          <form class="quick-order-entry fieldset fieldset--compact js-form-quick-entry" id="form_3_1567670068" action="/tcl/orders/552957/products" method="POST" novalidate="novalidate">
+            <div class="quick-order-entry__form">
+              <h1 class="quick-order-entry__title fieldset__text">Quick Entry</h1>
+              <!-- Product Code field.-->
+              <div class="field quick-order-entry__field quick-order-entry__product-code js-quick-entry-product-code-field">
+                <div class="field__wrapper">
+                  <label class="field__label" for="add_product_code">Product Code</label>
+                  <input class="field__input js-quick-entry-input js-quick-entry-product-code-input" id="add_product_code" name="add_product_code" placeholder="Product Code" type="text" autocomplete="off" required="required">
+                  <div class="field__message">
+                    <div class="ajax-spinner"></div>
+                    <div class="is-valid-indicator"></div>
+                    <div class="qe-autosuggest js-qe-autosuggest">
+                      <div class="js-qe-autosuggest-results"></div>
+                      <div class="qe-autosuggest-result template js-qe-autosuggest-result">
+                        <div class="qe-autosuggest-result__image">
+                          <img class="js-qe-autosuggest-result-image" src="data:," alt="">
+                        </div>
+                        <div class="qe-autosuggest-result__text">
+                          <div class="qe-autosuggest-result__product-code js-qe-autosuggest-result-code"></div>
+                          <div class="qe-autosuggest-result__description js-qe-autosuggest-result-description"></div>
+                        </div>
+                        <div class="qe-autosuggest-result__manufacturer">
+                          <img class="js-qe-autosuggest-result-manufacturer-image" src="data:," alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Quantity field.-->
+              <div class="field field--quantity-spinner quick-order-entry__field quick-order-entry__quantity">
+                <div class="field__wrapper">
+                  <div class="field__input-wrapper">
+                    <span class="field__spinner-button field__spinner-button--down">-</span>
+                    <input class="field__input js-quick-entry-input js-quick-entry-quantity-input" id="add_quantity" name="add_quantity" inputmode="numeric" pattern="[0-9]*" placeholder="Qty" value="1" data-selling_multiple="1" autocomplete="off" required="required">
+                    <span class="field__spinner-button field__spinner-button--up">+</span>
+                  </div>
+                </div>
+              </div>
+              <!-- 'Add' button.-->
+              <div class="field quick-order-entry__field quick-order-entry__add-button">
+                <div class="field__input-wrapper">
+                  <button class="button button--rounded button--large js-quick-entry-add-button" name="add_product" value="true" type="button">Add +</button>
+                </div>
+              </div>
+              <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f">
+            </div>
+            <div class="qe-product js-qe-product-details is-hidden">
+              <div class="qe-product__placeholder"></div>
+              <div class="qe-product__wrapper">
+                <div class="qe-product__image">
+                  <img class="js-qe-product-image" src="data:," alt="">
+                </div>
+                <div class="qe-product__text">
+                  <div class="qe-product__code js-qe-product-code"></div>
+                  <div class="qe-product__description js-qe-product-description"></div>
+                </div>
+                <div class="qe-product__price">
+                  <h2 class="qe-product__label">Price (<span class="js-qe-vat-indicator"></span>):</h2>
+                  <table class="price-breaks js-qe-product-price-breaks">
+                    <tbody>
+                      <tr class="price-breaks__row js-qe-product-qty-tr">
+                        <td></td>
+                      </tr>
+                      <tr class="price-breaks__row js-qe-product-price-tr">
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="price-breaks template">
+                    <tbody>
+                      <tr class="price-breaks__row">
+                        <th class="price-breaks__quantity template js-qe-product-qty-th"></th>
+                      </tr>
+                      <tr class="price-breaks__row">
+                        <td class="price-breaks__price template js-qe-product-price-td"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </form>
+          <form class="reusable-bag-entry fieldset fieldset--compact js-form-quick-entry" id="form_4_1567670068" action="/tcl/orders/552957/products" method="POST" novalidate="novalidate">
+            <div class="reusable-bag-entry__image">
+              <img src="/Graphics/TLCBAG.png" width="44" alt="The Latest TLC Catalogue">
+            </div>
+            <div class="reusable-bag-entry__text">
+              <p class="reusable-bag-entry__title">Collect your goods in a Big&nbsp;Blue&nbsp;Bag&nbsp;(reusable).<br></p>
+              <p class="reusable-bag-entry__sub-title">44cm&nbsp;&times;&nbsp;40cm&nbsp;&times;&nbsp;28cm &mdash; £0.75&nbsp;each</p>
+            </div>
+            <div class="reusable-bag-entry__fields">
+              <div class="reusable-bag-entry__field reusable-bag-entry__quantity field field--quantity-spinner">
+                <div class="field__wrapper">
+                  <div class="field__input-wrapper">
+                    <span class="field__spinner-button field__spinner-button--down">-</span>
+                    <input class="field__input js__add_product_input js-quick-entry-input js-quick-entry-quantity" name="add_quantity" inputmode="numeric" pattern="[0-9]*" placeholder="Qty" value="1">
+                    <span class="field__spinner-button field__spinner-button--up">+</span>
+                  </div>
+                </div>
+              </div>
+              <div class="reusable-bag-entry__field reusable-bag-entry__add-button field">
+                <div class="field__input-wrapper">
+                  <button class="button button--rounded button--large js-quick-entry-add-button" name="add_product" value="true" type="button">Add +</button>
+                </div>
+              </div>
+            </div>
+            <input name="add_product_code" value="TLCBAG" type="hidden">
+            <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f">
+          </form>
+        </div>
+        <form class="catalogue-preference js-form-catalogue-preference" id="form_5_1567670068" action="/tcl/orders/552957/catalogue-preference" method="POST" novalidate="novalidate">
+          <label class="catalogue-preference__image" for="include_catalogue">
+            <img alt="TLC Contact Catalogue" src="https://www.tlc-direct.co.uk/Images/Products/size_1/HIRES_CONTACT_MAY-JUN19_RGB.JPG">
+          </label>
+          <div class="field field--checkbox">
+            <div class="field__checkbox-wrapper">
+              <input class="field__checkbox-input catalogue-preference__input js-catalogue-checkbox" id="include_catalogue" name="include_catalogue" type="checkbox" value="true">
+              <label class="field__checkbox-label catalogue-preference__label" for="include_catalogue">Include <strong>FREE</strong> TLC Catalogue with my order.</label>
+            </div>
+          </div>
+          <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f">
+          <input type="hidden" value="PUT" name="_method">
+        </form>
+        <div class="basket__alerts js-messages"></div>
+        <div class="basket-totals">
+          <span class="js-free-delivery-message"></span>
+          <div class="basket-totals__table m-b-3">
+            <div class="basket-totals__basket-total">
+              <div class="basket-totals__td">Basket Total</div>
+              <div class="basket-totals__td text-loud js__basket_total">
+                <div class="ajax-spinner"></div>
+              </div>
+            </div>
+            <div class="basket-totals__basket-total-vat template js__vat">
+              <div class="basket-totals__td">Basket Total (inc VAT)</div>
+              <div class="basket-totals__td js__basket_total_inc_vat">
+                <div class="ajax-spinner"></div>
+              </div>
+            </div>
+            <div class="basket-totals__row">
+              <div class="basket-totals__td">
+                <div class="basket-totals__delivery-method-text">
+                  <span class="text-bold">Collection Branch —</span>
+                  <a class="js-delivery-method-selector" data-delivery-method="delivery">Deliver this order instead?</a>
+                </div>
+                <button class="delivery-method-selector-button js-delivery-method-selector" type="button" data-delivery-method="collection">
+                  <span class="delivery-method-selector-button__text">TLC Tunbridge Wells</span>
+                </button>
+              </div>
+            </div>
+            <div class="basket-totals__row template js__direct_delivery_charges">
+              <div class="basket-totals__td js__charge_description"></div>
+              <div class="basket-totals__td js__charge_amount"></div>
+            </div>
+            <div class="basket-totals__row template js__discount">
+              <div class="basket-totals__td js__discount_description"></div>
+              <div class="basket-totals__td js__discount_extended"></div>
+            </div>
+            <div class="template basket-totals__row js__vat">
+              <div class="basket-totals__td">VAT</div>
+              <div class="basket-totals__td js__vat_extended">
+                <div class="ajax-spinner"></div>
+              </div>
+            </div>
+            <div class="basket-totals__row text-bold">
+              <div class="basket-totals__td">Total</div>
+              <div class="basket-totals__td js__price_extended">
+                <div class="ajax-spinner"></div>
+              </div>
+            </div>
+          </div>
+          <form class="express-checkout js__checkout js-form-express-checkout" action="/tcl/orders/552957/express-checkout-sa" method="POST">
+            <p class="express-checkout__label">Express Checkout </p>
+            <div class="express-checkout__saved-card">
+              <img src="/Graphics/visa.svg" alt="Visa" width="30" height="20">
+              <span class="p-r-1">Visa&nbsp;••••&nbsp;4242</span>
+              <span class="text-muted">Expires&nbsp;10/22</span>
+            </div>
+            <button class="express-checkout__button button button--large button--rounded button--disabled js-checkout-button" id="express_checkout_submit" name="express_checkout_submit" type="submit" value="submit">Pay <span class="js__price_extended">
+                <span class="ajax-spinner"></span>
+              </span>
+              <span class="icon icon--lock pull-right"></span>
+            </button>
+            <div class="express-checkout__info-link">
+              <span class="tooltip-link js-tooltip-link text-normal" tabindex="0">What is Express Checkout?<span class="tooltip-bubble"><strong>Express Checkout</strong> is an ultra-fast checkout option which allows you to place your order with a single click, using your most recently used saved card.</span>
+              </span>
+            </div>
+            <input type="hidden" name="cc_key" value="1234567890">
+            <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f">
+            <input type="hidden" name="_method" value="PUT">
+          </form>
+          <form class="js-form-secure-acceptance hidden" action="/secure-acceptance" method="POST" novalidate="novalidate"></form>
+          <form class="js__checkout m-b-1" id="form_6_1567670068" action="/tcl/orders/552957/checkout" method="POST" novalidate="novalidate">
+            <button class="button button--rounded button--positive button--large button--disabled js-checkout-button" id="checkout_4" name="checkout_4" type="submit" value="submit" disabled="disabled">
+              <span class="icon icon--arrow-right pull-right"></span> Proceed to checkout
+            </button>
+            <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f">
+          </form>
+          <div class="basket-or-text">OR</div>
+          <div id="paypal_button_container"></div>
+        </div>
+        <a class="basket__back-button button button--medium button--rounded button--muted" href="/">Continue Shopping <span class="icon icon--chevron-left pull-left"></span>
+        </a>
+      </div>
+    </section>
+    <section class="basket-footer">
+      <h2 class="checkout__title">Important Information</h2>
+      <ul class="checkout__text">
+        <li>
+          <a href="/Information/Services/click-and-collect/#how-will-i-know-when-my-order-is-ready">When can I collect my order?</a>
+        </li>
+        <li>Items on this order <strong>552957</strong> (<a href="/tcl/order_report.csv?order_key=bf3b1810350869e4">csv copy</a>) will be saved in a cookie on your computer for 30 days.</li>
+        <li>When you proceed to the checkout you will be connected to our secure server. Any information you enter will be encrypted and kept strictly confidential.</li>
+        <li>When your order is placed, we will send you a copy by email and provide you with a printable version at the end of the checkout.</li>
+      </ul>
+    </section>
+  </div>
+
+
+  <div slot="after-footer" class="modal is-hidden is-collapsed js-collection" tabindex="-1" role="dialog" aria-labelledby="collection_dialog_header" aria-describedby="collection_dialog_description">
+    <form class="modal-dialog js-collection-selector" id="collection_modal" method="POST" action="/tcl/orders/552957/collection-branch" novalidate="novalidate">
+      <div class="modal-dialog__body">
+        <h1 class="modal-dialog__title" id="collection_dialog_header">Collect from a TLC branch</h1>
+        <p class="modal-dialog__text" id="collection_dialog_description">
+          Click &amp; Collect is a <strong>FREE</strong> service available at all TLC branches. Ready for collection in as little as 2 hours.
+        </p>
+        <div class="collection-stage-1-content js-content-wrapper">
+          <div class="fieldset">
+            <div class="field field--select p-t-0">
+              <div class="field__wrapper">
+                <label class="field__label" for="select_a_branch">Select a TLC Branch</label>
+                <div class="field__input-wrapper">
+                  <select class="field__input" id="select_a_branch" name="select_a_branch">
+                    <option value="">Select …</option>
+                    <option data-branch-name="Abingdon" data-lat="51.67319" data-lng="-1.30638" value="AB">Abingdon</option>
+                    <option data-branch-name="Tunbridge Wells" data-lat="51.585064" data-lng="0.499699" value="BA" selected="selected">Tunbridge Wells</option>
+                    <option data-branch-name="Basingstoke" data-lat="51.2738368" data-lng="-1.1058426" value="BS">Basingstoke</option>
+                    <option data-branch-name="Bermondsey" data-lat="51.486172" data-lng="-0.06779817" value="BY">Bermondsey</option>
+                    <option data-branch-name="Borehamwood" data-lat="51.658368" data-lng="-0.254144" value="BW">Borehamwood</option>
+                    <option data-branch-name="Brighton" data-lat="50.836537" data-lng="-0.174441" value="BI">Brighton</option>
+                    <option data-branch-name="Bristol" data-lat="51.447625" data-lng="-2.572538" value="BR">Bristol</option>
+                    <option data-branch-name="Burgess Hill" data-lat="50.951336" data-lng="-0.151791" value="BH">Burgess Hill</option>
+                    <option data-branch-name="Cambridge" data-lat="52.190935" data-lng="0.138434" value="CB">Cambridge</option>
+                    <option data-branch-name="Canterbury" data-lat="51.273412" data-lng="1.065259" value="CT">Canterbury</option>
+                    <option data-branch-name="Cardiff" data-lat="51.522161" data-lng="-3.19299" value="CF">Cardiff</option>
+                    <option data-branch-name="Coulsdon" data-lat="51.318693" data-lng="-0.135346" value="CL">Coulsdon</option>
+                    <option data-branch-name="Crawley" data-lat="51.133428" data-lng="-0.17395" value="CW">Crawley</option>
+                    <option data-branch-name="Croydon" data-lat="51.379113" data-lng="-0.084213" value="CY">Croydon</option>
+                    <option data-branch-name="Eastbourne" data-lat="50.790145" data-lng="0.301232" value="EB">Eastbourne</option>
+                    <option data-branch-name="Enfield" data-lat="51.641258" data-lng="-0.034385" value="EN">Enfield</option>
+                    <option data-branch-name="Exeter" data-lat="50.704037" data-lng="-3.529944" value="EX">Exeter</option>
+                    <option data-branch-name="Guildford" data-lat="51.251944" data-lng="-0.608988" value="GU">Guildford</option>
+                    <option data-branch-name="Horsham" data-lat="51.06948" data-lng="-0.31536" value="HS">Horsham</option>
+                    <option data-branch-name="Lewisham" data-lat="51.450056" data-lng="0.006528" value="LW">Lewisham</option>
+                    <option data-branch-name="Luton" data-lat="51.88769" data-lng="-0.46364" value="LU">Luton</option>
+                    <option data-branch-name="Maidstone" data-lat="51.236834" data-lng="0.55892" value="MD">Maidstone</option>
+                    <option data-branch-name="Medway" data-lat="51.400053" data-lng="0.513375" value="MW">Medway</option>
+                    <option data-branch-name="Merton" data-lat="51.412962" data-lng="-0.175155" value="MR">Merton</option>
+                    <option data-branch-name="Oxford" data-lat="51.722377" data-lng="-1.214303" value="OX">Oxford</option>
+                    <option data-branch-name="Penge" data-lat="51.41409" data-lng="-0.051019" value="PG">Penge</option>
+                    <option data-branch-name="Portsmouth" data-lat="50.82728" data-lng="-1.057596" value="PM">Portsmouth</option>
+                    <option data-branch-name="Reading" data-lat="51.464132" data-lng="-1.012505" value="RD">Reading</option>
+                    <option data-branch-name="Slough" data-lat="51.522474" data-lng="-0.626737" value="SL">Slough</option>
+                    <option data-branch-name="Southampton" data-lat="50.916589" data-lng="-1.385281" value="SO">Southampton</option>
+                    <option data-branch-name="Swansea" data-lat="51.663416" data-lng="-3.90722" value="SW">Swansea</option>
+                    <option data-branch-name="Swindon" data-lat="51.577076" data-lng="-1.807685" value="SD">Swindon</option>
+                    <option data-branch-name="Tunbridge Wells" data-lat="51.155855" data-lng="0.290283" value="TW">Tunbridge Wells</option>
+                    <option data-branch-name="Watford" data-lat="51.67484" data-lng="-0.38731" value="WA">Watford</option>
+                    <option data-branch-name="Wembley" data-lat="51.552452" data-lng="-0.25461" value="WB">Wembley</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="break-divider">
+            <h5 class="break-divider__text">or</h5>
+          </div>
+          <h2 class="modal-dialog__h2">Find your nearest TLC branch</h2>
+          <div class="fieldset">
+            <div class="field field--button p-t-0">
+              <div class="field__wrapper">
+                <button class="field__button js-geolocate-button" id="use_my_location" type="button" name="use_my_location">Use My Current Location <span class="icon icon--target pull-right"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fieldset postcode-branch-finder">
+          <div class="field p-y-0">
+            <div class="field__wrapper">
+              <label class="field__label" for="town_or_postcode">Town or postcode</label>
+              <input class="field__input js-geocoding-input" id="town_or_postcode" name="town_or_postcode" placeholder="Enter a town or postcode" type="text" autocomplete="off" />
+            </div>
+          </div>
+          <div class="field field--button p-t-0 postcode-branch-finder__button">
+            <div class="field__wrapper">
+              <button class="field__button js-geocoding-button" id="postcode_branch_finder_button" type="button" name="postcode_branch_finder_button">
+                <span class="icon icon--pin"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ol class="nearest-branch-list js-branch-list">
+          <li class="nearest-branch-list__status-message js-branch-list-status-message"></li>
+          <li class="nbl-item template js-branch-item" data-branch-code="">
+            <span class="nbl-item__icon icon icon--pin js-branch-icon"></span>
+            <div class="nbl-item__text js-branch-text">
+              <div class="nbl-item__title js-branch-title"></div>
+              <div class="nbl-item__distance js-branch-distance"></div>
+            </div>
+            <div class="nbl-item__buttons">
+              <a class="nbl-item__button nbl-item__button--info button button--small button--inline button--rounded button--muted js-branch-info-link" href="">Branch Info</a>
+              <button class="nbl-item__button button nbl-item__button--select button--small button--inline button--rounded js-branch-select-button" type="button">Select</button>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="modal-dialog__footer">
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--cancel button button--small button--muted js-close-modal" type="button">Cancel</button>
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--continue button button--small button--positive is-hidden is-collapsed" type="submit">Continue</button>
+      </div>
+      <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f" />
+      <input type="hidden" value="PUT" name="_method" />
+    </form>
+  </div>
+  <div slot="after-footer" class="modal is-hidden is-collapsed js-delivery" tabindex="-1" role="dialog" aria-labelledby="delivery_dialog_header" aria-describedby="delivery_dialog_header">
+    <form class="modal-dialog modal-dialog--500px js-delivery-selector" id="form_7_1567670068" method="POST" action="/tcl/orders/552957/guest-delivery-address" novalidate="novalidate">
+      <div class="modal-dialog__body p-b-1">
+        <h1 class="modal-dialog__title" id="delivery_dialog_header">Deliver to an address</h1>
+        <div class="fieldset fieldset--compact">
+          <div class="field">
+            <div class="field__wrapper">
+              <label class="field__label" for="delivery_name">Full Name</label>
+              <input class="field__input" id="delivery_name" name="delivery_name" type="text" value="" placeholder="Full Name" />
+            </div>
+          </div>
+        </div>
+        <div class="address-finder" data-address-finder-url="/tcl/uk-delivery-address-v2">
+          <div class="address-finder__fieldset fieldset fieldset--compact js-address-finder">
+            <div class="field field--five-twelfths field--postcode js-postcode-input">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_address_finder_postcode">Postcode</label>
+                <input class="field__input" id="delivery_address_finder_postcode" name="delivery_address_finder_postcode" type="text" value="" placeholder="Postcode" autocomplete="postal-code" />
+              </div>
+            </div>
+            <div class="field field--button field--disabled field--enable-on-pluginsready field--seven-twelfths js-find-address-button">
+              <div class="field__wrapper">
+                <button class="field__button" id="delivery_address_finder_button" name="delivery_address_finder_button" type="button" value="" disabled="disabled">Find Address<span class="icon icon--target pull-right"></span></button>
+              </div>
+            </div>
+            <div class="address-finder__select field field--always-show-label field--select is-collapsed is-hidden js-address-select">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_address_finder_address_id">Select an address</label>
+                <div class="field__input-wrapper">
+                  <select class="field__input" id="delivery_address_finder_address_id" name="delivery_address_finder_address_id">
+                    <option value="" selected="selected">- Select -</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <p class="fieldset__text m-y-0">
+              <a class="hyperlink-control js-manual-entry-link" href="#">Enter address manually / I live outside the UK</a>
+            </p>
+          </div>
+          <div class="address-finder__fieldset fieldset fieldset--compact is-collapsed is-hidden js-manual-entry">
+            <p class="fieldset__text m-y-0">
+              <a class="hyperlink-control js-cancel-manual-entry-link" href="#">I want to use the UK address finder</a>
+            </p>
+            <div class="field field--always-show-label field--select js-country-select">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_country_code">Country</label>
+                <div class="field__input-wrapper">
+                  <select class="field__input" id="delivery_country_code" name="delivery_country_code">
+                    <option value="AF">Afghanistan</option>
+                    <option value="AL">Albania</option>
+                    <option value="DZ">Algeria</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="AD">Andorra</option>
+                    <option value="AO">Angola</option>
+                    <option value="AI">Anguilla</option>
+                    <option value="AQ">Antarctica</option>
+                    <option value="AG">Antigua and Barbuda</option>
+                    <option value="AR">Argentina</option>
+                    <option value="AM">Armenia</option>
+                    <option value="AW">Aruba</option>
+                    <option value="AU">Australia</option>
+                    <option value="AT">Austria</option>
+                    <option value="AZ">Azerbaijan</option>
+                    <option value="BS">Bahamas</option>
+                    <option value="BH">Bahrain</option>
+                    <option value="BD">Bangladesh</option>
+                    <option value="BB">Barbados</option>
+                    <option value="BY">Belarus</option>
+                    <option value="BE">Belgium</option>
+                    <option value="BZ">Belize</option>
+                    <option value="BJ">Benin</option>
+                    <option value="BM">Bermuda</option>
+                    <option value="BT">Bhutan</option>
+                    <option value="BO">Bolivia</option>
+                    <option value="BA">Bosnia and Herzegovina</option>
+                    <option value="BW">Botswana</option>
+                    <option value="BV">Bouvet Island</option>
+                    <option value="BR">Brazil</option>
+                    <option value="IO">British Indian Ocean Territory</option>
+                    <option value="BN">Brunei Darussalam</option>
+                    <option value="BG">Bulgaria</option>
+                    <option value="BF">Burkina Faso</option>
+                    <option value="BI">Burundi</option>
+                    <option value="KH">Cambodia</option>
+                    <option value="CM">Cameroon</option>
+                    <option value="CA">Canada</option>
+                    <option value="CI">Canary Islands</option>
+                    <option value="CV">Cape Verde</option>
+                    <option value="KY">Cayman Islands</option>
+                    <option value="CF">Central African Republic</option>
+                    <option value="TD">Chad</option>
+                    <option value="CL">Chile</option>
+                    <option value="CN">China</option>
+                    <option value="CX">Christmas Island</option>
+                    <option value="CC">Cocos (Keeling) Islands</option>
+                    <option value="CO">Colombia</option>
+                    <option value="KM">Comoros</option>
+                    <option value="CG">Congo</option>
+                    <option value="CK">Cook Islands</option>
+                    <option value="CR">Costa Rica</option>
+                    <option value="HR">Croatia</option>
+                    <option value="CU">Cuba</option>
+                    <option value="CY">Cyprus</option>
+                    <option value="CZ">Czech Republic</option>
+                    <option value="DK">Denmark</option>
+                    <option value="DJ">Djibouti</option>
+                    <option value="DM">Dominica</option>
+                    <option value="DO">Dominican Republic</option>
+                    <option value="TP">East Timor</option>
+                    <option value="EC">Ecuador</option>
+                    <option value="EG">Egypt</option>
+                    <option value="SV">El Salvador</option>
+                    <option value="GQ">Equatorial Guinea</option>
+                    <option value="ER">Eritrea</option>
+                    <option value="EE">Estonia</option>
+                    <option value="ET">Ethiopia</option>
+                    <option value="FK">Falkland Islands</option>
+                    <option value="FO">Faroe Islands</option>
+                    <option value="FJ">Fiji</option>
+                    <option value="FI">Finland</option>
+                    <option value="FR">France</option>
+                    <option value="GF">French Guiana</option>
+                    <option value="PF">French Polynesia</option>
+                    <option value="TF">French Southern Territories</option>
+                    <option value="GA">Gabon</option>
+                    <option value="GM">Gambia</option>
+                    <option value="GE">Georgia</option>
+                    <option value="DE">Germany</option>
+                    <option value="GH">Ghana</option>
+                    <option value="GI">Gibraltar</option>
+                    <option value="GR">Greece</option>
+                    <option value="GL">Greenland</option>
+                    <option value="GD">Grenada</option>
+                    <option value="GP">Guadeloupe</option>
+                    <option value="GU">Guam</option>
+                    <option value="GT">Guatemala</option>
+                    <option value="GN">Guinea</option>
+                    <option value="GW">Guinea-Bissau</option>
+                    <option value="GY">Guyana</option>
+                    <option value="HT">Haiti</option>
+                    <option value="VA">Holy See</option>
+                    <option value="HN">Honduras</option>
+                    <option value="HK">Hong Kong</option>
+                    <option value="HU">Hungary</option>
+                    <option value="IS">Iceland</option>
+                    <option value="IN">India</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="IR">Iran</option>
+                    <option value="IQ">Iraq</option>
+                    <option value="IE">Ireland (Republic of)</option>
+                    <option value="IL">Israel</option>
+                    <option value="IT">Italy</option>
+                    <option value="JM">Jamaica</option>
+                    <option value="JP">Japan</option>
+                    <option value="JO">Jordan</option>
+                    <option value="KZ">Kazakhstan</option>
+                    <option value="KE">Kenya</option>
+                    <option value="KI">Kiribati</option>
+                    <option value="KR">Korea, North</option>
+                    <option value="KP">Korea, South</option>
+                    <option value="KW">Kuwait</option>
+                    <option value="KG">Kyrgyzstan</option>
+                    <option value="LA">Lao</option>
+                    <option value="LV">Latvia</option>
+                    <option value="LB">Lebanon</option>
+                    <option value="LS">Lesotho</option>
+                    <option value="LR">Liberia</option>
+                    <option value="LY">Libya</option>
+                    <option value="LI">Liechtenstein</option>
+                    <option value="LT">Lithuania</option>
+                    <option value="LU">Luxembourg</option>
+                    <option value="MO">Macau</option>
+                    <option value="MK">Macedonia</option>
+                    <option value="MG">Madagascar</option>
+                    <option value="MW">Malawi</option>
+                    <option value="MY">Malaysia</option>
+                    <option value="MV">Maldives</option>
+                    <option value="ML">Mali</option>
+                    <option value="MT">Malta</option>
+                    <option value="MH">Marshall Islands</option>
+                    <option value="MQ">Martinique</option>
+                    <option value="MR">Mauritania</option>
+                    <option value="MU">Mauritius</option>
+                    <option value="YT">Mayotte</option>
+                    <option value="MX">Mexico</option>
+                    <option value="FM">Micronesia</option>
+                    <option value="MD">Moldova</option>
+                    <option value="MC">Monaco</option>
+                    <option value="MN">Mongolia</option>
+                    <option value="ME">Montenegro</option>
+                    <option value="MS">Montserrat</option>
+                    <option value="MA">Morocco</option>
+                    <option value="MZ">Mozambique</option>
+                    <option value="MM">Myanmar</option>
+                    <option value="NA">Namibia</option>
+                    <option value="NR">Nauru</option>
+                    <option value="NP">Nepal</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="AN">Netherlands Antilles</option>
+                    <option value="NC">New Caledonia</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="NI">Nicaragua</option>
+                    <option value="NE">Niger</option>
+                    <option value="NG">Nigeria</option>
+                    <option value="NU">Niue</option>
+                    <option value="NF">Norfolk Island</option>
+                    <option value="MP">Northern Mariana Islands</option>
+                    <option value="NO">Norway</option>
+                    <option value="OM">Oman</option>
+                    <option value="PK">Pakistan</option>
+                    <option value="PW">Palau</option>
+                    <option value="PA">Panama</option>
+                    <option value="PG">Papua New Guinea</option>
+                    <option value="PY">Paraguay</option>
+                    <option value="PE">Peru</option>
+                    <option value="PH">Philippines</option>
+                    <option value="PN">Pitcairn</option>
+                    <option value="PL">Poland</option>
+                    <option value="PT">Portugal</option>
+                    <option value="PR">Puerto Rico</option>
+                    <option value="QA">Qatar</option>
+                    <option value="RE">Réunion</option>
+                    <option value="RO">Romania</option>
+                    <option value="RU">Russian Federation</option>
+                    <option value="RW">Rwanda</option>
+                    <option value="SH">Saint Helena</option>
+                    <option value="KN">Saint Kitts and Nevis</option>
+                    <option value="LC">Saint Lucia</option>
+                    <option value="WS">Samoa</option>
+                    <option value="SM">San Marino</option>
+                    <option value="ST">Sao Tome and Principe</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="SN">Senegal</option>
+                    <option value="RS">Serbia</option>
+                    <option value="SC">Seychelles</option>
+                    <option value="SL">Sierra Leone</option>
+                    <option value="SG">Singapore</option>
+                    <option value="SK">Slovakia</option>
+                    <option value="SI">Slovenia</option>
+                    <option value="SB">Solomon Islands</option>
+                    <option value="SO">Somalia</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="GS">South Georgia</option>
+                    <option value="ES">Spain</option>
+                    <option value="LK">Sri Lanka</option>
+                    <option value="VC">St Vincent &amp; Grenadines</option>
+                    <option value="SD">Sudan</option>
+                    <option value="SR">Suriname</option>
+                    <option value="SJ">Svalbard and Jan Mayen</option>
+                    <option value="SZ">Swaziland</option>
+                    <option value="SE">Sweden</option>
+                    <option value="CH">Switzerland</option>
+                    <option value="SY">Syrian Arab Republic</option>
+                    <option value="TW">Taiwan</option>
+                    <option value="TJ">Tajikistan</option>
+                    <option value="TZ">Tanzania</option>
+                    <option value="TH">Thailand</option>
+                    <option value="TG">Togo</option>
+                    <option value="TK">Tokelau</option>
+                    <option value="TO">Tonga</option>
+                    <option value="TT">Trinidad and Tobago</option>
+                    <option value="TN">Tunisia</option>
+                    <option value="TR">Turkey</option>
+                    <option value="TM">Turkmenistan</option>
+                    <option value="TC">Turks and Caicos Islands</option>
+                    <option value="TV">Tuvalu</option>
+                    <option value="UG">Uganda</option>
+                    <option value="UA">Ukraine</option>
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="GB" selected="selected">United Kingdom</option>
+                    <option value="US">United States</option>
+                    <option value="UY">Uruguay</option>
+                    <option value="UZ">Uzbekistan</option>
+                    <option value="VU">Vanuatu</option>
+                    <option value="VE">Venezuela</option>
+                    <option value="VN">Vietnam</option>
+                    <option value="VG">Virgin Islands, British</option>
+                    <option value="VI">Virgin Islands, U.S.</option>
+                    <option value="WF">Wallis and Futuna</option>
+                    <option value="EH">Western Sahara</option>
+                    <option value="YE">Yemen</option>
+                    <option value="ZM">Zambia</option>
+                    <option value="ZW">Zimbabwe</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="eu-vat-number field is-collapsed is-hidden">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_eu_vat_number">EU VAT Number</label>
+                <input class="field__input" id="delivery_eu_vat_number" name="delivery_eu_vat_number" type="text" value="" placeholder="EU VAT Number (optional)" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_company">Company Name</label>
+                <input class="field__input" id="delivery_company" name="delivery_company" type="text" value="" placeholder="Company Name (optional)" autocomplete="off" />
+              </div>
+            </div>
+            <div class="field field--half">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_house_no">House No. / Name</label>
+                <input class="field__input" id="delivery_house_no" name="delivery_house_no" type="text" value="" placeholder="House No. / Name" autocomplete="off" />
+              </div>
+            </div>
+            <div class="field field--half">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_address1">Street</label>
+                <input class="field__input" id="delivery_address1" name="delivery_address1" type="text" value="" placeholder="Street" autocomplete="off" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_address2">Address Line 2</label>
+                <input class="field__input" id="delivery_address2" name="delivery_address2" type="text" value="" placeholder="Address Line 2 (optional)" autocomplete="off" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_town">Town / City</label>
+                <input class="field__input" id="delivery_town" name="delivery_town" type="text" value="" placeholder="Town / City" autocomplete="off" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_county">County</label>
+                <input class="field__input" id="delivery_county" name="delivery_county" type="text" value="" placeholder="County" autocomplete="off" data-label-international="State / Province / Region" data-label-gb="County" />
+              </div>
+            </div>
+            <div class="field field--postcode">
+              <div class="field__wrapper">
+                <label class="field__label" for="delivery_postcode">Postcode</label>
+                <input class="field__input" id="delivery_postcode" name="delivery_postcode" type="text" value="" placeholder="Postcode" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+          <input class="js-address-finder-state" type="hidden" name="delivery_address_finder_state" value="postcode_lookup" />
+        </div>
+      </div>
+      <div class="modal-dialog__footer">
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--cancel button button--small button--muted js-close-modal" type="button">Cancel</button>
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--continue button button--small button--positive is-hidden is-collapsed" type="submit">Continue</button>
+      </div>
+      <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f" />
+      <input type="hidden" value="PUT" name="_method" />
+    </form>
+  </div>
+  <div slot="after-footer" class="modal is-hidden is-collapsed js-order-name-modal" tabindex="-1" role="dialog" aria-labelledby="dialogHeader" aria-describedby="dialogDescription">
+    <form class="modal-dialog js-order-name-form" id="form_8_1567670068" method="POST" action="/tcl/orders/552957/order-reference" novalidate="novalidate">
+      <div class="modal-dialog__body">
+        <h1 class="modal-dialog__title" id="dialogHeader">Add an Order Reference</h1>
+        <p class="modal-dialog__text" id="dialogDescription">
+          To help you identify this order, enter an <b>Order Reference</b> e.g. Customer Order No. or PO No. which we'll add to your invoice.
+        </p>
+        <div class="fieldset">
+          <div class="field js-rename-field">
+            <div class="field__wrapper">
+              <label class="field__label" for="customer_order_no">Order Reference</label>
+              <input class="field__input" id="customer_order_no" name="customer_order_no" type="text" value="" placeholder="Order Reference (optional)" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-dialog__footer">
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--cancel button button--small button--muted js-close-modal" type="button">Cancel</button>
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--continue button button--small button--positive" type="submit">Save</button>
+      </div>
+      <input id="next_url" type="hidden" name="next_url" value="/tcl/orders/552957" />
+      <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f" />
+      <input type="hidden" value="PUT" name="_method" />
+    </form>
+  </div>
+  <div slot="after-footer" class="modal is-hidden is-collapsed js-vat-modal" tabindex="-1" role="dialog" aria-labelledby="vat_dialog_header" aria-describedby="vat_dialog_description">
+    <form class="modal-dialog js-vat-preference-form" id="vat_preference_modal" method="POST" action="/tcl/user/2fd7316c45c545cd/vat-preference" novalidate="novalidate">
+      <div class="modal-dialog__body">
+        <h1 class="modal-dialog__title" id="vat_dialog_header">VAT Preference</h1>
+        <p class="modal-dialog__text" id="vat_dialog_description">Select which kind of prices to show throughout the site.</p>
+        <div class="fieldset">
+          <div class="field field--always-show-label field--select">
+            <div class="field__wrapper">
+              <label class="field__label" for="vat_preference">Show me</label>
+              <div class="field__input-wrapper">
+                <select class="field__input" id="vat_preference" name="vat_preference">
+                  <option value="ex_vat" selected="selected">Prices Excluding VAT</option>
+                  <option value="inc_vat">Prices Including VAT</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input id="order_number" type="hidden" name="order_number" value="552957" />
+      </div>
+      <div class="modal-dialog__footer">
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--cancel button button--small button--muted js-close-modal" type="button">Cancel</button>
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--continue button button--small button--positive" type="submit">Save</button>
+      </div>
+      <input type="hidden" name="_authenticity_token" value="6caa2dcfa2fa16414a9517e9fada88f55a669c2f" />
+      <input type="hidden" value="PUT" name="_method" />
+    </form>
+  </div>
+  <div slot="after-footer" class="modal is-hidden is-collapsed js-share-modal" tabindex="-1" role="dialog" aria-labelledby="share_dialog_header" aria-describedby="share_dialog_description">
+    <div class="modal-dialog modal-dialog--700px" id="share_modal">
+      <div class="modal-dialog__body">
+        <h1 class="modal-dialog__title" id="share_dialog_header">Share Your Basket</h1>
+        <p class="modal-dialog__text" id="share_dialog_description">
+          Press the <b>Copy Link</b> button and paste the link into an email or text message to share the contents of your shopping basket with someone&nbsp;else:
+        </p>
+        <div class="share-basket-copy-link">
+          <input class="share-basket-copy-link__url js-share-basket-url" value="https://www.tlc-direct.co.uk/tcl/share-basket/b7f42f7c8ddf4ad8c80ee858474baff3a78a4e09" readonly="readonly" />
+          <button class="share-basket-copy-link__button js-share-basket-copy-btn" type="button">
+            <span class="icon icon--copy"></span>Copy Link
+          </button>
+          <input type="hidden" name="order_number" value="552957" />
+        </div>
+        <p class="modal-dialog__text p-t-1 m-b-0">On visiting the link, the products will be loaded into the recipient's basket and they will be able to view, edit and place the order.</p>
+      </div>
+      <div class="modal-dialog__footer">
+        <div class="share-basket-copy-link__notification js-share-basket-copy-notification"></div>
+        <button class="modal-dialog__footer-button modal-dialog__footer-button--continue button button--small button--positive js-close-modal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script slot="scripts-body" is:inline src="/Javascript/jquery.address-finder.js"></script>
+  <script slot="scripts-body" is:inline src="/Javascript/jquery.modal-dialog.js"></script>
+  <script slot="scripts-body" is:inline src="/Javascript/basket.js"></script>
+  <script slot="scripts-body" is:inline src="https://www.paypal.com/sdk/js?client-id=AUcB1AiKzRxT6u4_ndneE0Rwjg30p2UhGUyLM6TNGXDsDgl2GjmbIgDBDhtI9VQHWLodgnW_AGIhkLHe&intent=authorize&currency=GBP&commit=false"></script>
+  <script slot="scripts-body" is:inline>
+    $('body').on('pluginsReady', function () {
+      var $paypal_button_container = $('#paypal_button_container');
+      $('#paypal_create_order').validation({
+        method: 'post',
+        submit: false,
+        qtip: {
+          position: {
+            my: 'bottom center',
+            at: 'top center',
+            viewport: $(window),
+            effect: false,
+          },
+          style: {
+            tip: {
+              corner: true,
+            },
+          },
+        },
+        messages: {
+          alert: {
+            before: '.js-validation-message-marker',
+          },
+          error: {
+            before: '.js-validation-message-marker',
+          },
+          notify: {
+            before: '.js-validation-message-marker',
+          },
+        },
+      });
+      // Add/remove classes for delivery_selector error state.
+      $('#paypal_create_order').on('invalid.validation', function (event) {
+        var response = event.response;
+        if (response.data && response.data.delivery_info_unknown) {
+          $('.delivery-selector').addClass('is-error');
+        } else {
+          $('.delivery-selector').removeClass('is-error');
+        }
+      });
+      paypal
+        .Buttons({
+          style: {
+            layout: 'horizontal',
+            tagline: 'false',
+          },
+          onApprove: function (data, actions) {
+            var url = urlSet($('#paypal_create_order').data('order-url'), 'paypal_order_id', data.orderID);
+            window.location.href = url;
+          },
+          createOrder: function (data, actions) {
+            function paypal_create() {
+              // Trigger asynchronous form submission to create Paypal order (server-side).
+              // Return deferred.promise() so caller can add handlers to be
+              // called when form submission is complete.
+              var deferred = $.Deferred();
+              $('#paypal_create_order').on('valid.validation', function (data) {
+                deferred.resolve(data);
+              });
+              $('#paypal_create_order').on('invalid.validation', function (data) {
+                deferred.reject('Error Creating Paypal Order');
+              });
+              $('#paypal_create_order').trigger('submit');
+              return deferred.promise();
+            }
+            return paypal_create().then(function (data) {
+              // Once Paypal order has been created (server-side) return
+              // the order id of the paypal order.
+              return data.response.data.id;
+            });
+          },
+        })
+        .render('#paypal_button_container');
+    });
+    jQuery(function () {
+      jQuery('.continue-shopping').click(function (e) {
+        var continueShoppingURL = getCookie('continue_shopping_url');
+        var regExp = new RegExp('^https?://' + 'www.dev.tlc-direct.co.uk'.replace(/[-.]/g, '\\$&') + '/(Main_Index|Products|Manufacturers|Type)/');
+        if (regExp.exec(continueShoppingURL)) {
+          window.location.href = continueShoppingURL;
+        } else {
+          window.location.href = 'https://www.dev.tlc-direct.co.uk/Main_Index/';
+        }
+        return false;
+      });
+    });
+  </script>
+</Layout>
