@@ -16,7 +16,7 @@ import '/src/Styles/_module.ajax-spinner.scss'
 import '/src/Styles/_tools.helpers.scss'
 
 
-import '/src/styles/_vendor.qtip.scss'
+import '/src/Styles/_vendor.qtip.scss'
 import '/src/styles/_module.validation.scss'
 
 
@@ -104,7 +104,7 @@ const { title } = Astro.props;
     <script is:inline src="/Javascript/qcode-ui/qcode-ui-4.31.0-custom.js"></script>
     <script is:inline src="/Javascript/core.js"></script>
     <slot name="scripts-body"/>
-    
+
     <script>
       // Trigger pluginsReady event.
       $('body').trigger('pluginsReady');
