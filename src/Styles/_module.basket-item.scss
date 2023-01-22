@@ -1,0 +1,440 @@
+//******************************************************************************
+// Basket Item.
+//
+// UI component representing a product in the basket on the Your Order page.
+//******************************************************************************
+
+.basket-item {
+    // A product/line-item in the user's basket, displayed as a table row.
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas:
+        "image order-code  order-code  remove"
+        "image description description description"
+        "image price       quantity    total"
+        "image . . .";
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+    line-height: 1;
+    border-bottom: 1px dashed $grey-86;
+    width: 100%;
+    background-color: white;
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+
+    @media (min-width: $basket-bp-4) {
+        grid-template-columns: auto 1fr auto auto auto;
+        grid-template-areas:
+            "image order-code  price quantity total"
+            "image description price quantity total"
+            "image remove . . ."
+            "image . . . .";
+    }
+
+    @media #{$medium} {
+        @include flexbox;
+        padding: 0 10px;
+        border-bottom: 1px solid $grey-93;
+    }
+
+//==============================================================================
+// Basket item UI States.
+//==============================================================================
+
+
+    //------------------------------------------------------------------------------
+    // 'Updating' state.
+    //-----
+
+    &.is-updating {
+        // .basket-item.is-updating
+        // Light yellow background.
+        background-color: $basket-row-highlight;
+        transition-duration: 0s;
+    }
+
+    //------------------------------------------------------------------------------
+    // 'Updated' state.
+    //-----
+
+    &.is-updated {
+        // .basket-item.is-updated
+        // Bold Total Price text.
+        
+        .basket-item__total {
+            // .basket-item.is-updated .basket-item__total
+            font-weight: bold;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // 'Removing' state.
+    //-----
+
+    &.is-removing {
+        // .basket-item.is-removing
+        // Display a spinning animation in 'Remove' button.
+        background-color: $basket-row-highlight;
+        overflow: hidden;
+        max-height: 100px;
+        transition-property: background-color, max-height, padding-top, padding-bottom;
+        transition-duration: 0.5s;
+
+        > * {
+            // .basket-item.is-removing > *
+            transition: opacity 0.3s ease;
+        }
+
+        @media #{$medium} {
+
+            .basket-item__remove-control {
+                // .basket-item.is-removing .basket-item__remove-control
+                // Removes cross icon and replace with a loading spinner animation.
+                background-image: none;
+                position: relative;
+
+                &:before,
+                &:after {
+                    // .basket-item.is-removing .basket-item__remove-control:before,
+                    // .basket-item.is-removing .basket-item__remove-control:after,
+                    display: block;
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    background-color: white;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    animation: bounce 2.0s infinite ease-in-out;
+                    -webkit-animation: bounce 2.0s infinite ease-in-out;
+
+                    @keyframes bounce {
+
+                        0%,
+                        100% {
+                            transform: scale(0);
+                        }
+
+                        50% {
+                            transform: scale(1);
+                        }
+                    }
+
+                    @-webkit-keyframes bounce {
+
+                        0%,
+                        100% {
+                            transform: scale(0);
+                        }
+
+                        50% {
+                            transform: scale(1);
+                        }
+                    }
+                }
+
+                &:before {
+                    // .basket-item.is-removing .basket-item__remove-control:before
+                    opacity: 0.4;
+                }
+
+                &:after {
+                    // .basket-item.is-removing .basket-item__remove-control:after
+                    opacity: 0.3;
+                    animation-delay: -1s;
+                    -webkit-animation-delay: -1s;
+                }
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // 'Removed' state.
+    //-----
+
+    &.is-removed {
+        // .basket-item.is-removed
+        // Zero-height row.
+        overflow: hidden;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom: 0px dashed transparent;
+
+        > * {
+            // .basket-item.is-removed > *
+            opacity: 0;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // 'Invalid' state.
+    //-----
+
+    &.is-invalid {
+        // .basket-item.is-invalid
+        // Light red background.
+        background-color: $basket-row-invalid;
+    }
+
+
+//==============================================================================
+// Text Labels.
+//==============================================================================
+
+    &__label {
+        // .basket-item__label
+        // 'Price:' & 'Quantity' labels. Shown on mobile & tablet layout only.
+        font-size: 11px;
+        color: $grey-56;
+        padding-bottom: 2px;
+
+        @media (min-width: $basket-bp-4) {
+            display: none;
+        }
+    }
+
+//==============================================================================
+// Product Image.
+//==============================================================================
+
+    &__image {
+        // .basket-item__image
+        // Image wrapper / table cell.
+        display: none;
+        grid-area: image;
+
+        @media (min-width: $basket-bp-1) {
+            display: block;
+            width: $basket-image-width;
+            align-self: flex-start;
+            margin-right: 10px;
+        }
+
+        @media (min-width: $basket-bp-2) {
+            width: $basket-image-width-2;
+        }
+
+        @media (min-width: $basket-bp-3) {
+            width: $basket-image-width-3;
+        }
+
+        @media (min-width: $basket-bp-4) {
+            width: $basket-image-width;
+        }
+
+        @media (min-width: $basket-bp-5) {
+            width: $basket-image-width-2;
+        }
+
+        @media #{$small} {
+            width: $basket-image-width-3;
+        }
+
+        @media #{$medium} {
+            @include flex-shrink(0);
+            width: $basket-image-width;
+            padding: 5px 0;
+        }
+
+        img {
+            // .basket-item__image img
+            // The <img> element showing a size 1 product image.
+            display: block;
+            max-width: 100%;
+            max-height: 80px;
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: contain;
+
+            @media (min-width: $basket-bp-6) {
+                max-height: 40px;
+            }
+
+            @media #{$medium} {
+                max-height: 35px;
+            }
+
+            @media #{$large} {
+                max-height: 30px;
+            }
+        }
+    }
+
+//==============================================================================
+// Order Code.
+//==============================================================================
+
+    &__order-code {
+        // .basket-item__order-code
+        // Order code wrapper / table cell.
+        grid-area: order-code;
+        text-decoration: none;
+        word-break: break-all;
+
+        @media #{$less-than-medium} {
+            font-size: 12px;
+            color: $grey-56;
+        }
+
+        @media #{$medium} {
+            @include flex-shrink(0);
+            color: black;
+            width: $basket-order-code-width;
+
+            &:hover {
+                // .basket-item__order-code:hover
+                color: black;
+                text-decoration: underline;
+            }
+        }
+    }
+
+//==============================================================================
+// Description / Title.
+//==============================================================================
+
+    &__description {
+        // .basket-item__description
+        // Description / Title wrapper / table cell.
+        grid-area: description;
+        font-size: 15px;
+        text-decoration: none;
+        color: black;
+
+        @media #{$less-than-medium} {
+            padding-top: 2px;
+            padding-bottom: 10px;
+            font-weight: 600;
+            color: $tlc-blue;
+        }
+
+        @media #{$medium} {
+            &:hover {
+                // .basket-item__description:hover
+                color: black;
+                text-decoration: underline;
+            }
+        }
+    }
+
+//==============================================================================
+// Price.
+//==============================================================================
+
+    &__price {
+        // .basket-item__price
+        // 'Price' wrapper / table cell.
+        grid-area: price;
+        font-size: 15px;
+        margin-left: auto;
+        margin-right: 10px;
+        text-align: right;
+
+        @media (min-width: $basket-bp-4) {
+            padding-left: 10px;
+        }
+    }
+
+//==============================================================================
+// Quantity.
+//==============================================================================
+
+    &__quantity {
+        // .basket-item__quantity
+        // 'Quantity' wrapper / table cell.
+        grid-area: quantity;
+        width: $basket-qty-width;
+        @include flex-shrink(0);
+    }
+
+//==============================================================================
+// Total.
+//==============================================================================
+
+    &__total {
+        // .basket-item__total
+        // 'Total' wrapper / table cell.
+        grid-area: total;
+        width: $basket-total-width;
+        margin-left: 10px;
+        @include flex-shrink(0);
+
+        @media (min-width: $basket-bp-4) {
+            text-align: right;
+        }
+
+        @media #{$medium} {
+            @include flexbox;
+            @include align-items(center);
+            @include justify-content(flex-end);
+            @include align-self(stretch);
+            width: $basket-total-width-3;
+            margin-left: 0;
+            padding-right: 10px;
+            background-color: rgba(black, 0.015);
+        }
+    }
+
+//==============================================================================
+// 'Remove' Control.
+//==============================================================================
+
+    &__remove {
+        // .basket-item__remove
+        // 'Remove' control wrapper / table cell.
+        grid-area: remove;
+        font-size: 12px;
+        color: $grey-56;
+        text-align: right;
+
+        @media (min-width: $basket-bp-4) {
+            text-align: left;
+        }
+
+        @media #{$medium} {
+            padding-left: 10px;
+        }
+    }
+
+    &__remove-control {
+        // .basket-item__remove-control
+        // The 'Remove' link/button to remove or delete a product.
+        // The 'Remove' button to remove or delete a product.
+        @include appearance(none);
+        background: transparent;
+        border: none;
+        padding: 0;
+        color: $grey-56;
+        text-decoration: underline;
+        cursor: pointer;
+        
+        &:hover {
+            // .basket-item__remove-control:hover
+            color: $tlc-red;
+        }
+
+        @media #{$medium} {
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 0 auto;
+            overflow: hidden;
+            text-indent: 9999px;
+            background-image: url(/Graphics/icon-cross-white.svg);
+            background-size: 10px 10px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: $grey-40;
+            border-radius: 50%;
+
+            &:hover {
+                // .basket-item__remove-control:hover
+                background-color: $tlc-red;
+            }
+        }
+    }
+}

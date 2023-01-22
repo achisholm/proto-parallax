@@ -1,0 +1,189 @@
+//******************************************************************************
+// Voltage Drop Calculator.
+//
+// Voltage Drop Calculator page in the Technical Section.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+ //==============================================================================
+ // Voltage Drop Calculator form.
+ //==============================================================================
+
+.voltage-drop-calculator {
+    // The <form> for the Voltage Drop Calculator.
+    padding: 10px 12px;
+    border-radius: 5px;
+    background-color: $grey-96;
+    border: 1px solid $grey-86;
+
+    &__results {
+        //.voltage-drop-calculator__results
+        // Wrapper div that contains the results table.
+        overflow: hidden;
+        text-align: center;
+
+        &.is-hidden {
+            //.voltage-drop-calculator__results.is-hidden
+            // Hides results table. class applied by default and removed by
+            // js when a successful form submission happens.
+            height: 0;
+            opacity: 0;
+        }
+    }
+}
+
+
+//==============================================================================
+// Cable Call-to-action
+//
+// Advert for cable, revealed when user submits form.
+//==============================================================================
+
+.cable-cta {
+    // Div container for cable call-to-action.
+    display: block;
+    margin: 10px auto;
+    padding: 15px 20px 5px 15px;
+    background-color: rgba(black, 0.02);
+    border: 1px solid rgba(black, 0.05);
+    border-radius: 5px;
+    text-decoration: none;
+
+    &:hover {
+        .cable-cta__text {
+            color: $tlc-red;
+        }
+    }
+
+    @media #{$x-small} {
+        display: inline-grid;
+        @include align-items(center);
+        @include justify-content(center);
+        grid-template-columns: 115px 1fr 130px;
+        padding: 15px 20px;
+    }
+
+    &__image {
+        // .cable-cta__image
+        // Product image for cable call-to-action.
+        @include flexbox;
+        @include align-items(center);
+        width: 115px;
+        padding-right: 15px;
+        margin: auto;
+
+        > img {
+            // .cable-cta__image > img
+            display: block;
+        }
+    }
+
+    &__text {
+        // .cable-cta__text
+        // Description text (e.g. "4mm Twin & Earth Cable").
+        font-weight: bold;
+        color: $tlc-blue;
+        padding-right: 15px;
+        line-height: 1;
+        text-decoration: underline;
+    }
+
+    &__button {
+        // .cable-cta__button
+        // "Shop Now" button.
+        @include flex(0, 1, 130px);
+        padding: 0 20px;
+        display: inline-block;
+        margin: 5px 0;
+    }
+
+}
+
+//==============================================================================
+// Hover Tooltip.
+//
+// Used to hide extra text information for Max Cable Load table row.
+//==============================================================================
+
+.tooltip {
+    // Div container.
+    display: inline-block;
+    position: relative;
+    margin-left: 5px;
+    top: 3px;
+}
+
+.tooltip-icon {
+    // Circular control containting showing a question mark icon.
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: gainsboro;
+    border-radius: 50%;
+    background-image: url(/Graphics/icon-question-mark-white.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    pointer-events: auto;
+    cursor: pointer;
+    
+    &:hover {
+        // .tooltip-icon:hover
+        background-color: rgba(0, 0, 0, 0.5);
+
+        & + .tooltip-bubble {
+            // .tooltip-icon:hover + .tooltip-bubble
+            // On hover, reveal the tooltip bubble.
+            bottom: 30px;
+            opacity: 1;
+            
+            &:before {
+                // .tooltip-icon:hover + .tooltip-bubble:before
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.tooltip-bubble {
+    // Tooltip speech bubble, revelaed on hover.
+    transition-property: opacity, bottom;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    position: absolute;
+    bottom: 15px;
+    left: -100px;
+    display: inline-block;
+    opacity: 0;
+    width: 280px;
+    border-radius: 5px;
+    background: black;
+    color: white;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 2;
+
+    @media (max-width: 350px) {
+        width: 150px;
+    }
+
+    &:before {
+        // Tooltip bubble's triangular speech mark.
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 100px;
+        display: block;
+        width: 0px;
+        height: 0px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+    }
+}

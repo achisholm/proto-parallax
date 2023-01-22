@@ -1,0 +1,113 @@
+// *************************************************************************
+// My Account > Personal Details
+//
+// *************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+.form-section-heading {
+    // Form Heading (e.g. 'Contact Details').
+    font-weight: bold;
+    border-bottom: 1px solid $grey-86;
+    color: $grey-20;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    
+    @media #{$large} {
+        margin-bottom: 30px;
+    }
+
+    small {
+        text-transform: none;
+    }
+}
+
+.form-section {
+    // Form section containing and aside & form fields.
+    @media #{$large} {
+        @include flexbox;
+        margin-bottom: 20px;
+    }
+    
+    &__aside {
+        // .form-section__aside
+        // Text container displayed in sidebar alongside form fields in 
+        // desktop-view.
+        flex: 0 1 40%;
+        color: $grey-40;
+        padding-right: 40px;
+        
+        > p + p {
+            // .form-section__aside > p + p
+            margin-top: 10px;
+        }
+    }
+    
+    &__fields {
+        // .form-section__fields
+        // Container for form fields.
+        @include flex(0, 1, 60%);
+        @include flexbox;
+        @include flex-direction(column);
+    }
+}
+
+//==============================================================================
+// Billing email address field.
+//==============================================================================
+
+.add-field-control {
+    // '(+) Provide an additional phone number' control.
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    
+    > .field__message {
+        // .add-field-control > .field__message
+        padding-top: 0;
+    }
+}
+
+.js-additional-phone-field {
+    // Additional phone number fields (hidden by default).
+    overflow: hidden;
+    
+    &.is-hidden {
+        // .js-additional-phone-field.is-hidden
+        display: none;
+    }
+    
+    &.is-collapsed {
+        // .js-additional-phone-field.is-collapsed
+        height: 0;
+        opacity: 0;
+    }
+}
+
+
+//------------------------------------------------------------------------------
+// Billing email address field.
+//-----
+
+.billing-email {
+    // Wrapper div for the billing email address field.
+    clear: both;
+    height: auto;
+    overflow: hidden;
+    padding: 0 8px;
+    margin: 0 -8px;
+    
+    &.is-collapsed {
+        // .billing-email.is-collapsed
+        // Hides the billing email field.
+        height: 0;
+    }
+
+    &.is-hidden {
+        // .billing-email.is-hidden
+        // Required to remove descendents from the tab index.
+        visibility: hidden;
+    }
+}

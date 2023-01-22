@@ -1,0 +1,833 @@
+//******************************************************************************
+// Branches Overview page.
+//
+// Styles for the Branches pages.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+.page-container {
+    // page container
+    // provides padding from header, footer & window sides
+    padding: 20px;
+
+    @media #{$small} {
+        padding: 20px 0;
+    }
+}
+
+.branch-finder {
+    // "Find Your Nearest Branch" wrapper (container for map & sidebar)
+    margin-bottom: $base-padding;
+
+    @media #{$small} {
+        @include align-items(stretch);
+        @include flexbox;
+    }
+
+    &__sidebar {
+        // .branch-finder__sidebar
+        // Wrapper for branch finder & 3 x <a> panels linking to info
+        margin-bottom: $base-padding;
+
+        @media #{$small} {
+            @include flex-shrink(1);
+            @include flex-grow(1);
+            @include flex-direction(column);
+            @include order(1);
+            margin-right: $secondary-padding;
+            margin-bottom: 0;
+        }
+
+        @media #{$medium} {
+            @include flex-basis(50%);
+        }
+
+        @media #{$large} {
+            @include flex-basis(33.333%);
+        }
+    }
+
+    &__map {
+        // .branch-finder__map
+        // Right-hand column containing Google map
+        border-radius: 5px 5px 0 0;
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: $grey-56;
+        position: relative;
+
+        @media #{$small} {
+            @include flexbox;
+            @include flex-shrink(1);
+            @include flex-grow(1);
+            @include flex-basis(66.666%);
+            @include flex-direction(column);
+            @include order(2);
+            border-radius: 5px;
+            border-width: 1px;
+            margin-left: $secondary-padding;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.button--geolocate {
+    // "Use My Current Location" button
+    > .icon--target {
+        // Target icon - hidden on narrow screen sizes to prevent text overlap
+        @media (max-width: 380px) {
+            display: none;
+        }
+    }
+
+    &.loading {
+        // Class applied momentarily during Geolocation
+        > .icon--target {
+            // animated spin the target icon
+            animation: spin 1s linear infinite;
+            -webkit-animation: spin 1s linear infinite;
+        }
+    }
+}
+
+//==============================================================================
+// Map Direction Info Bar.
+//==============================================================================
+.map-directions-bar {
+    // Message bar containing a message, "get directions" & a close button
+    @include align-items(center);
+    @include flex-direction(column);
+    min-height: 50px;
+    line-height: 50px;
+    width: 100%;
+    background-color: $tlc-blue;
+    color: white;
+    padding: $secondary-padding $base-padding;
+    display: none;
+
+    @media #{$small} {
+        border-radius: 0 0 4px 4px;
+    }
+
+    @media #{$large} {
+        @include flex-direction(row);
+    }
+
+    &.active {
+        // .map-directions-bar.active
+        // overrides display:none when active
+        display: block;
+
+        @media #{$small} {
+            @include flexbox;
+        }
+    }
+
+    &__message {
+        // .map-directions-bar__message
+        // <p> element with message containing branch name (and distance in Km)
+        text-align: center;
+        margin-bottom: $secondary-padding;
+        line-height: 1.2;
+        font-size: 14px;
+
+        @media #{$large} {
+            @include flex(0, 0, auto);
+            text-align: left;
+            margin-bottom: 0;
+            padding-right: $base-padding;
+        }
+    }
+
+    &__button-wrapper {
+        // .map-directions-bar__button-wrapper
+        //  Container for "get directions" and close buttons
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+
+        @media #{$large} {
+            @include flex(1, 1, auto);
+        }
+    }
+
+    &__directions-button {
+        // .map-directions-bar__directions-button
+        // "Get Directions" button
+        display: inline-block;
+        width: auto;
+        appearance: none;
+        background: rgba(white, 0.1);
+        border: 1px solid rgba(white, 0.5);
+        border-radius: 5px;
+        padding: 0 $base-padding;
+        height: 30px;
+        line-height: 30px;
+        text-transform: uppercase;
+        font-size: $secondary-padding;
+        letter-spacing: 1px;
+
+        &:hover {
+            border-color: white;
+            background-color: rgba(white, 0.2);
+        }
+    }
+
+    &__close-button {
+        // .map-directions-bar__close-button
+        // Close button - circular border with cross icon
+        @include fade;
+        @include flex(0, 0, auto);
+        display: block;
+        height: $base-padding;
+        width: $base-padding;
+        line-height: $base-padding;
+        border-radius: 50%;
+        background: rgba(white, 0.1);
+        border: 1px solid rgba(white, 0.5);
+        color: rgba(white, 0.5);
+        text-align: center;
+        cursor: pointer;
+        font-size: 8px;
+        margin-left: $base-padding;
+
+        @media #{$large} {
+            margin-left: auto;
+            height: $base-padding;
+            width: $base-padding;
+            line-height: $base-padding;
+        }
+
+        &:hover {
+            color: white;
+            border-color: white;
+            background-color: rgba(white, 0.2);
+        }
+
+        &:before {
+            font-family: 'iconfont';
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\78";
+        }
+    }
+}
+
+#branch-overview-map {
+    // The Google map featuring markers for all TLC branches
+    @include flex(1, 1, 100%);
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    border-radius: 5px 5px 0 0;
+    padding-bottom: 100%;
+
+    @media #{$x-small} {
+        padding-bottom: 50%;
+    }
+
+    @media #{$small} {
+        padding-bottom: 0;
+        border-radius: 5px;
+    }
+}
+
+//==============================================================================
+// Branch Finder panel.
+//
+// Dropdown branch list & "Use my current Location" button.
+//==============================================================================
+.find-your-nearest-branch {
+    // "Find Your Nearest Branch" panel with select dropdown and geolocation button
+    background-color: $grey-94;
+    padding: $secondary-padding $base-padding $primary-padding $base-padding;
+    margin-bottom: $secondary-padding;
+    border-radius: 0 0 5px 5px;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: $grey-56;
+
+    @media #{$small} {
+        padding: $primary-padding $base-padding $secondary-padding $base-padding;
+        border: none;
+        border-radius: 5px;
+    }
+
+    &__heading {
+        // .branch-finder__heading
+        // "Find Your Nearest Branch" heading
+        font-size: 18px;
+        font-weight: bold;
+        color: $tlc-blue;
+    }
+}
+
+//==============================================================================
+// Branch Overview Panels.
+//==============================================================================
+.branch-overview-panel {
+    // Each of the 3 <a> info link panels
+    @include clearfix;
+    @include fade;
+    background-color: $grey-94;
+    text-decoration: none;
+    padding: 16px $base-padding $secondary-padding $base-padding;
+    display: block;
+    margin-bottom: $secondary-padding;
+    line-height: 1.2;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: darken($grey-94, 2%);
+
+        .branch-overview-panel__text {
+            color: $light-blue;
+        }
+    }
+
+    @media #{$small} {
+        &:last-child {
+            margin-bottom: 0; // remove the margin for the last panel
+        }
+    }
+
+    &__heading {
+        // .branch-overview-panel__heading
+        // Blue <h2> heading text
+        font-size: 20px;
+        font-weight: bold;
+        color: $tlc-blue;
+        margin-bottom: $secondary-padding;
+    }
+
+    &__text {
+        // .branch-overview-panel__text
+        // Sub-text <p> followed by red right-arrow
+        position: relative;
+        display: inline;
+        line-height: 1;
+        color: $grey-40;
+
+        &:after {
+            // .branch-overview-panel__text:after
+            // red right arrow icon
+            font-family: 'iconfont';
+            color: $tlc-red;
+            content: "\3e";
+            font-size: 100%;
+            position: absolute;
+            right: -$primary-padding;
+            bottom: 0;//-1px;
+        }
+    }
+
+    &__icon {
+        // .branch-overview-panel__icon
+        // Wrapper for <img> with grey svg icon, placed right
+        width: 80px;
+        height: 80px;
+        float: right;
+    }
+}
+
+//==============================================================================
+// InfoBoxes.
+//
+// Pop-up info-boxes used by Google Maps JS.
+//==============================================================================
+.infobox {
+    // wrapper class for infoBox pop-ups
+    background: white;
+    width: 180px;
+    border-radius: $secondary-padding;
+    box-shadow: 0 0 0 5px rgba(black, 0.1);
+    position: relative;
+
+    @media #{$small} {
+        width: 250px;
+    }
+
+    > img {
+        // .infobox > img
+        // This targets the <img> close button created by infobox.js inside
+        // the .infobox <div> element
+        position: absolute !important;
+        right: $secondary-padding;
+        top: $secondary-padding;
+        z-index: $z-infobox;
+    }
+
+    &__content {
+        // .infobox__content
+        // White bg text area below image
+        @include clearfix;
+        position: relative;
+        background-color: white;
+        padding: 8px $secondary-padding 8px $secondary-padding;
+        position: relative;
+        font-size: 12px;
+        border-radius: 0 0 $secondary-padding $secondary-padding;
+
+        @media #{$small} {
+            padding: 8px $secondary-padding;
+        }
+
+        &:after {
+            // .infobox__content:after
+            // Centered white triangle speech bubble (pointing down)
+            content: "";
+            display: block;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            bottom: -$secondary-padding;
+            width: 0px;
+            height: 0px;
+            border-width: $secondary-padding $secondary-padding 0 $secondary-padding;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+        }
+    }
+
+    &__title {
+        // .infobox__title
+        // <h1> "TLC ..." Branch title positioned above __content on white rounded bg
+        position: absolute;
+        top: -25px;
+        background: white;
+        padding: 5px $secondary-padding 5px $secondary-padding;
+        font-weight: bold;
+        border-radius: 8px 8px 0 0;
+        color: $tlc-blue;
+        font-size: 14px;
+    }
+
+    &__controls {
+        // .infobox__controls
+        // Container for the branch details & zoom buttons
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(space-between);
+    }
+
+    &__button {
+        // .infobox__button
+        // "View branch details" <a> button
+        display: inline-block;
+        width: auto;
+        padding: 0 $secondary-padding;
+        font-size: 0.9em;
+    }
+
+//==============================================================================
+// Branch Info InfoBox.
+//
+// Pop-up infobox for each branch on the map.
+//==============================================================================
+    &--branch-info {
+        // .infobox--branch-info
+
+        .infobox__content {
+            // .infobox--branch-info .infobox-content
+
+            &:after {
+                // White triangle speech bubble (pointing down)
+                // positioned off-centre on mobile
+                left: 70px;
+
+                @media #{$small} {
+                    left: 0;
+                }
+            }
+        }
+
+        .infobox__image {
+            // .infobox__image
+            // Container for the branch image
+            overflow: hidden;
+            position: relative;
+            z-index: $z-infobox-image;
+            width: 180px;
+            height: 100px;
+            border-radius: $secondary-padding $secondary-padding 0 0;
+
+            @media #{$small} {
+                width: 250px;
+                height: 180px;
+            }
+
+            &:before {
+                // .infobox__image:before
+                // Black horizontal gradient image overlay
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                z-index: $z-infobox-dark-overlay;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                border-radius: $secondary-padding $secondary-padding 0 0;
+                background-image: linear-gradient(rgba(black, 0) 60%, rgba(black, 0.4) 90%);
+            }
+
+            &:after {
+                // .infobox__image:after
+                // White inset shadow highlight image overlay
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                z-index: $z-infobox-light-overlay;
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                border-radius: $secondary-padding $secondary-padding 0 0;
+                box-shadow: inset 1px 1px 5px rgba(white, 0.2);
+            }
+
+            > img {
+                // .infobox__image > img
+                // Branch image
+                position: relative;
+                z-index: $z-infobox-image;
+                max-width: 100%;
+            }
+        }
+
+        .infobox__tel {
+            // .infobox__tel
+            // <p> element containing branch telephone number
+            padding-bottom: 5px;
+        }
+
+        .infobox__zoom {
+            // .infobox__zoom
+            // "Zoom" text link with magnifying-glass icon
+            cursor: pointer;
+            line-height: 1.5;
+
+            &:hover {
+                color: $light-blue;
+            }
+
+            &-text {
+                // .infobox__zoom-text
+                // <span> wrapper for the word "zoom"
+                text-decoration: underline;
+
+                @media #{$small} {
+                    display: inline;
+                }
+            }
+
+            &-icon {
+                // .infobox__zoom-icon
+                // Magnifying glass icon with plus symbol "+" (or minus symbol "-" in active state)
+
+                &:after {
+                    font-family: 'iconfont';
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    text-transform: none;
+                    line-height: 1;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    content: "\e90c"; // .icon--zoom-in
+                    text-decoration: none;
+                    display: block;
+                    width: 30px;
+                    text-align: center;
+
+                    @media #{$small} {
+                        padding-left: 5px;
+                        display: inline;
+                        position: relative;
+                        top: 2px;
+                    }
+                }
+            }
+
+            &.active {
+                // .infobox__zoom.active
+                // zoomed in state - displays the zoom icon with "-"
+                .infobox__zoom-icon:after {
+                    content: "\e90f"; // .icon--zoom-out
+                }
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Branch Index.
+//==============================================================================
+.branch-overview-index {
+    // Container <div> for the branch index
+    clear: both;
+
+    &__title {
+        //.branch-overview-index__title
+        // "29 branches Nationwide" <h1> heading
+        font-weight: bold;
+        font-size: 26px;
+        color: $tlc-blue;
+        margin-bottom: $base-padding;
+    }
+
+
+    &__p {
+        //.branch-overview-index__p
+        // Intro paragraph
+        margin-bottom: $base-padding;
+    }
+}
+
+.branch-list {
+    //.branch-overview-index .branch-list
+    // <ul> list of all branches within 6 areas
+    clear: both;
+    list-style: none;
+
+    @media #{$x-small} {
+        @include column-gap(50px);
+        @include column-count(2);
+    }
+
+    @media #{$small} {
+        min-height: 0;
+    }
+    
+    @media #{$medium} {
+        @include column-count(3);
+    }
+    
+    @media #{$huge} {
+        @include column;
+        @include column-span(9);
+    }
+
+    &__area {
+        // .branch-overview-index__area
+        // <li> for areas
+        @include break-inside(avoid);
+        list-style: none;
+        font-weight: bold;
+        color: $tlc-red;
+        padding-bottom: $base-padding;
+        line-height: 2.3;
+
+        > ul {
+            // .branch-overview-index__area > ul
+            // Nested Branch list
+            border-top: 1px solid $grey-86;
+            list-style: none;
+        }
+    }
+
+    &__branch {
+        // .branch-list__branch
+        // <li> for branches
+        @include flexbox;
+        font-weight: normal;
+        border-bottom: 1px solid $grey-96;
+
+        &:before {
+            // .branch-list__branch:before
+            // Pin icon placed before each branch.
+            @include icon;
+            content: "\e90a";
+            padding-right: $secondary-padding;
+            color: $tlc-blue;
+            position: relative;
+            top: 13px;
+        }
+
+        > a {
+            // .branch-list__branch > a
+            @include flexbox;
+            @include flex-wrap(wrap);
+            @include flex(1);
+            line-height: 1.2;
+            padding: 10px 0;
+            text-decoration: none;
+            color: $tlc-blue;
+
+            &:hover {
+                // .branch-list__branch > a:hover
+                color: $tlc-red;
+            }
+        }
+        
+        //----------------------------------------------------------------------
+        // Branch Open.
+        //-------
+
+        &[data-status="open"] {
+            // .branch-list__branch[data-status="open"]
+
+            .branch-list__live-pulse {
+                border-color: $tlc-teal;
+
+                &:before {
+                    background-color: $tlc-teal;
+                }
+            }
+
+            .branch-list__next-event {
+                color: darken($tlc-teal, 12%);
+            }
+        }
+
+        //----------------------------------------------------------------------
+        // Branch Closing Soon.
+        //-------
+
+        &[data-status="is-closing"] {
+            // .branch-list__branch[data-status="open"]
+            
+            .branch-list__live-pulse {
+                border-color: $color-neutral;
+
+                &:before {
+                    background-color: $color-neutral;
+                }
+            }
+
+            .branch-list__next-event {
+                color: darken($color-neutral, 12%);
+            }
+        }
+
+        //----------------------------------------------------------------------
+        // Branch Closed.
+        //-------
+
+        &[data-status="closed"] {
+            // .branch-list__branch[data-status="open"]
+            
+            .branch-list__live-pulse {
+                border-color: $color-negative;
+
+                &:before {
+                    background-color: $color-negative;
+                }
+            }
+
+            .branch-list__next-event {
+                color: darken($color-negative, 12%);
+            }
+        }
+
+        //----------------------------------------------------------------------
+        // Loading state.
+        //-------
+
+        &.is-loading {
+            // .branch-list__branch.is-loading
+            // Default state, status indicator hidden until loaded.
+
+            .branch-list__live-status {
+                // .branch-list__branch.is-loading .branch-list__live-status
+                opacity: 0;
+            }
+        }
+    }
+
+    &__live-status {
+        // .branch-list__live-status
+        // Branch open/closing/clsoed status indicator.
+        @include inline-flex;
+        @include align-items(center);
+        margin-left: auto;
+        transition: opacity 1s ease;
+        padding-left: 5px;
+    }
+
+    &__live-pulse {
+        // .branch-list__live-pulse
+        // Status dot with animated pulse.
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        position: relative;
+        border: 1px solid transparent;
+
+        &:before {
+            // .branch-list__live-pulse:before
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: pulse 1.7s ease infinite;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+        }
+    }
+
+    &__next-event {
+        // .branch-list__next-event
+        color: $grey-40;
+        font-size: 13px;
+        padding: 0 5px 0 0;
+    }
+}
+
+@keyframes pulse {
+    
+    0% {
+        opacity: 1
+    }
+    
+    50% {
+        opacity: 0.3
+    }
+    
+    to {
+        opacity:1
+    }
+}
+
+.branch-photos {
+    // Column containing captioned branch photos
+    @include column;
+    @include column-span(3);
+    margin-bottom: $base-padding;
+
+    @media #{$less-than-huge} {
+        display: none;
+    }
+
+    .branch-photo {
+        // .branch-photo-column .branch-photo
+        // Wrapper for photo and caption
+        @include clearfix;
+
+        &__image {
+            // .branch-photo-column .branch-photo__image
+            // Branch photo <img> element
+            width: 100%;
+            height: auto;
+            float: left;
+        }
+
+        &__caption {
+            // .branch-photo-column .branch-photo__caption
+            // Caption text <p> element underneath branch photo
+            color: $grey-50;
+            font-size: 12px;
+        }
+    }
+}

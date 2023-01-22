@@ -1,0 +1,196 @@
+//******************************************************************************
+// Table Module.
+//
+// See /Templates/information-page-ui-library.html for usage.
+//******************************************************************************
+
+.table {
+    // The base .table class.
+    margin: 1em 0 1.6em 0;
+    line-height: 1.3;
+
+    th {
+        text-align: left;
+    }
+
+    thead th {
+        // base table header style
+        background: $grey-94;
+        font-weight: bold;
+    }
+
+    tbody th {
+        // base table header style within the table body
+        background-color: lighten($grey-94, 4%);
+    }
+
+    tbody td {
+        // base table cell style within the table body
+        background-color: white;
+    }
+
+    th, td {
+        // base .table header styles for all tables cells
+        border-bottom: 1px solid $grey-86;
+        padding: 0.5em;
+        vertical-align: middle;
+    }
+
+    tfoot {
+
+        td {
+            // base .table footer cell style
+            background-color: rgba(240, 173, 78, 0.075);
+        }
+    }
+}
+
+//==============================================================================
+// Striped Rows.
+//==============================================================================
+.table--striped {
+    // Adds zebra stripe colouring to alternating table rows.
+    tbody {
+        tr:nth-child(even) {
+            background-color: $grey-98;
+        }
+    }
+}
+
+//==============================================================================
+// Bordered Table.
+//==============================================================================
+.table--bordered {
+    // Applies a border around table and table cells.
+    border: 1px solid lightgrey;
+
+    td {
+        border: 1px solid lightgrey;
+    }
+}
+
+//==============================================================================
+// Outside Bordered Table.
+//==============================================================================
+.table--bordered-outside {
+    // Applies a border around table only.
+    border: 1px solid lightgrey;
+}
+
+//==============================================================================
+// Condensed Table
+//==============================================================================
+.table--condensed {
+    //  For table cells with tighter padding.
+
+    td, th {
+        padding: 0.25em;
+    }
+
+}
+
+//==============================================================================
+// Hover Rows.
+//==============================================================================
+.table--hover {
+    //  For a hover state on table rows.
+    tbody {
+        tr {
+            &:hover {
+                background: rgba(yellow, 0.1);
+                cursor: pointer;
+
+                td, th {
+                    background: transparent;
+                }
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Responsive Table.
+//==============================================================================
+.table-responsive {
+    // Clips tables horizontally on smaller screen sizes.
+
+    @media #{$less-than-small} {
+        min-height: .01%;
+        overflow-x: auto;
+        margin-bottom: 1.6em;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: $grey-86;
+
+        th, td {
+            white-space: nowrap;
+        }
+
+        .table {
+            margin: 0;
+        }
+    }
+}
+
+//==============================================================================
+// Table Row Styles.
+//==============================================================================
+.tr-divider {
+    // Applies a heavier bottom border to table rows.
+    border-bottom: 10px solid $grey-86;
+}
+
+//==============================================================================
+// Table Cell Styles.
+//==============================================================================
+.td-note {
+    // Gives a yellow note style to table cells.
+    background-color: rgba(#F0AD4E, 0.1) !important;
+}
+
+//==============================================================================
+// Table Column Styles (for <th> header table cells).
+//==============================================================================
+.width-10 {
+    width: 10%
+}
+.width-20 {
+    width: 20%
+}
+.width-30 {
+    width: 30%
+}
+.width-40 {
+    width: 40%
+}
+.width-50 {
+    width: 50%
+}
+.width-60 {
+    width: 60%
+}
+.width-70 {
+    width: 70%
+}
+.width-80 {
+    width: 80%
+}
+.width-90 {
+    width: 90%
+}
+
+//==============================================================================
+// Vertical Alignment.
+//==============================================================================
+
+.vertical-align-top {
+    // vertically align to top, content in table cells or inline text.
+    vertical-align: top !important;
+}
+
+.vertical-align-middle {
+    // vertically align to center, content in table cells or inline text.
+    vertical-align: middle !important;
+}

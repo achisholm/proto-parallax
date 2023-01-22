@@ -1,0 +1,49 @@
+//******************************************************************************
+// List Module.
+//
+// See /Templates/information-page-ui-library.html for usage.
+//******************************************************************************
+
+.list {
+    // List styles, usually applied to <ul> or <ol> tags
+    margin-bottom: $secondary-padding;
+    list-style-position: outside;
+
+    li {
+        margin-left: $base-padding * 2;
+    }
+
+    .list {
+        // any level of nested .list doesn't need a margin-bottom.
+        margin-bottom: 0;
+    }
+}
+
+ul.list {
+    list-style-type: disc;
+}
+
+//==============================================================================
+// Checked List.
+//==============================================================================
+.list--checked {
+    // .list--checked
+    // Unordered list with green tick icons as bullets
+    list-style: none;
+
+    li {
+        // .list--checked li
+        display: table-row;
+        padding-bottom: 10px;
+
+        &:before {
+            // .list--checked li:before
+            // the green tick / bullet
+            display: table-cell;
+            color: $color-positive;
+            padding-right: 10px;
+            @include icon;
+            content: "\43"; // .icon--check
+        }
+    }
+}

@@ -1,0 +1,240 @@
+//******************************************************************************
+// Basket Totals Table.
+//
+// Basket Totals Table component on the Your Order page.
+//******************************************************************************
+
+.basket-totals {
+    // Table containing basket totals.
+    grid-row: 2/-1;
+    grid-column: 2/3;    
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    
+    @media (max-width: $basket-bp-4 - 1) {
+        padding-left: 15px;
+    }
+
+    @media #{$less-than-small} {
+        padding-right: 15px;
+    }
+
+    @media (min-width:$basket-bp-6) {
+        grid-row: 1/6;
+        margin-right: 0;
+    }
+
+   
+    &__table {
+        // .basket__totals-table
+        border: 1px solid $grey-86;
+        border-radius: 5px;
+        background-color: white;
+        margin-left: auto;
+        width: 100%;
+        font-size: 12px;
+
+        .ajax-spinner {
+            // .basket__totals-table .ajax-spinner
+            // Change the appearance of ajax-spinner for basket totals table.
+            height: 10px;
+            width: 10px;
+            border-width: 2px;
+            border-color: $grey-67 transparent $grey-67 $grey-67;
+        }
+    }
+    
+    &__row {
+        // .basket-totals__row
+        // A table row separated by a 
+        @include flexbox;
+        border-top: 1px solid $grey-86;
+    }
+
+    &__basket-total {
+        // .basket-totals__basket-total
+        // Container for the "Basket Total" label and total value.
+        @include flexbox;
+        @include flex(1,1,100%);
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 5px;
+        margin-bottom:3px;
+    }
+
+    &__basket-total-vat {
+        // .basket-totals__basket-total-vat
+        // Container for the "Basket Total (inc/ex VAT)" and total value.
+        @include flexbox;
+        @include flex(1,1,100%);
+        margin-top: -13px;
+    }
+
+    &__td {
+        // .basket-totals__td
+        // A table cell in the Basket Totals table.
+        @include flex(1,1,auto);
+        @include align-self(center);
+        @extend %text-truncated;
+        padding-left: 15px;
+        padding-right: 15px;
+        line-height: 32px;
+        
+        &:nth-child(2) {
+            // .basket-totals__td:nth-child(2)
+            // Right-aligned table cells in the second column.
+            @include flex-grow(0);
+            @include flex-shrink(0);
+        }
+    }
+
+    &__delivery-method-text {
+        // .basket-totals__delivery-method-text
+        // A div that contains title describing current delivery method
+        // and contains a hyperlink to switch delivery method.
+        @extend %text-truncated;
+
+        a {
+            // Hyperlink containing "Collect / Deliver this order instead?" text.
+            cursor: pointer;
+        }
+    }
+}
+
+//==============================================================================
+// Delivery Method Selector Button.
+//
+// Button that shows the curent selected delivery method and opens the Delivery
+// Method Selection Modal dialogue when pressed.
+//==============================================================================
+.delivery-method-selector-button {
+    // Clickable button element containing text and ellipsis character signifier.
+    @include user-select(none);
+    @include flexbox;
+    width: 100%;
+    text-align: left;
+    margin-bottom:10px;
+    background-color: $grey-99;
+    border: 1px solid $grey-86;
+    border-radius: 3px;
+    cursor: pointer;
+    transition-property: background-color, border;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 23px;
+
+    &__text {
+        // .delivery-method-selector-button__text
+        // Text describing the currently set delivery method.
+        @include flex(1, 1, auto);
+        @extend %text-truncated;
+        float: left;
+    }
+
+    &:after {
+        // .delivery-method-selector-button:after
+        // Displays a right-aligned ellipsis charcter to signify clickability.
+        @include flex(0, 0, auto);
+        margin-left: auto;
+        font-weight: bold;
+        float: right;
+        content: "...";
+        letter-spacing: 2px;
+        color: $grey-67;
+        transition-property: color;
+        transition-duration: 0.5s;
+        transition-timing-function: ease;
+        position: relative;
+        top: -2px;
+    }
+
+    &:hover {
+        // .delivery-method-selector-button:hover
+        // Button's hover state.
+        background-color: $grey-98;
+        border-color: $grey-67;
+
+        &:after {
+            // .delivery-method-selector-button:hover:after
+            color: $grey-40;
+        }
+    }    
+}
+
+//==============================================================================
+// Hidden estimates table rows toggle button.
+//
+// Clickable table row that shows/hides additional table rows with further information.
+//==============================================================================
+.basket-totals__row--toggle {
+    // Table row that acts as a toggle button to show/hide hidden rows.
+    @include user-select(none);
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    
+    .basket-totals__td > .icon {
+        // Right-aligned down arrow/chevron icon.
+        color: $grey-67;
+        position: relative;
+        top: 2px;
+        transition-property: color;
+        transition-duration: 0.5s;
+        transition-timing-function: ease;
+    }
+
+    &:hover {
+        // .hidden-rows-toggle-control:hover
+        // Toggle control hover state.
+        
+        .basket-totals__td > .icon {
+            // .hidden-rows-toggle-control:hover .hidden-rows-toggle-control__icon
+            color: $grey-40;
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Toggle button "active" state.
+//-----
+    &.is-active {
+        // .hidden-rows-toggle-control.is-active        
+        background-color: $grey-99;
+    }
+}
+
+//==============================================================================
+// Estimates table rows wrapper.
+//
+// Wrapper for hidden table rows that can be shown/hidden.
+//==============================================================================
+.basket-totals__estimates {
+    // Wrapper for the additonal table rows. Default styles set to hidden.
+    height: 0;
+    overflow: hidden;
+
+    .basket-totals__row {
+        // .basket-totals__estimates .basket-totals__row
+        // Hide table rows.
+        opacity: 0;
+    }
+    
+//------------------------------------------------------------------------------
+// Hidden Rows wrapper "active" (visible) state.
+//-----    
+    &.is-active {
+        // .basket-totals__estimates.is-active
+        // Applied when the toggle control is clicked.
+        height: auto;
+
+        .basket-totals__row {
+            // .basket-totals__estimates.is-active
+            // Reveals table rows.
+            opacity: 1;
+        }
+    }
+}

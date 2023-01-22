@@ -1,0 +1,95 @@
+//******************************************************************************
+// Basket Quantity Spinner.
+//
+// Modified version of the Quantity Spinner for the basket.
+//******************************************************************************
+
+.basket-item__quantity-spinner {
+    // Modified version of the Quantity Spinner for the basket.
+    @include flexbox;
+    margin-top: -8px;
+    margin-bottom: -8px;
+
+    @media #{$medium} {
+        margin: 8px;
+    }
+}
+
+.field--quantity-spinner {
+    // Overrides for basket page quantity spinners.
+    // .field--quantity-spinner
+    
+    .field__label {
+        // .field--quantity-spinner .field__label
+        // For mobile-view, modify label to appear like the other labels.
+        font-size: inherit;
+        color: black;
+        font-weight: bold;
+    }
+
+    .field__input {
+        // .field--quantity-spinner .field__input
+        transition-property: box-shadow; // limit to box-shadow (default is 'all').
+        height: 35px;
+        padding: 0;
+    }
+
+    .field__spinner-button {
+        // .field--quantity-spinner .field__spinner-button
+        height: 35px;
+        line-height: 35px;
+        @include flex(0, 0, 25px);
+    }
+
+    @media #{$small} {
+        width: 100%;
+        margin: -8px auto;
+        max-width: 85px;
+        
+        &:hover {
+            // .field--quantity-spinner:hover
+
+            .field__input-wrapper .field__input {
+                // .field--quantity-spinner:hover .field__input-wrapper .field__input
+                box-shadow: 0 0 0 1px $grey-67;
+
+                &:focus {
+                    // .field--quantity-spinner:hover .field__input-wrapper .field__input:focus
+                    box-shadow: 0 0 0 2px $tlc-blue;
+                }
+            }
+
+            .field--error .field__input-wrapper .field__input {
+                // .field--quantity-spinner:hover field--error .field__input-wrapper .field__input
+                box-shadow: 0 0 0 2px $tlc-red;
+            }
+        }
+
+        .field__input-wrapper .field__input {
+            // .field--quantity-spinner .field__input-wrapper .field__input
+            // Vertically smaller input field & lighter border colour.
+            height: 25px;
+            padding: 0;
+            box-shadow: 0 0 0 1px $grey-93;
+
+            &:focus {
+                // .field--quantity-spinner .field__input-wrapper .field__input:focus
+                box-shadow: 0 0 0 2px $tlc-blue;
+            }
+        }
+
+        .field__spinner-button {
+            // .field--quantity-spinner .field__spinner-button
+            // Reduce size of decrease / increase buttons.
+            @include flex-basis(13px);
+            height: 25px;
+            line-height: 25px;
+            font-size: 75%;
+        }
+
+        .field--error .field__input-wrapper .field__input {
+            // .field--quantity-spinner .field--error .field__input-wrapper .field__input
+            box-shadow: 0 0 0 2px $tlc-red;
+        }
+    }
+}

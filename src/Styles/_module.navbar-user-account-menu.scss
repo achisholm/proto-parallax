@@ -1,0 +1,203 @@
+//******************************************************************************
+// Navbar - User Account dropdown menu.
+//
+// "Sign In or Register" prompt for guest users.
+// "My Account" dropdown menu for signed-in users.
+//******************************************************************************
+
+//==============================================================================
+// Account Menu.
+//==============================================================================
+
+.navbar-account-menu {
+    // The "My Account" menu.
+    @include user-select(none);
+    margin: 0 10px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(white, 0.3);
+    line-height: 1;
+    position: relative;
+    min-width: 125px;
+    max-width: 200px;
+    font-size: 13px;
+    display: none;
+    transition: 0.5s ease opacity;
+
+    @media #{$small} {
+        display: flex;
+    }
+
+    //--------------------------------------------------------------------------
+    // Loading State.
+    //-----
+    
+    &.is-loading {
+        // .navbar-account-menu.is-loading
+        // State before JSON has loaded.
+        opacity: 0;
+    }
+
+    //--------------------------------------------------------------------------
+    // 'Signed In' State.
+    //-----
+    &.is-signed-in {
+        // .navbar-account-menu.is-signed-in
+        // State when user is signed in.
+        cursor: pointer;
+        
+        &:hover {
+            // .navbar-account-menu.is-signed-in:hover
+            background-color: rgba(white, 0.1);
+            color: white;
+        }
+
+        .navbar-account-menu__content--guest {
+            // .navbar-account-menu.is-signed-in .navbar-account-menu__content--guest
+            display: none;
+        }
+        
+        .navbar-account-menu__content--signed-in {
+            // .navbar-account-menu.is-signed-in .navbar-account-menu__content--signed-in
+            display: flex;
+        }
+    }
+
+    &__content {
+        // .navbar-account-menu__content
+        // The menu button's text content.
+        display: flex;
+        width: 100%;
+
+        &--signed-in {
+            // .navbar-account-menu__content--signed-in
+            display: none;
+        }
+
+        &--guest {
+            // .navbar-account-menu__content--guest
+            padding-right: 30px;
+        }
+    }
+    
+    &__icon {
+        // .navbar-account-menu__icon
+        // 
+        flex: 0 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        position: relative;
+        border-radius: 50%;
+
+        > .icon--chevron-down {
+            // .navbar-account-menu__icon > .icon--chevron-down
+            font-size: 10px;
+            opacity: 0.5;
+        }
+    }
+
+    &__text {
+        // .navbar-account-menu__text
+        flex: 1;
+        align-self: center;
+        line-height: 1.1;
+        min-width: 0;
+
+        a {
+            // .navbar-account-menu__text a
+            text-decoration-color: rgba(white, 0.5);
+            color: white;
+            font-weight: 600;
+            
+            &:hover {
+                // .navbar-account-menu__text a:hover
+                text-decoration-color: white;
+            }
+        }
+    }
+
+    &__text-line-1 {
+        // .navbar-account-menu__text-line-1
+        display: flex;
+    }
+
+    &__name {
+        // .navbar-account-menu__name
+        // The user's name.
+        display: inline-block;
+        max-width: 100px;
+        @extend %text-truncated;
+    }
+
+    &__message-area.message-area {
+        // .navbar-account-menu__message-area
+        // Validation error message.
+        max-width: 1160px;
+        margin: 0 auto;
+    }
+    
+    //==============================================================================
+    // My Account dropdown menu content.
+    //==============================================================================
+    
+    .my-account-menu {
+        // .navbar-account-menu .my-account-menu
+        // My Account dropdown menu.
+        display: flex;
+    
+        &__column {
+            // .navbar-account-menu .my-account-menu__column
+            // Column in the My Account dropdown menu.
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            padding-right: 20px;
+            border-right: 1px solid $grey-93;
+    
+            &:last-child {
+                // .navbar-account-menu .my-account-menu__column:last-child
+                // Prevent right margin from appearing on last column.
+                margin: 0;
+                border: none;
+                padding: 0;
+            }
+        }
+    
+        &__column-footer {
+            // .navbar-account-menu .my-account-menu__column-footer
+            // Footer for the My Account dropdown menu.
+            margin-top: auto;
+            border-top: 1px solid $grey-93;
+            padding-top: 10px;
+    
+            .menu-dropdown__link {
+                // .navbar-account-menu .my-account-menu__column-footer .menu-dropdown__link
+                // Link in the My Account dropdown menu footer.
+                color: $grey-50;
+            }
+        }
+    
+        .badge {
+            // .navbar-account-menu .my-account-menu .badge
+            // Badge for displaying order count.
+            border: none;
+            position: absolute;
+            right: 10px;
+            color: white;
+            background-color: #cc2127;
+            border-radius: 10px;
+            margin-left: auto;
+            font-size: 13px;
+    
+            &--inverted {
+                // .navbar-account-menu .my-account-menu .badge--inverted
+                // White background, red text.
+                color: $tlc-red;
+                background-color: white;
+                box-shadow: inset 0 0 0 1px $tlc-red;
+            }
+        }
+    }
+}

@@ -1,0 +1,81 @@
+//==============================================================================
+// Order Preview.
+//==============================================================================
+
+.order-preview {
+    // Group of thumbnails which shows a maximum of 4 preview order items.
+    @include flexbox;
+    text-decoration: none;
+    position: relative;
+    left: -5px;
+    line-height: 50px;
+    height: 50px;
+    font-size: 14px;
+    margin-bottom: 5px;
+
+    &--empty {
+        // .order-preview--empty
+        // Modifier class applied when order contains "0 items".
+        left: 0;
+
+        .order-preview__item-count {
+            // .order-preview--empty .order-preview__item-count
+            margin-left: 0;
+        }
+    }
+    
+    &__product {
+        // .order-preview__product
+        // A circular thumbnail of a product image.
+        position: relative;
+        float: left;
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: cover;
+        background-position: center;
+        background-color: $grey-86;
+        color: $grey-67;
+        border-radius: 50%;
+        border: 5px white solid;
+        margin-right: -15px;
+        text-align: center;
+        line-height: 40px;
+        transition: all .3s ease;
+        box-shadow: inset 0 0 2px 2px rgba(0,0,0,0.1);
+    }
+
+    &__product-count {
+        @include inline-flex;
+        @include justify-content(center);
+        @include align-items(center);
+        background: $bright-blue;
+        color: white;
+        border-radius: 11px;
+        min-width: 22px;
+        text-align: center;
+        height: 22px;
+        line-height: 22px;
+        padding: 0 8px;
+        font-size: 11px;
+        position: absolute;
+        bottom: -8px;
+        right: 3px;
+        z-index: 5;
+        box-shadow: inset 0 0 3px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    &__item-count {
+        // .order-preview__item-count
+        // Label showing number of total order items ("x items").
+        @extend %text-truncated;
+        color: $grey-67;
+        margin-left: 25px;
+        display: inline-block;
+
+        @media (max-width:630px) {
+            // Not enough space at this viewport size, so hide item count.
+            display: none;
+        }
+    }
+}

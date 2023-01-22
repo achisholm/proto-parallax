@@ -1,0 +1,66 @@
+//******************************************************************************
+// Out of Stock Alert UI & Modal Dialog.
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+// Out of Stock alert.
+//-----
+
+.oos-alert {
+    // Out of Stock alert that replaces the update cart form.
+    text-align: center;
+    padding: 5px 0;
+    margin: auto;
+    max-width: 100px;
+
+    &__message {
+        // .oos-alert__message
+        // "Out of stock" message.
+        font-weight: bold;
+        white-space: nowrap;
+        color: $tlc-red;
+
+        @media #{$small} {
+            padding-bottom: 3px;
+        }
+
+        @media #{$less-than-small} {
+            font-size: 16px;
+        }
+    }
+
+    &__link {
+        // .oos-alert__link
+        // "email me when back in stock" link.
+    }
+}
+
+//------------------------------------------------------------------------------
+// Out of Stock alert.
+//-----
+
+.oos-modal {
+    // Out of stock modal dialog.
+
+    &__success-message.modal-dialog {
+        // Thank you message and 'Continue Shopping' button.
+        display: none;
+    }
+
+    // 'Submitted' state.
+    &.is-submitted {
+        // When applied, displays the success message.
+        // .oos-modal.is-submitted
+
+        .oos-modal__form {
+            // .oos-modal.is-submitted .oos-modal__form
+            // Hides form.
+            display: none;
+        }
+        
+        .oos-modal__success-message.modal-dialog {
+            // .oos-modal.is-submitted
+            display: block;
+        }
+    }
+}

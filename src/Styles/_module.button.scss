@@ -1,0 +1,363 @@
+//******************************************************************************
+// Buttons.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+.button {
+    // Base button class
+    @include fade;
+    @include user-select(none);
+    @extend %text-truncated;
+    display: block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: $tlc-blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: inset 0 1px 0px rgba(0, 0, 0, 0);
+    
+    &:focus {
+        background-color: darken($tlc-blue, 3%);
+    }
+
+    &:hover {
+        background-color: lighten($tlc-blue, 6%);
+        color: white;
+    }
+
+    &:active {
+        box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+        background-color: darken($tlc-blue, 5%);
+    }
+
+    @media #{$small} {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    > .icon {
+        // .button > .icon
+        // Icons in buttons position:absolute to center-align button text
+        line-height: 50px;
+        width: 50px;
+        height: 50px;
+
+        @media #{$small} {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        &.pull-left, &.pull-right {
+            position: absolute;
+        }
+        &.pull-left {
+            left: 0;
+        }
+        &.pull-right {
+            right: 0;
+        }
+    }
+
+    .ajax-spinner {
+        // animated spinner inside any button
+        vertical-align: middle;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    // Button Modifiers
+    &--small {
+        height: 30px;
+        line-height: 30px;
+
+        > .icon {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .ajax-spinner {
+            // animated spinner inside button--small
+            width: 15px;
+            height: 15px;
+            border-width: 3px;
+        }
+
+    }
+
+    &--medium {
+        // Medium height button
+        @media #{$small} {
+            height: 45px;
+            line-height: 45px;
+
+            > .icon {
+                width: 45px;
+                height: 45px;
+                line-height: 45px;
+            }
+        }
+
+        .ajax-spinner {
+            // animated spinner inside button--medium
+            width: 21px;
+            height: 21px;
+            border-width: 3px;
+        }
+    }
+
+    &--large {
+        // Large height button
+        height: 50px;
+        line-height: 50px;
+
+        > .icon {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .ajax-spinner {
+            // animated spinner inside button--large
+            width: 22px;
+            height: 22px;
+            border-width: 3px;
+        }
+    }
+
+    &--stacked {
+        & + .button {
+            // All .buttons after the first .button in a series
+            margin-top: 5px;
+        }
+    }
+
+    &--rounded {
+        // Button with rounded corners
+        border-radius: 5px;
+    }
+
+    &--rounded-x2 {
+        // .button--rounded-x2
+        border-radius: 25px;
+    }
+
+    &--positive {
+        background-color: $color-positive;
+
+        &:focus {
+            background-color: darken($color-positive, 3%);
+        }
+
+        &:hover {
+            background-color: lighten($color-positive, 4%);
+        }
+
+        &:active {
+            background-color: darken($color-positive, 5%);
+        }
+    }
+
+    &--negative {
+        background-color: $color-negative;
+
+        &:focus {
+            background-color: darken($color-negative, 3%);
+        }
+
+        &:hover {
+            background-color: lighten($color-negative, 15%);
+        }
+
+        &:active {
+            background-color: darken($color-negative, 5%);
+        }
+    }
+
+    &--muted {
+        color: $tlc-blue;
+        background-color: transparent;
+        border: 1px solid $tlc-blue;
+        
+        &:focus {
+            background-color: darken(rgba($tlc-blue, .05), 33%);
+        }
+
+        &:hover {
+            color: $tlc-blue;
+            background-color: rgba($tlc-blue, .05);
+        }
+
+        &:active {
+            background-color: darken(rgba($tlc-blue, .05), 5%);
+        }
+
+        .ajax-spinner {
+            // animated spinner inside button--muted
+            border-color: $tlc-blue transparent $tlc-blue $tlc-blue;
+        }
+
+    }
+
+    &--dark {
+        color: white;
+        background-color: #5e5e5e;
+
+        &:focus {
+            background-color: darken(#5e5e5e, 3%);
+        }
+
+        &:hover {
+            color: white;
+            background-color: lighten(#5e5e5e, 5%);
+        }
+
+        &:active {
+            background-color: darken(#5e5e5e, 5%);
+        }
+    }
+
+    &--bright-blue {
+        // .button--bright-blue
+        background-color: $bright-blue;
+        color: white;
+        
+        // @media #{$x-small} {
+        //     padding-left: 20px;
+        //     padding-right: 20px;
+        //     display: inline-block;
+        //     width: auto;
+        // }
+        //
+        // @media #{$large} {
+        //     line-height: 40px;
+        //     height: 40px;
+        // } 
+        // 
+        // .icon {
+        //     // .content .button .icon
+        //     padding-left: 10px;
+        // }
+
+        &:focus {
+            // .button--bright-blue:focus
+            background-color: darken($bright-blue, 3%);
+        }
+
+        &:hover {
+            // .button--bright-blue:hover
+            background-color: darken($bright-blue, 5%);
+        }
+
+        &:active {
+            // .button--bright-blue:active
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+            background-color: darken($bright-blue, 5%);
+        }
+    }
+
+    &--bright-blue-inverted {
+        // 
+        background-color: white;
+        border: 1px solid $bright-blue;
+        color: $bright-blue;
+
+        &:focus {
+            // .button--bright-blue:focus
+            background-color: rgba($bright-blue, 0.05);
+            color: darken($bright-blue, 3%);
+        }
+
+        &:hover {
+            // .content  .button--muted:hover
+            background-color: rgba($bright-blue, 0.05);
+            color: darken($bright-blue, 5%);
+        }
+
+        &:active {
+            // .button--bright-blue:active
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+            background-color: rgba($bright-blue, 0.05);
+        }
+    }
+
+    &--paypal {
+        // "Check out with Paypal" button
+        border: 1px #febb12 solid;
+        background-color: #ffce48;
+        color: black;
+        text-shadow: 0 .5px 0 white;
+        font-size: .6em;
+
+        .paypal-logo {
+            // svg Paypal logo (<img> element)
+            width: 100%;
+            max-width: 60px;
+            position: relative;
+            top: 6px;
+            margin: 0 5px;
+        }
+
+        &:hover {
+            color: black;
+            background-color: #febb12;
+        }
+
+        &:active,
+        &:focus {
+            background-color: darken(#febb12, 3%);
+        }
+
+        @media #{$small} {
+            .paypal-logo {
+                max-width: 70px;
+                top: 7px;
+            }
+        }
+    }
+
+    &--inline {
+        // Button style that collapses to the length of the button's label text.
+        padding-left: 10px;
+        padding-right: 10px;
+        display: inline-block;
+        width: auto;
+    }
+
+    &--disabled {
+        // .button--disabled
+        // A greyed out / disabled version of button.
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            background: $grey-86;
+            color: $grey-40;
+            border: 1px solid $grey-40;
+        }
+    }
+
+    &--text-normal {
+        // .button--text-normal
+        letter-spacing: normal;
+        text-transform: none;
+        font-size: 15px;
+        font-weight: 600;
+    }
+}

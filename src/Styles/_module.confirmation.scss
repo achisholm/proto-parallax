@@ -1,0 +1,119 @@
+//******************************************************************************
+// Order Placed / Quote Request Placed
+//
+// Order & Quote confirmation page. The last step in the checkout (Step 5 of 5).
+//
+//******************************************************************************
+
+.confirmation-header {
+    // Header area of the Order Placed checkout page
+    // Contains primary and secondary headings
+    padding: 0 0 20px 0;
+}
+
+.confirmation-header__primary-heading {
+    // Primary Heading - "Order Placed. Thank You!"
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 60px;
+
+    @media #{$small} {
+
+    }
+}
+
+.step-complete-icon {
+    // Circle icon similar to .step--complete class in the checkout steps module
+    position: relative;
+    top: 7px;
+    margin-left: 5px;
+    content: "";
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+    border-radius: 50%;
+    border-width: 4px;
+    border-style: solid;
+    border-color: $step-color;
+    height: 30px;
+    width: 30px;
+    background-color: $step-color-complete-2;
+    background-image: url(/Graphics/icon-check.svg);
+    border-color: $step-color-complete;
+
+    @media #{$small} {
+        border-width: 5px;
+        top: 11px;
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.confirmation-header__secondary-heading {
+    // Secondary Heading - "Thank you xxx for ordering from TLC Direct!"
+    color: $grey-40;
+    text-align: center;
+}
+
+.confirmation-content {
+    // White panel containing order information
+    background-color: white;
+    padding: $base-padding;
+    width: auto;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: rgba(black, .05) 5px 5px 1px;
+
+    &__text {
+        // <p> text in the confirmation-content panel
+        padding-bottom: 15px;
+
+        &--order-number {
+            // Larger text for the "Your order number is..."
+            font-size: 1.5em;
+            padding: 10px 0 30px 0;
+        }
+
+        &--address {
+            // Delivery address text
+            margin-left: 20px;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.3;
+        }
+
+        a {
+            font-weight: bold;
+        }
+    }
+
+    .button {
+        margin-bottom: 15px;
+    }
+}
+
+.confirmation-footer {
+    // Text links under the content panel
+    clear: left;
+    text-align: center;
+    padding: 20px 0;
+    line-height: 2;
+    font-size: 13px;
+
+    @media #{$x-small} {
+        padding: 10px 0 20px 0;
+    }
+
+    &__link {
+        // <a> text link under the content panel
+        //font-weight: bold;
+        display: block;
+        padding: 0 10px;
+
+        @media #{$x-small} {
+            display: inline;
+        }
+    }
+}

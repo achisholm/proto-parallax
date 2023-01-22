@@ -1,0 +1,52 @@
+//******************************************************************************
+// Basket Item "Remove" button.
+//
+// Standard .button, extended to transform into a small circle on desktop.
+//******************************************************************************
+
+.basket-item__remove-button {
+    // Remove Button.
+
+
+    @media #{$less-than-small} {
+        // Presented as a standard button on mobile.
+        float: right;
+        width: 40%;        
+    }
+    
+    @media #{$small} {
+        // Presented as a circular button with an x icon on desktop.
+        overflow: hidden;
+        text-indent: 9999px;
+        width: 20px;
+        height: 20px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background-image: url(/Graphics/icon-cross-white.svg);
+        background-size: 10px 10px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: $grey-40;
+        border-color: transparent;
+        color: white;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            background-color: $tlc-red;
+        }
+    }
+}
+
+
+.basket-item__td--total {
+    // Adjustment to the width of Sub-Total basket-item td on mobile layout to allow remove button to sit adjacent.
+    @media #{$less-than-small} {
+        float: left;
+        width: 60%;
+        margin-bottom: 0;
+    }
+}

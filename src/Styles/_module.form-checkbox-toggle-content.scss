@@ -1,0 +1,25 @@
+//------------------------------------------------------------------------------
+// Checkbox toggle content.
+//-----
+
+.checkbox-toggle-content {
+    // Wrapper div for the toggleable checkbox content.
+    clear: both;
+    height: auto;
+    padding: 0 8px;
+    margin: 0 -8px;
+    overflow: hidden;
+    
+    &.is-collapsed {
+        // .checkbox-toggle-content.is-collapsed
+        // Hides the billing email field.
+        height: 0;
+        opacity: 0;
+    }
+
+    &.is-hidden {
+        // .checkbox-toggle-content.is-hidden
+        // Required to remove descendents from the tab index.
+        visibility: hidden;
+    }
+}

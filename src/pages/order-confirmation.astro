@@ -1,0 +1,281 @@
+---
+import Layout from '../layouts/Layout-tlc.astro';
+
+import '/src/Styles/checkout.scss';
+import '/src/Styles/_module.button.scss';
+import '/src/Styles/_module.form.scss';
+import '/src/Styles/checkout-order-confirmation.scss';
+
+---
+
+<Layout title="Order Placed">
+  <!-- <link rel="stylesheet" href="https://js.qcode.co.uk/vendor/qtip/2.2.1/jquery.qtip.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/Styles/checkout-v5.4.11-97ef90c83c.css">
+  <link rel="stylesheet" href="/Styles/checkout-order-confirmation-v5.4.11-6e100ed120.css"> -->
+  <div class="order-confirmation site-width-wrapper">
+    <div class="order-confirmation-header">
+      <div class="order-confirmation-header__icon"></div>
+      <div class="order-confirmation-header__title">Order Placed. Thank&nbsp;you!</div>
+      <div class="order-confirmation-header__secondary-title">Thank you Alan Smith for ordering&nbsp;from&nbsp;TLC&nbsp;Direct!</div>
+      <div class="order-confirmation-header__message">
+        <p>A confirmation email has been sent to <b>alan@firstcontactelectrical.co.uk</b>.</p>
+        <p>A copy of your invoice shall be sent to <b>accounts@firstcontactelectrical.co.uk</b>.</p>
+        <!-- Content for Bank Transfer orders-->
+        <p>Here are the bank details for TLC:</p>
+        <p>
+          <span class="text-semibold">Bank:</span> Barclays Bank<br>
+          <span class="text-semibold">Address:</span> North Street, Brighton. BN1 1SF<br>
+          <span class="text-semibold">Sort code:</span> 20 - 12 - 83<br>
+          <span class="text-semibold">Account Number:</span> 205 00 585<br>
+          <span class="text-semibold">Account Name:</span> TLC SOUTHERN LTD
+        </p>
+        <!-- Content for International Export orders with Bank Transfer payment-->
+        <h4 class="text-bold">Europe / International</h4>
+        <p>
+          <span class="text-semibold">Swift:</span> BARCGB22<br>
+          <span class="text-semibold">IBAN:</span> IBAN GB17 BARC 201283 205 00585
+        </p>
+        <!-- End Content for International Export orders with Bank Transfer payment-->
+        <!-- End Content for Bank Transfer orders-->
+        <!-- Content for Branch Collection orders-->
+        <p>We will contact you as soon as your order is ready for collection.</p>
+        <p>We will need to see your <strong>order number</strong> from your text message or email and proof of ID. Please read our <a href="/Information/Services/click-and-collect/">Click &amp; Collect information</a> for further details.</p>
+        <!-- End Content for Branch Collection orders-->
+        <!-- Content for International Export orders-->
+        <p>Please see our <a href="/Information/export/Export.htm">International Export</a> page for further information on international orders.</p>
+        <!-- End Content for International Export orders-->
+        <p>You qualify for Express Checkout. <span class="tooltip-link js-tooltip-link" tabindex="0">What is Express Checkout?<span class="tooltip-bubble"><strong>Express Checkout</strong> is an ultra-fast checkout option which allows you to place your order with a single click, using your most recently used saved card.</span>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="card order-summary-card">
+      <div class="order-summary-card__header">
+        <div class="order-summary-card-item">
+          <div class="card__label">Order Number</div>
+          <div class="card__value">#8437055</div>
+        </div>
+        <div class="order-summary-card-item">
+          <div class="card__label">Order Reference</div>
+          <div class="card__value">Coffee Warehouse</div>
+        </div>
+      </div>
+      <div class="order-summary-card__body">
+        <div class="order-summary-card__info">
+          <div class="order-preview">
+            <div class="order-preview__product" style="background-image:url(https://www.tlc-direct.co.uk/Images/Products/size_1/UVTS1.JPG)" title="UVTS1">
+              <div class="order-preview__product-count">15</div>
+            </div>
+            <div class="order-preview__product" style="background-image:url(https://www.tlc-direct.co.uk/Images/Products/size_1/SW2.5SLASH3.JPG)" title="SW2.5/3">
+              <div class="order-preview__product-count">100</div>
+            </div>
+            <div class="order-preview__product" style="background-image:url(https://www.tlc-direct.co.uk/Images/Products/size_1/CA2.5R3.JPG)" title="CA2.5R3">
+              <div class="order-preview__product-count">100</div>
+            </div>
+            <div class="order-preview__product" style="background-image:url(https://www.tlc-direct.co.uk/Images/Products/size_1/ASPCR2000.JPG)" title="ASPCR2000">
+              <div class="order-preview__product-count">10</div>
+            </div>
+            <p class="order-preview__item-count">15 products</p>
+          </div>
+          <!-- Example #1 - Delivery order payment by card.-->
+          <!-- ============================================================-->
+          <div class="order-summary-card__column-container">
+            <div class="order-summary-card-item">
+              <div class="card__label">Delivering To</div>
+              <div class="card__value">Alan Smith<br>91B Stanmore Hill<br>
+                STANMORE<br>
+                Greater London<br>
+                HA7 3DZ</div>
+            </div>
+            <div class="order-summary-card-item">
+              <div class="card__label">Delivery Contact Number</div>
+              <div class="card__value">0161 548684</div>
+            </div>
+            <div class="order-summary-card-item">
+              <div class="card__label">Estimated Delivery</div>
+              <div class="card__value">Jul 22<sup>nd</sup> – Jul 25<sup>th</sup></div>
+            </div>
+            <div class="order-summary-card-item">
+              <div class="card__label">Payment Method</div>
+              <div class="card__value">
+                <img class="card-image" width="30" height="20" alt="Visa" title="Visa" src="/Graphics/visa.svg">•••• 4242
+              </div>
+            </div>
+          </div>
+          <!-- Example #2 - Collection order, payment by bank transfer.-->
+          <!-- ============================================================-->
+          <!--  -->
+          <!-- .order-summary-card__column-container.order-summary-card__column-container--2-col-->
+          <!--   .order-summary-card-item-->
+          <!--     .card__label Collection Contact Number-->
+          <!--     .card__value 0161 548684-->
+          <!-- -->
+          <!--   .order-summary-card-item-->
+          <!--     .card__label Collecting From-->
+          <!--     .card__value TLC Brighton-->
+          <!-- -->
+          <!--   .order-summary-card-item-->
+          <!--     .card__label Requested Collection Time-->
+          <!--     .card__value Mon, 25th Jul#[br]-->
+          <!--       | Late Afternoon (3:30pm – 5pm)-->
+          <!-- -->
+          <!--   .order-summary-card-item-->
+          <!--     .card__label Additional Instructions-->
+          <!--     .card__value Please package items separately-->
+          <!-- -->
+          <!--   .order-summary-card-item-->
+          <!--     .card__label Payment Method-->
+          <!--     .card__value Bank Transfer-->
+        </div>
+        <div class="order-summary-card__buttons">
+          <a class="button button--medium button--rounded-x2 button--text-normal button--bright-blue" href="/tcl/orders/:order-number:/order-sheet">View Order #8437055</a>
+          <a class="button button--medium button--rounded-x2 button--text-normal button--bright-blue-inverted m-t-1 js-button-print" href="/Templates/orders/print.html">Print Your Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="order-confirmation__sidebar">
+      <!-- Guest Checkout - Create an account-->
+      <div class="card card--padded m-b-3 p-t-3 p-b-1">
+        <h3 class="card-title">Create an account for faster checkout</h3>
+        <ul class="list list--checked p-t-1">
+          <li>
+            <p class="p-b-1">Manage your payment preferences</p>
+          </li>
+          <li>
+            <p class="p-b-1">Create an address book</p>
+          </li>
+          <li>
+            <p class="p-b-1">View your order status</p>
+          </li>
+        </ul>
+        <form class="js-guest-set-password" action="/tcl/orders/:order_number/guest-set-password" method="post">
+          <div class="fieldset">
+            <div class="field">
+              <div class="field__wrapper">
+                <label class="field__label" for="password">Choose a Password</label>
+                <input class="field__input" type="password" id="password" name="password" placeholder="Choose a Password" autocomplete="new-password">
+              </div>
+            </div>
+            <div class="field field--checkbox">
+              <div class="field__checkbox-wrapper">
+                <input class="field__checkbox-input" id="save_payment" name="save_payment" type="checkbox">
+                <label class="field__checkbox-label" for="save_payment">Save card details</label>
+              </div>
+            </div>
+            <div class="field field--button">
+              <button class="field__button button button--rounded-x2 button--text-normal button--bright-blue" value="" type="submit">Create an Account</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Guest Checkout - Create an account (for guest+collection).-->
+      <div class="card card--padded m-b-3 p-t-3 p-b-3">
+        <h3 class="card-title">Create an account for faster checkout</h3>
+        <ul class="list list--checked p-t-1">
+          <li>
+            <p class="p-b-1">Manage your payment preferences</p>
+          </li>
+          <li>
+            <p class="p-b-1">Create an address book</p>
+          </li>
+          <li>
+            <p class="p-b-1">View your order status</p>
+          </li>
+        </ul>
+        <a class="button button--bright-blue button--large button--rounded-x2 button--text-normal" href="/tcl/orders/:order_number:/guest-register">Create an Account</a>
+      </div>
+      <!-- Express Checkout - Make changes to your order.-->
+      <div class="card card--padded m-b-3 text-center express-checkout-card">
+        <p>You can amend or cancel your <br>order until <b>4:34&nbsp;pm</b> today.</p>
+        <form class="js-cancel-order-form" action="/tcl/orders/:order-number:/cancel-order" method="post">
+          <button class="button button--medium button--rounded-x2 button--text-normal button--bright-blue m-t-3" type="submit" value="">Make Changes to Your Order</button>
+        </form>
+      </div>
+      <!-- Order Totals-->
+      <div class="card order-totals m-b-3 m-t-0">
+        <div class="order-totals__row">
+          <div class="order-totals__td order-totals__td--title p-t-1">Basket Total</div>
+          <div class="order-totals__td order-totals__td--total p-t-1">£2,557.30</div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td order-totals__td--title order-totals__td--border-dotted">Carriage</div>
+          <div class="order-totals__td order-totals__td--total order-totals__td--border-dotted"></div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td">Express Carrier Delivery</div>
+          <div class="order-totals__td order-totals__td--total">£8.50</div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td">Elica Delivery Charge</div>
+          <div class="order-totals__td order-totals__td--total">£21.60</div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td order-totals__td--title order-totals__td--border-dotted">Discount</div>
+          <div class="order-totals__td order-totals__td--total order-totals__td--border-dotted"></div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td">August Extra Discount</div>
+          <div class="order-totals__td order-totals__td--total">- £81.00</div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td order-totals__td--title order-totals__td--border-dotted">Sub Total <span class="text-normal text-muted text-small text-nowrap">(ex-VAT)</span>
+          </div>
+          <div class="order-totals__td order-totals__td--total order-totals__td--border-dotted">£2,506.30</div>
+        </div>
+        <div class="order-totals__row">
+          <div class="order-totals__td order-totals__td--title order-totals__td--border-dotted">VAT</div>
+          <div class="order-totals_td order-totals__td--total order-totals__td--border-dotted">£501.26</div>
+        </div>
+        <div class="order-totals__row order-totals__row--total">
+          <div class="order-totals__td order-totals__td--title">Total</div>
+          <div class="order-totals__td order-totals__td--total">£3,007.56</div>
+        </div>
+      </div>
+      <!-- Contact card.-->
+      <div class="card card--padded m-b-3 text-center contact-card">
+        <p>If you have any queries, please contact <br>
+          <a href="mailto:sales@tlc-direct.co.uk">sales@tlc-direct.co.uk</a> <br>or call us on <b>01293 565630</b>, quoting <br>your order number <b>#8437055</b>.
+        </p>
+        <p class="m-t-2">Alternatively, you may use our contact <br>form available at the following link:</p>
+        <a class="button button--medium button--rounded-x2 button--text-normal button--bright-blue m-t-3 m-x-auto" href="#">Customer Support<span class="icon icon--mail pull-right"></span>
+        </a>
+      </div>
+    </div>
+    <!-- Feedback Survey card.-->
+    <div class="card card--padded m-b-3 p-t-3 feedback-card">
+      <h3 class="card-title">Feedback Survey <small>(optional)</small></h3>
+      <p class="p-b-1">How was our service? Please take a moment to leave us some feedback.</p>
+      <form class="js-feedback-form" action="/tcl/orders/:order-number:/feedback" method="post">
+        <div class="fieldset">
+          <div class="field field--textarea">
+            <div class="field__wrapper">
+              <label class="field__label" for="question1">Was there any information that you could not find?</label>
+              <textarea class="field__input" id="question1" placeholder="Was there any information that you could not find?"></textarea>
+            </div>
+          </div>
+          <div class="field field--textarea">
+            <div class="field__wrapper">
+              <label class="field__label" for="question2">Are there any products you would like to see added to our product range?</label>
+              <textarea class="field__input" id="question2" placeholder="Are there any products you would like to see added to our product range?"></textarea>
+            </div>
+          </div>
+          <div class="field field--textarea">
+            <div class="field__wrapper">
+              <label class="field__label" for="question3">Other comments or suggestions?</label>
+              <textarea class="field__input" id="question3" placeholder="Other comments or suggestions?"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="feedback-card__buttons">
+          <a class="button button--medium button--rounded-x2 button--text-normal button--bright-blue-inverted m-t-3 desktop-only" href="#">Continue Shopping</a>
+          <button class="button button--medium button--rounded-x2 button--text-normal button--bright-blue m-t-3" type="submit" value="">Leave Feedback<span class="icon icon--chat pull-right"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <a class="button button--medium button--rounded-x2 button--text-normal button--bright-blue-inverted m-t-3 m-x-auto mobile-only" href="#">Continue Shopping</a>
+  </div>
+
+  <!-- <script src="/Javascript/order-confirmation-v5.4.11-e27261de40.js"></script> -->
+  
+</Layout>

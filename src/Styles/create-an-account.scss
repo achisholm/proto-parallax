@@ -1,0 +1,131 @@
+//******************************************************************************
+// 'Create an Account' Page.
+//
+// TLC account registration form.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+
+.create-an-account {
+    // Page content container.
+    @include flexbox;
+    @include flex-direction(column);
+}
+
+.form-section-heading {
+    // Form Heading (e.g. 'Contact Details').
+    font-weight: bold;
+    border-bottom: 1px solid $grey-86;
+    color: $grey-20;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    
+    @media #{$large} {
+        margin-bottom: 30px;
+    }
+}
+
+.form-section {
+    // Form section containing and aside & form fields.
+    @media #{$large} {
+        @include flexbox;
+        margin-bottom: 20px;
+    }
+    
+    &__aside {
+        // .form-section__aside
+        // Text container displayed in sidebar alongside form fields in 
+        // desktop-view.
+        flex: 0 1 40%;
+        color: $grey-40;
+        padding-right: 40px;
+        
+        > p + p {
+            // .form-section__aside > p + p
+            margin-top: 10px;
+        }
+    }
+    
+    &__fields {
+        // .form-section__fields
+        // Container for form fields.
+        @include flex(0, 1, 60%);
+        @include flexbox;
+        @include flex-direction(column);
+    }
+}
+
+.add-field-control {
+    // '(+) Provide an additional phone number' control.
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    
+    > .field__message {
+        // .add-field-control > .field__message
+        padding-top: 0;
+    }
+}
+
+.js-additional-phone-field {
+    // Additional phone number fields (hidden by default).
+    overflow: hidden;
+    
+    &.is-hidden {
+        // .js-additional-phone-field.is-hidden
+        display: none;
+    }
+    
+    &.is-collapsed {
+        // .js-additional-phone-field.is-collapsed
+        height: 0;
+        opacity: 0;
+    }
+}
+
+
+.secondary-message-panel {
+    // Message panel with link to sign in for existing account holders.
+    border: 1px solid $grey-86;
+    color: $grey-50;
+    margin-left: auto;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: $grey-93;
+    
+    @media #{$large} {
+        @include order(2);
+        max-width: 60%;
+        padding: 20px;
+        margin-bottom: 0;
+    }
+    
+    a { 
+        // .secondary-message-panel a
+        color: $grey-30;
+        
+        &:hover {
+            // .secondary-message-panel a:hover
+            color: $tlc-red;
+        }
+    }
+}
+
+
+.card-details {
+    // Payment card details.
+    display: flex;
+    align-items: center;
+    color: $grey-40;
+
+    > img {
+        // .card-details > img
+        margin: 0 10px 0 5px;
+    }
+}

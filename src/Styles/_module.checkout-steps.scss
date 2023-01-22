@@ -1,0 +1,211 @@
+//******************************************************************************
+// Checkout Steps
+//
+// Visula Marker to show what stage you are at in the checkout process.
+//******************************************************************************
+
+// *********************************************
+$step-color:            $grey-67;
+$step-color-current:    $grey-40;
+$step-color-complete:   $color-positive;
+$step-color-complete-2: darken($color-positive, 12%);
+// *********************************************
+
+.checkout-steps {
+    //
+
+    &__list {
+        // The <ul> container for the checkout steps.
+        @include clearfix;
+        margin: 20px 0;
+        padding: 0;
+
+        @media #{$small} {
+            margin: 0 0 80px 0;
+        }
+
+        @media #{$medium} {
+            margin: 0 0 50px 0;
+        }
+
+    }
+
+    &--3-steps {
+        // Layout for 3-step checkout used for quotations
+
+        .step {
+            width: 33.333%
+        }
+    }
+}
+
+.step {
+    // The 4 <li>s that make up the 4 checkout steps.
+    position: relative;
+    z-index: $z-checkout-step;
+    display: block;
+    width: 25%;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+
+    &:hover {
+        a.step__link:before{
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+    }
+
+    &:after {
+        //  horizontal line
+        z-index: $z-checkout-line;
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        border: $step-color 2px solid;
+        top: 50%;
+        right: 0;
+
+        @media #{$small} {
+            border-width: 4px;
+        }
+    }
+
+    &:first-child {
+        // Make the gradient left:transparent / right:green
+        // Chop the horizontal line in half and shift to the right for the first item.
+        &:after {
+            border-image: linear-gradient(to right, rgba($step-color,0) 50%, $step-color 50%);
+            border-image-slice: 1;
+        }
+    }
+
+    &:last-child {
+        // Chop the horizontal line in half and shiftto the left for the last item.
+        &:after {
+            left: 0;
+            width: 50%;
+            border-image: none;
+        }
+    }
+
+    &__link {
+        // <a> link.
+        text-decoration: none;
+        color: $step-color;
+        display: block;
+
+        &:before {
+            // circle
+            transition: transform .1s ease-in-out;
+            position: relative;
+            z-index: $z-checkout-step-circle;
+            margin: 0 auto;
+            content: "";
+            display: block;
+            background-color: $grey-96;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50%;
+            border-radius: 50%;
+            border-width: 5px;
+            border-style: solid;
+            border-color: $step-color;
+            height: 40px;
+            width: 40px;
+
+            @media #{$small} {
+                width: 50px;
+                height: 50px;
+                border-width: 6px;
+            }
+            @media (min-width:900px) {
+                border-width: 7px;
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+
+    &__title {
+        // Step Title, placed underneath the circle
+        position: absolute;
+        margin: auto;
+        width: 100%;
+        overflow: hidden;
+        line-height: 1;
+        display: none;
+        padding-top: 10px;
+
+        @media #{$small} {
+            display: block;
+        }
+
+        @media #{$less-than-medium} {
+            word-spacing: 999px
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Completed step.
+//-----
+    &--complete {
+        // Completed step modifier.
+        &:first-child {
+            // Make the gradient left:transparent / right:green
+            &:after {
+                border-image: linear-gradient(to right, rgba($step-color,0) 50%, $step-color-complete 50%);
+                border-image-slice: 1;
+            }
+        }
+        &:before {
+            // Step Number (1-4).
+            color: $step-color-complete-2;
+        }
+        &:after {
+            // horizontal line
+            border-color: $step-color-complete;
+        }
+        .step__link {
+            // <a> link.
+            color: $step-color-complete-2;
+            &:before{
+                // circle
+                background-color: $step-color-complete-2;
+                background-image: url(/Graphics/icon-check.svg);
+                border-color: $step-color-complete;
+            }
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Current step.
+//-----
+    &--current {
+        // Current step modifier.
+        &:before {
+            // Step Number (1-4).
+            color: $step-color-current;
+        }
+        &:after {
+            // horizontal line
+            border-color: $step-color-complete;
+            border-image: linear-gradient(to right, $step-color-complete 50%, $step-color 50%);
+            border-image-slice: 1;
+        }
+        .step__link {
+            // <a> link.
+            color: $step-color-current;
+            &:before{
+                // circle
+                border-color: $step-color-complete;
+                background-color: $step-color-current;
+                border-top-color: $step-color;
+                border-right-color: $step-color;
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+        }
+    }
+}

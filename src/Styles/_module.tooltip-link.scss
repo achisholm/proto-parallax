@@ -1,0 +1,83 @@
+//------------------------------------------------------------------------------
+// Tooltip for "What is Express Checkout?".
+//------------------------------------------------------------------------------
+
+.tooltip-link {
+    // Text link.
+    @include user-select(none);
+    position: relative;
+    text-decoration: underline;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    color: rgba(black, 0.8);
+
+    &:hover {
+        // .tooltip-link:hover
+        color: rgba(black, 0.6);
+    }
+    
+    &:focus {
+        // .tooltip-link:focus
+        // Display the tooltip bubble when the link is focused.
+        outline: none;
+
+        .tooltip-bubble {
+            // .tooltip-link:focus .tooltip-bubble
+            opacity: 1;
+        }
+    }
+}
+
+.tooltip-bubble {
+    // .tooltip-bubble
+    // Text bubble, hidden by default.
+    @include user-select(none);
+    white-space: normal;
+    transition-property: opacity, bottom;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -20px);
+    display: inline-block;
+    opacity: 0;
+    border-radius: 5px;
+    background: black;
+    color: white;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: $z-tooltip-bubble;
+    font-weight: normal;
+    width: 175px;
+    text-align: left;
+
+    @media #{$x-small} {
+        width: 318px;
+    }
+
+    @media #{$small} {
+        @media #{$less-than-medium} {
+            left: 70%;
+        }
+    }
+
+    &:before {
+        // .tooltip-bubble:before
+        // Text bubble's triangular wedge.
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translate(-50%, 0px);
+        display: block;
+        width: 0px;
+        height: 0px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+    }
+}

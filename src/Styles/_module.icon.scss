@@ -1,0 +1,29 @@
+//******************************************************************************
+// Icons.
+//
+//
+//******************************************************************************
+
+.nav-bar-mobile .icon {
+    // base icon class
+    width: $button-height;
+    height: $button-height;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 10px;
+}
+
+.icon--download {
+    // download icon
+    background-image: url(/Graphics/icon-download-2.svg);
+}
+
+.icon--pdf {
+    // pdf file icon
+    background-image: url(/Graphics/icon-pdf.svg);
+}
+
+.icon--popout {
+    // popout icon - for pop-ups or external links
+    background-image: url(/Graphics/icon-popout.svg);
+}

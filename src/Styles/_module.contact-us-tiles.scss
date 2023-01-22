@@ -1,0 +1,66 @@
+//******************************************************************************
+// Phone & Email tiles.
+//
+// Tiles shown on Customer Services page & Contact Us page.
+//******************************************************************************
+
+.contact-us-tiles {
+    // Container for two contact tiles.
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr) );
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+
+.contact-us-tile {
+    // Phone & Email tiles.
+    text-align: center;
+    padding: 30px;
+    box-shadow: 0 0 10px 0 rgba(black, 0.1);
+    background-color: white;
+    border-radius: 10px;
+    line-height: 1.2;
+    
+    &__header {
+        // .contact-us-tile__header
+        // Container fot icon & title.
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+
+    &__icon {
+        // .contact-us-tile__icon
+        // Headset / Email icon.
+        color: $tlc-blue;
+        font-size: 28px;
+        margin-right: 15px;
+    }
+
+    &__title {
+        // .contact-us-tile__title
+        // 'Phone' / 'Email' title.
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    &__link {
+        // .contact-us-tile__link
+        // Phone or email link.
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    &__description {
+        // .contact-us-tile__description
+        // Secondary text.
+        padding-top: 20px;
+        font-size: 17px;
+        color: $grey-50;
+        max-width: 220px;
+        margin: 0 auto;
+    }
+}

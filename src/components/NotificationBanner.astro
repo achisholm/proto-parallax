@@ -1,0 +1,33 @@
+---
+import "/src/Styles/_module.notification-banner.scss";
+---
+
+<div class="notification-banner js-notification-banner">
+  <div class="site-width-wrapper">
+    <div class="notification-banner__content">
+      <span class="notification-banner__message js-notification-banner-message"></span>
+      <span class="notification-banner__dismiss js-notification-banner-dismiss">Dismiss <span class="icon icon--cross"></span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    // Display banner message if present in local storage.
+    if (window.localStorage) {
+      var message = localStorage.getItem('notification_banner_message');
+      var notification_banner = document.querySelector('.js-notification-banner');
+      if (message === null) {
+        message = '';
+      }
+      document.querySelector('.js-notification-banner-message').innerHTML = message;
+      if (message != '') {
+        // add .is-active class
+        var classes = notification_banner.className.split(' ');
+        if (classes.indexOf('is-active') == -1) {
+          notification_banner.className += ' is-active';
+        }
+      }
+    }
+  })();
+</script>

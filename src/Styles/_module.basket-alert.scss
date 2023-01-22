@@ -1,0 +1,213 @@
+//==============================================================================
+// Basket Alerts.
+//
+//
+//==============================================================================
+
+//******************************************************************************
+// Basket Alerts Container.
+//******************************************************************************
+
+.basket__alerts {
+    // Container for basket's alert messages.
+
+    @media (min-width: $basket-bp-3) {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        grid-column-gap: 10px;
+        grid-column-start: 1;
+    }
+    
+    @media (max-width: $basket-bp-6 - 1) {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+//******************************************************************************
+// Basket Alert.
+//******************************************************************************
+
+.basket-alert {
+    // Notifications that appear in the Checkout Table footer.
+    @include flexbox;
+    @include align-items(center);
+    border-radius: 5px;
+    padding: 15px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba($tlc-teal, 0.3);
+    font-size: 15px;
+    margin-bottom: 10px;
+
+    @media (min-width: $basket-bp-3) {
+        @include flex-direction(column);
+        @include justify-content(center);
+        text-align: center;
+    }
+
+    @media #{$small} {
+        font-size: 16px;
+        padding: 15px 15px 20px 15px;
+    }
+
+    &__icon {
+        // .basket-alert__icon
+        // Delivery Alert icon.
+        display: none;        
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-right: 10px;
+
+        @media (min-width: $basket-bp-2) {
+            @include flex(0, 0, 60px);
+            display: block;
+            width: 60px;
+            height: 60px;
+        }
+        
+        @media (min-width: $basket-bp-3) {
+            margin: 0 auto 10px auto;
+        }
+    }
+
+    &__text {
+        // .basket-alert__text
+        // Container for alert's title and description text.
+        line-height: 1.2;
+    }
+    
+    &__title {
+        // .basket-alert__title
+        //  Alert's title text.
+        color: $tlc-teal;
+        line-height: 1;
+        
+        &:before {
+            // .basket-alert__title:before
+            // Basket Alert footnote signifier.
+            font-weight: bold;
+        }
+    }
+
+    &__description {
+        // .basket-alert__description
+        // Alert's description text.
+        margin-top: 8px;
+        font-size: 13px;
+    }
+    
+//==============================================================================
+// Basket Alert states.
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// Positive basket alert.
+//-----
+    &--positive {
+        // .basket-alert--positive
+        // Positive, green-coloured state.
+        border-color: rgba($color-positive, 0.3);
+
+        .basket-alert__title {
+            // .basket-alert--positive .basket-alert__title
+            color: $color-positive;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Negative basket alert.
+//-----
+    &--negative {
+        // .basket-alert--negative
+        // Negative, red-coloured state.
+        border-color: rgba($color-negative, 0.3);
+
+        .basket-alert__title {
+            // .basket-alert--negative .basket-alert__title
+            color: $color-negative;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Free delivery messages.
+//-----
+    &--delivery {
+        // .basket-alert--delivery
+        // Used for delivery messages under free delivery threshold.
+        .basket-alert__icon {
+            // .basket-alert--delivery .basket-alert__icon
+            background-image: url(/Graphics/icon-delivery-alert.svg);
+            max-height: 40px;
+
+            @media #{$tiny} {
+                height: 60px;
+            }
+        }
+
+        &.basket-alert--positive {
+            // .basket-alert--delivery.basket-alert--positive
+            // Changes icon to green version when both 'delivery' & 'positive'
+            // modifier classes are applied. Shown when over free delivery threshold. 
+            .basket-alert__icon {
+                // .basket-alert--delivery.basket-alert--positive .basket-alert__icon
+                background-image: url(/Graphics/icon-delivery-alert-positive.svg);
+            }
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Click & Collect message.
+//-----
+    &--collection {
+        // .basket-alert--collection
+        // Alert message for Click & Collect showing a cursor and shopping bag.
+        .basket-alert__icon {
+            // .basket-alert--collection .basket-alert__icon
+            background-image: url(/Graphics/icon-delivery-alert-collection.svg);
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Click & Collect (in-stock) message.
+//-----
+    &--collection-in-stock {
+        // .basket-alert--collection-in-stock
+        // Alert message for Click & Collect in-stock showing a 1hr/clock icon.
+        .basket-alert__icon {
+            // .basket-alert--collection-in-stock .basket-alert__icon
+            background-image: url(/Graphics/icon-delivery-alert-collection-in-stock-2hr.svg);
+        }
+    }
+
+
+//------------------------------------------------------------------------------
+// Full-width alert.
+//-----
+&--full-width {
+
+    // .basket-alert--full-width
+    // Alert message that spans full width in grid layout.
+    grid-column: 1/-1;
+    padding: 10px;
+
+    @media (min-width: $basket-bp-3) {
+        max-width: 600px;
+    }
+}
+    
+//==============================================================================
+// Basket Alert footnote signifiers.
+//
+// Prepends a character to the alert message title to visually connect the
+// message with a corresponding table row / product.    
+//==============================================================================
+    
+    &--1 {.basket-alert__title:before {content:"* ";}}
+    &--2 {.basket-alert__title:before {content:"† ";}}
+    &--3 {.basket-alert__title:before {content:"‡ ";}}
+    &--4 {.basket-alert__title:before {content:"‖ ";}}
+    &--5 {.basket-alert__title:before {content:"§ ";}}
+    &--6 {.basket-alert__title:before {content:"¶ ";}}
+}

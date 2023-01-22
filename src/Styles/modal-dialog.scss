@@ -1,0 +1,173 @@
+//******************************************************************************
+// Modal Dialog Pop-Up.
+//
+// UI component for displaying overlaid content inside a modal dialog box.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@keyframes modal-slide-in {
+    // Animation that fades in and slides upwards into place.
+    from {
+        opacity: 0;
+        transform: scale(0.9) translate3d(0, 20px, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+}
+
+.modal-dialog {
+    // Wrapper for modal pop-up dialog component.
+    @include scrollbar(10px, 5px);
+    @include flexbox;
+    @include flex-direction;
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    width: 90%;
+    margin: 10px;
+    max-width: 450px;
+    box-shadow: 0 0 20px 20px rgba(black, 0.3);
+    overflow: auto;
+    max-height: calc(100% - 20px);
+    animation-duration: 0.3s;
+    animation-name: modal-slide-in;
+    transform-style: preserve-3d;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    
+    //------------------------------------------------------------------------------
+    // Modal Pop-Up - Body.
+    //-----
+    &__body {
+        // .modal-dialog__body
+        // Contains main dialog component.
+        @include scrollbar(10px, 5px);
+        padding: 15px 20px;
+        overflow-y: auto;
+        max-height: calc(100vh - 150px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+    }
+    
+    &__title {
+        // .modal-dialog__title
+        // Main heading.
+        color: $tlc-blue;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    &__h2 {
+        // .modal-dialog__h2
+        // Secondary heading.
+        color: $tlc-blue;
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    
+    &__text {
+        // .modal-dialog__text
+        // Paragraph text.
+        margin-bottom: 10px;
+        font-size: 15px;
+        line-height: 1.3;
+    }
+    
+    //------------------------------------------------------------------------------
+    // Modal Pop-Up - Footer.
+    //-----
+    &__footer {
+        // .modal-dialog__footer
+        // Modal dialog footer, containing cancel and continue buttons.
+        @include flexbox;
+        @include justify-content(space-between);
+        padding: 12px 20px;
+        background-color: $grey-98;
+        border-top: 1px solid $grey-86;
+        border-radius: 0 0 5px 5px;
+    }
+    
+    &__footer-button {
+        // .modal-dialog__footer-button
+        display: inline-block;
+        width: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 5px;
+
+        &--cancel {
+            // .modal-dialog__footer-button--cancel
+            // "Cancel" button style.
+            border-color: $grey-86;
+            color: black;
+        }
+        
+        &--continue {
+            // .modal-dialog__footer-button--continue
+            // "Continue" button style.
+            transition: none;
+            
+            &.is-collapsed {
+                // .modal-dialog__continue-button.is-collapsed
+                // "Continue" button hidden state.
+                opacity: 0;
+                pointer-events: none;
+            }
+            
+            &.is-hidden {
+                // .modal-dialog__continue-button.is-hidden
+                // Required to remove element from the tab index.
+                visibility: hidden;
+            }
+        }    
+    }
+    
+    //==============================================================================
+    // Layout adjustments for short viewports.
+    //==============================================================================
+    
+    @media (max-height: 300px) {
+        display: block;
+        
+        &__body {
+            // .modal-dialog__body
+            padding-top: 10px;
+            padding-bottom: 10px;
+            max-height: none;
+            overflow-y: visible;
+        }
+        
+        &__footer {
+            // .modal-dialog__footer
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+    
+    //==============================================================================
+    // Modal dialog modifiers.
+    //==============================================================================
+
+    &--500px {
+        // .modal-dialog--500px
+        // with 500px width (slighty wider than standard modal).
+        max-width: 500px;
+    }
+
+    &--700px {
+        // .modal-dialog--700px
+        // with 700px width.
+        max-width: 700px;
+    }
+
+    &--800px {
+        // .modal-dialog--800px
+        // with 800px width.
+        max-width: 800px;
+    }
+}

@@ -1,0 +1,182 @@
+//******************************************************************************
+// Share Basket.
+//
+// Basket page feature for sharing customer's shopping basket. presented in a 
+// modal dialog.
+//******************************************************************************
+
+.header-listings .site-width-wrapper {
+    // Override default.
+    flex-direction: row;
+}
+
+.breadcrumbs {
+    // Override default.
+    padding-right: 5px;
+}
+
+
+//==============================================================================
+// 'Share Your Basket' control.
+//==============================================================================
+
+.share-basket {
+    // Clickable 'Share Your Basket' button displayed in the top-right.
+    
+    &__button {
+        // .share-basket__button
+        @include appearance(none);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        font-weight: 600;
+        color: $tlc-blue;
+        cursor: pointer;
+        font-size: 15px;
+        user-select: none;
+        transition: all 0.2s ease;
+        margin-right: 20px;
+        padding: 0;
+        line-height: 1;
+        height: 100%;
+
+        @media #{$small} {
+            margin-right: 0;
+        }
+        
+        &:hover {
+            // .share-basket__button:hover
+            color: $bright-blue;
+            text-decoration-color: $bright-blue;
+        }
+        
+        &:after {
+            // .share-basket__button:after
+            font-family: "iconfont";
+            display: inline-block;
+            content: "\e93a";
+            color: $bright-blue;
+            padding-left: 10px;
+            font-size: 80%;
+        }
+        
+        .ajax-spinner {
+            // .share-basket__button .ajax-spinner
+            border-color: $tlc-blue $tlc-blue $tlc-blue transparent;
+            border-width: 2px;
+            width: 15px;
+            height: 15px;
+        }
+    }
+    
+    &__button-text {
+        // .share-basket__button-text
+        text-decoration: underline;
+        text-underline-position: under;
+        text-decoration-color: transparent;
+        white-space: nowrap;
+    }
+
+    &__text-desktop {
+        // .share-basket__text-desktop
+        // Text wrapper to adjust label length ('Share' on mobile 'Share Your Basket' on desktop).
+        @media #{$less-than-x-small} {
+            display: none;
+        }
+    }
+}
+
+
+//==============================================================================
+// Copy Link UI.
+//==============================================================================
+
+.share-basket-copy-link {
+    // Wrapper form element for feature to allow the user to select/copy a sharing URL.
+    font-size: 15px;
+    display: grid;
+    gap: 10px;
+    position: relative;
+
+    @media (min-width: 540px) {
+        grid-template-columns: auto 115px;
+    }
+
+    &__url {
+        // .share-basket-copy-link__url
+        // Container for the selectable URL.
+        display: inline-block;
+        min-height: 40px;
+        align-items: center;
+        background-color: $grey-98;
+        border-radius: 4px;
+        border: 1px solid $grey-86;
+        padding: 5px 10px;
+        color: $grey-40;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+        word-break: break-all;
+    }
+
+    &__button {
+        // .share-basket-copy-link__button
+        // 'Copy Link' button.
+        display: flex;
+        justify-content: center;
+        min-height: 40px;
+        user-select: none;
+        align-items: center;
+        color: #355C87;
+        border: none;
+        cursor: pointer;
+        padding: 0 10px 0 0;
+        border-radius: 4px;
+        background-color: $grey-96;
+        border: 1px solid $grey-93;
+
+        &:hover {
+            // .share-basket-copy-link:hover
+            background-color: $grey-93;
+        }
+
+        &:active {
+            // .share-basket-copy-link:active
+            background-color: $bright-blue;
+            color: white;
+        }
+
+        > .icon {
+            // .share-basket-copy-link > .icon
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+        }
+    }
+
+    &__notification {
+        // .share-basket-copy-link__notification
+        // 'Link copied' notification message (hidden by default).
+        display: flex;
+        align-items: center;
+        user-select: none;
+        background: $grey-20;
+        color: white;
+        border-radius: 4px;
+        padding: 0 10px;
+        font-size: 15px;
+        opacity: 0;
+        line-height: 1;
+        transform: translateY(3px);
+        transition: all 0.3s ease;
+
+        &.is-active {
+            // .share-basket-copy-link__notification.is-active
+            // Visible state.
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

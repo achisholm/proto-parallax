@@ -1,0 +1,292 @@
+//******************************************************************************
+// Order Placed / Quote Request Placed
+//
+// Order & Quote confirmation page. The last step in the checkout.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.card";
+@import "module.order-preview";
+@import "module.order-totals-table";
+@import "module.list";
+@import "module.tooltip-link";
+
+.order-confirmation {
+    // Page content container.
+    padding: 35px 20px 30px 20px;
+
+    @media #{$small} {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        column-gap: 20px;
+        grid-auto-flow: row dense;
+    }
+
+    &__sidebar {
+        // .order-confirmation__sidebar
+        // Sidebar container.
+
+        @media #{$small} {
+            grid-column: 2;
+            grid-row: 1 / span 10;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Order Confirmation header.
+//------------------------------------------------------------------------------
+
+.order-confirmation-header {
+    // Green panel with confirmation message and important information.
+    background: #95E7BB;
+    color: #204A35;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+
+    &__icon {
+        // .order-confirmation-header__icon
+        // Circle checkmark image in header.
+        position: absolute;
+        top: -25px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 50%;
+        width: 58px;
+        height: 58px;
+        background: #95E7BB;
+        border: $grey-96 6px solid;
+
+        &:before {
+            // .order-confirmation-header__icon:before
+            // Inner circle background.
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #75CC9D;
+        }
+
+        &:after {
+            // Checkmark SVG image.
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 34px;
+            height: 34px;
+            background-image: url(/Graphics/icon-check.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 18px;
+        }
+    }
+    
+    &__title {
+        // .order-confirmation-header__title
+        // "Order Placed" or "Quote Request Placed" text.
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 60px 20px 20px 20px;
+    }
+
+    &__secondary-title {
+        // .order-confirmation-header__secondary-title
+        // "Thank you..." text.
+        padding: 0 30px 20px;
+    }
+
+    &__message {
+        // .order-confirmation-header__message
+        // Body text container for various messages.
+        text-align: left;
+        background-color: rgba(white, 0.2);
+        padding: 20px;
+
+        a {
+            // .order-confirmation-header__message a
+            color: #204A35;
+            font-weight: 600;
+
+            &:hover {
+                // .order-confirmation-header__message a:hover
+                color: lighten(#204A35, 10%);
+            }
+        }
+
+        p {
+            // .order-confirmation-header__message p
+            margin-bottom: 15px;
+
+            &:last-child {
+                // .order-confirmation-header__message p:last-child
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
+// Order Summary card.
+//------------------------------------------------------------------------------
+
+.order-summary-card {
+    // Card containing some order information.
+    margin-bottom: 20px;
+    grid-column: 1;
+
+    &__header {
+        // .order-summary-card__header
+        // Order summary card header.
+        padding: 20px 20px 5px 20px;
+        border-bottom: 1px solid $grey-96;
+        display: flex;
+        flex-wrap: wrap;
+        
+        > .order-summary-card-item {
+            // .order-summary-card__header > .order-summary-card-item
+            margin-right: 20px;
+        }
+    }
+
+    &__body {
+        // .order-summary-card__body
+        // Order summary card body.
+        padding: 20px;
+
+        @media #{$large} {
+            display: flex;
+        }
+    }
+
+    &__info {
+        // .order-summary-card__info
+        // Order summary card info.
+        flex: 1;
+    }
+
+    &__column-container {
+        // .order-summary-card__column-container
+        // Order summary card column container.
+        
+        @media #{$large} {
+            column-count: 2;
+        }
+    }
+    
+    &__buttons {
+        // .order-summary-card__buttons
+        // Order summary card buttons.
+        
+        @media #{$small} {
+            flex: 0 0 200px;
+        }
+    }
+}
+
+.order-preview {
+    // Order preview (product images & counts).
+    margin-bottom: 20px;
+}
+
+.order-summary-card-item {
+    // .order-summary-card-item
+    // Label and value for each item in the order summary card.
+    @include break-inside(avoid);
+    padding-bottom: 10px;
+}
+
+.card-image {
+    // Visa / Mastercard image.
+    padding-right: 8px;
+    position: relative;
+    top: 4px;
+}
+
+//------------------------------------------------------------------------------
+// Feedback Survey form.
+//------------------------------------------------------------------------------
+
+.card-title {
+    // Card title.
+    font-weight: 600;
+    font-size: 18px;
+    padding-bottom: 10px;
+
+    small {
+        // .card-title small
+        // "(optional)" text.
+        font-weight: normal;
+        color: $grey-40;
+    }
+}
+
+.feedback-card {
+    // Feedback survey card.
+    grid-column: 1;
+
+    &__buttons {
+        // .feedback-card__buttons
+        // Feedback survey buttons container.
+        
+        @media #{$small} {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button {
+            // .feedback-card__buttons .button
+            flex: 0 1 250px;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Order Totals table.
+//------------------------------------------------------------------------------
+
+.order-totals {
+    // Order totals card.
+    width: 100%;
+    grid-column: 2;
+}
+
+//------------------------------------------------------------------------------
+// Sidebar panels.
+//------------------------------------------------------------------------------
+
+.express-checkout-card,
+.contact-card {
+    // Display express checkout cancel and contact cards in the sidebar.
+    grid-column: 2;
+}
+
+//------------------------------------------------------------------------------
+// "Print Your Order" iframe.
+//------------------------------------------------------------------------------
+
+.js-print-iframe {
+    // iframe used to print the order.
+    display: none;
+
+    @media print {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}

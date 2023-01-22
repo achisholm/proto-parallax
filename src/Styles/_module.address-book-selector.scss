@@ -1,0 +1,122 @@
+//==============================================================================
+// "Deliver My Order" Model Dialogue.
+//
+// Styles specific to content in the Delivery modal dialogue.
+//==============================================================================
+
+.address-book-selector {
+    // Radio-group style form UI for selecting a delivery address from
+    // customer's address book.
+
+    &__option {
+        // .address-book-selector__option
+        // An option in the list of addresses from the address book.
+        font-size: 16px;
+        border-bottom: 1px solid $grey-93;
+
+        &:last-child {
+            // .address-book-selector__option:last-child
+            // Removes bottom border of the last menu item.
+            border-bottom: none;
+        }
+    }
+
+    &__option-input {
+        // .address-book-selector__option
+        // The hidden radio input field.
+        display: none;
+    }
+
+    &__option-label {
+        // .address-book-selector__option-label
+        // The clickable area containing radio button and label text.
+        @include flexbox;
+        @include align-items(center);
+        cursor: pointer;
+
+        &:hover {
+            // .address-book-selector__option-label
+            background-color: rgba($tlc-blue, 0.05);
+        }
+
+        &:before {
+            // .address-book-selector__option-label:before
+            // Default state of the pseudo-element that forms the circular
+            // radio button.
+            @include flex(0, 0, auto);
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid $grey-86;
+            margin: 12px;
+            background-color: white;
+            transition-property: background-color, border-width;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+
+            @media #{$small} {
+                // Darken the radio button's border to increase contrast on the
+                // grey background.
+                border-color: $grey-67;
+            }
+        }
+    }
+
+    &__option-label-text {
+        // .address-book-selector__option-label-text
+        //
+        @include line-clamp(2);
+        margin: 8px 10px 8px 0;
+        line-height: 1.2;
+    }
+    
+    &__text-links {
+        // .address-book-selector__text-links
+        // Container for text links.
+        background: white;
+        position: sticky;
+        bottom: 0;
+    }
+    
+    &__text-link {
+        // .address-book-selector__text-link
+        // Hyperlink for "Add a new delivery address..." menu option.
+        display: block;
+        padding: 8px 40px;
+        text-decoration: none;
+        font-size: 15px;
+        background-color: white;
+        position: relative;
+        top: 1px;
+        
+        &:first-child {
+            // .address-book-selector__text-link:first-child
+            border-bottom: 1px solid $grey-93;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // Radio select option - "Selected" state.
+    //-----
+
+    &__option-input:checked+.address-book-selector__option-label {
+        // .address-book-selector__option__input:checked + .address-book-selector__option-label
+        // Checked / Selected state.
+        cursor: default;
+        background-color: $option-color-checked;
+
+        @media #{$small} {
+            background-color: white;
+            border-color: $grey-86;
+        }
+
+        &:before {
+            // .address-book-selector .option__input:checked + .option__label:before
+            // The radio button - Selected/Expanded state.
+            border-color: $tlc-blue;
+            border-width: 5px;
+        }
+    }
+}

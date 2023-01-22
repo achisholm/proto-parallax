@@ -1,0 +1,293 @@
+//******************************************************************************
+// Facet menu.
+//
+// Sidebar navigation menu for faceted product/category pages.
+//******************************************************************************
+
+
+//=============================================================================
+// Facet Menu.
+//=============================================================================
+
+.facet-menu-wrapper {
+    // Sidebar's left-aligned column container.
+    padding: 0 15px;
+    position: relative;
+    
+    @media #{$small} {
+        @include flexbox;
+        @include align-items(flex-start);
+        padding: 0;
+        margin-right: 13px;
+        position: relative;
+        width: 275px;
+        flex: 0 0 275px;
+    }
+
+    &.is-loading {
+        // .facet-menu-wrapper.is-loading
+        // State of facet menu before JSON has loaded.
+        min-height: 180px;
+
+        .facet-menu {
+            // .facet-menu-wrapper.is-loading .facet-menu
+            // Hide until JSON has loaded.
+            opacity: 0;
+        }
+
+        .loading-message {
+            // .facet-menu-wrapper.is-loading .loading-message
+            // Show "Loading..." message until JSON has loaded.
+            display: block;
+        }
+
+    }
+
+    .loading-message {
+        // .facet-menu-wrapper .loading-message
+        // 'Loading...' message shown before JSON has loaded.
+        display: none;
+        @include flex-direction(column);
+        @include align-items(center);
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100px;
+        height: 50px;
+        top: 25px;
+
+        @media #{$small} {
+            top: 75px;
+        }
+
+        &__spinner {
+            // .facet-menu-wrapper .loading-message__spinner
+            // Loading spinner.
+            @include flexbox;
+            margin: 0 auto 10px;
+            border-color: $grey-67 transparent $grey-67 $grey-67;
+            height: 15px;
+            width: 15px;
+            border-width: 3px;
+        }
+        
+        &__text {
+            // .facet-menu-wrapper .loading-message__text
+            // 'Loading...' text.
+            @include flexbox;
+            @include justify-content(center);
+            line-height: 1;
+            font-size: 12px;
+            color: $grey-67;
+            white-space: nowrap;
+        }
+    }
+}
+
+.facet-menu {
+    // The faceted search navigation menu.
+    @include flexbox;
+    @include flex-direction(column);
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 1px 6px hsla(0, 0%, 0%, 0.05),
+                0 5px 15px hsla(0, 0%, 0%, 0.01);
+    transition: opacity 0.5s ease;
+
+    @media #{$small} {
+        width: 275px;
+    }
+    
+    &__title {
+        // .facet-menu__title
+        // Sidebar title heading (e.g. 'Wall Lanterns Finder').
+        line-height: 1;
+        font-weight: 600;
+    }
+    
+    &__sub-title {
+        // .facet-menu__sub-title
+        // Sidebar sub-title heading (e.g. '99 products').
+        font-size: 14px;
+        line-height: 1;
+        margin-bottom: 10px;
+        color: $grey-40;
+    }
+}
+
+//=============================================================================
+// Facet Group.
+//=============================================================================
+
+.facet-group {
+    // Container for a facet group and title heading.
+
+    &:last-child {
+        // .facet-group:last-child
+        // No bottom padding for last facet group.
+        padding-bottom: 0;
+    }    
+
+    //-------------------------------------------------------------------------
+    // Facet Group Title.
+    //-----
+
+     &__title {
+        // .facet-group__title
+        // Facet group title heading.
+        font-variant-caps: all-small-caps;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+        border-bottom: 1px solid $grey-93;
+        color: $grey-30;
+    }
+
+    //-------------------------------------------------------------------------
+    // Facet Group Facets.
+    //-----
+
+    &__facets {
+        // .facet-group__facets
+        // Scrollable list of facets.
+        margin: 8px 0;
+        
+        @media #{$small} {
+            overflow-y: auto;
+            max-height: (25px * 8);
+            @include scrollbar(4px, 4px);
+        }
+
+        &--expanded {
+            // .facet-group__facets--expanded
+            max-height: none;
+        }
+    }
+ }
+
+
+//=============================================================================
+// Facet Field.
+//=============================================================================
+
+.facet-field {
+    // Menu item link in facet menu.
+    @include flexbox;
+    @include break-inside(avoid);
+    line-height: 20px;
+    height: 25px;
+    font-size: 15px;
+    color: inherit;
+    text-decoration: none;
+    margin-right: 5px;
+    position: relative;
+
+    &:hover,
+    &:focus {
+        // .facet-field:hover, 
+        // .facet-field:focus
+        outline: none;
+        color: inherit;
+        
+        .facet-field__label-text {
+            // .facet-field:hover .facet-field__label-text, 
+            // .facet-field:focus .facet-field__label-text
+            text-decoration: underline;
+        }
+    }
+    
+    
+    //-------------------------------------------------------------------------
+    // Facet Field Active (Selected) State.
+    //
+    // Menu item state shown when the facet/category has been selected.
+    //-----
+
+    &.is-active {
+        // .facet-field.is-active
+        // Facet item's selected state.
+        font-weight: bold;
+        border-radius: 5px;
+        padding-left: 5px;
+        background-color: $grey-93;
+
+        &:hover {
+            // .facet-field.is-active:hover
+            
+            &:after {
+                // .facet-field.is-active:hover:after
+                // Darken cross icon.
+                color: $grey-50;
+            }
+
+            .facet-field__label-text {
+                // .facet-field.is-active:hover .facet-field__label-text
+                text-decoration: none;
+            }
+        }
+
+        .facet-field__label {
+            // .facet-field.is-active .facet-field__label
+            padding-right: 25px;
+        }
+
+        &:after {
+            // .facet-field.is-active:after
+            // Right-aligned cross icon.
+            @include flexbox;
+            @include justify-content(center);
+            @include align-items(center);
+            font-family: "iconfont";
+            content: "\e919";
+            color: $grey-67;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            padding: 0 3px;
+            font-size: 10px;
+            padding-right: 8px;
+        }
+    }
+    
+    &__label {
+        // .facet-field__label
+        // Container for facet's title & product count.
+        @include flexbox;
+        @include align-items(center);
+        @include flex(1, 1, auto);
+        width: 100%;
+        padding-left: 5px;
+        cursor: pointer;
+        
+        &:hover {
+            // .facet-field__label:hover
+            
+            .facet-field__checkbox {
+                // .facet-field__label:hover .facet-field__checkbox
+                background-color: $grey-96;
+            }
+        }
+    }
+    
+    &__label-text {
+        // .facet-field__label-text
+        // The facet's title (e.g. 'Polished Chrome').
+        display: block;
+        @include flex(0, 1, auto);
+        @extend %text-truncated;
+    }
+    
+    &__count {
+        // .facet-field__count
+        // Text indicating product count (e.g. '(12)').
+        padding-left: 4px;
+        font-size: 0.8em;
+        color: $grey-56;
+        position: relative;
+        bottom: -1px;
+    }
+}

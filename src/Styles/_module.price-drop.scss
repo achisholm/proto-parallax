@@ -1,0 +1,92 @@
+//******************************************************************************
+// Product page.
+//
+// Price drop UI component with countdown timer.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.price-drop {
+    // Price drop wrapper.
+    display: inline-block;
+    border: 1px solid $tlc-red;
+    border-radius: 5px;
+    margin: 0 auto;
+    background-color: white;
+    
+    &__countdown {
+        // .price-drop__countdown
+        // Heading with countdown timer text.
+        white-space: nowrap;
+        padding: 5px 3px;
+        text-align: center;
+        border-radius: 4px 4px 0 0;
+        color: white;
+        background-color: $tlc-red;
+        font-weight: bold;
+    }
+
+    &__content {
+        // .price-drop__content
+        // Content wrapper containing text and price table.
+        @include flexbox;
+        @include justify-content(center);
+        border-radius: 0 0 4px 4px;
+        padding: 5px;
+    }
+
+    &__badge {
+        // .price-drop__badge
+        // Title of the offer e.g. "Weekend Special" or "Price Buster".
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include flex(0, 1, auto);
+        min-width: 60px;
+        background-color: $tlc-blue;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 3px;
+        text-align: center;
+        margin-right: 8px;
+        padding: 8px;
+    }
+    
+    &__price {
+        // .price-drop__price
+        // Wrapper for both old price and sale price.
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include flex(1, 0, auto);
+        text-align: center;
+        line-height: 1;
+    }
+    
+    &__old-price {
+        // .price-drop__old-price
+        // Displays the normal price crossed out.
+        white-space: nowrap;
+        text-decoration: line-through;
+        line-height: 10px;
+    }
+
+    &__promo-price {
+        // .price-drop__promo-price
+        // Displays the sale price in large, bold style.
+        white-space: nowrap;
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+    &__price-unit {
+        // .price-drop__price-unit
+        // Show the price unit (e.g. "EA" or "per 50m").
+        display: inline;
+        font-size: 10px;
+        margin-left: -5px;
+    }
+}

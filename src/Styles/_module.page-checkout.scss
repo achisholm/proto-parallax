@@ -1,0 +1,363 @@
+//******************************************************************************
+// Checkout pages.
+//
+//
+//******************************************************************************
+
+.page--checkout {
+    // <body> class for checkout pages
+    background-color: $grey-96;
+}
+
+//==============================================================================
+// Checkout Wrapper.
+//==============================================================================
+.checkout {
+    // Page wrapper used on the checkout pages (Steps 1-4).
+    @include clearfix;
+    clear: both;
+    padding: $base-padding;
+    margin: 0 auto;
+    @include flex(1, 0 , auto);
+
+    @media #{$small} {
+        padding: $base-padding ($base-padding * 3);
+        max-width: 1200px;
+    }
+
+    &--narrow {
+        // .checkout--narrow
+        max-width: 650px;
+    }
+
+    &--medium {
+        // .checkout--medium
+        max-width: 850px;
+    }
+
+    &--wide {
+        // .checkout--wide
+        @media #{$small} {
+            padding: $base-padding;
+        }
+    }
+
+    &__page-title {
+        // .checkout__page-title
+        // Appears once at the top of each checkout page
+        font-size: $base-padding;
+        font-weight: bold;
+        margin: 0 0 $primary-padding 0;
+
+        @media #{$small} {
+            font-size: 24px;
+            margin: $secondary-padding 0 $primary-padding 0;
+        }
+
+        &--order-placed {
+            // .checkout__page-title--order-placed
+            // Centered version used on the Order confirmation page.
+            text-align: center;
+            margin: 20px 0 35px 0;
+        }
+    }
+
+    &__title {
+        // .checkout__title
+        // Checkout Secondary title (<h2>)
+        // Caps & lined heading
+        // Used to break checkout pages into separate sections
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        padding: 10px 0 5px 0;
+        text-transform: lowercase;
+        font-variant: small-caps;
+        font-variant: all-small-caps;
+        letter-spacing: 1px;
+        border-bottom: 2px solid $grey-86;
+        color: #333;
+
+        @media #{$small} {
+            font-size: 24px;
+            margin-top: $secondary-padding;
+        }
+    }
+
+    small {
+        // Wrapper <small> tag for inline sub-heading content
+        display: inline-block;
+        font-variant: normal;
+        letter-spacing: 0;
+        font-size: 75%;
+        color: grey;
+        font-weight: normal;
+        text-transform: initial;
+    }
+
+    &__text {
+        // .checkout__text
+        // Standard checkout paragraph text
+        margin-bottom: $secondary-padding;
+
+        &--centered {
+            // .checkout__text--centered
+            text-align: center;
+        }
+    }
+}
+
+//==============================================================================
+// Section.
+//==============================================================================
+.section {
+    // multi-use container.
+    @include clearfix;
+
+    &__title {
+        // .section__title
+        // Checkout page title
+        // Appears once at the top of each checkout page
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 0 $primary-padding 0;
+
+        @media #{$small} {
+            font-size: 24px;
+        }
+    }
+
+    &--padding-mobile {
+        // .section--padding-mobile
+        // Gives the section 20px padding on mobile/tablet only.
+        @media #{$less-than-small} {
+            padding: $base-padding;
+        }
+    }
+
+    &--mobile-divider {
+        // .section--mobile-divider
+        // Gives the section a mobile divider at the bottom.
+        @extend %mobile-divider;
+    }
+}
+
+//==============================================================================
+// Order Summary (Step 2 of 4.)
+//==============================================================================
+.section--order-summary-total-mobile {
+    // Wrapper for the Total, mobile/tablet only
+    @media #{$small} {
+        display: none;
+    }
+}
+
+//==============================================================================
+// Checkout Panel.
+//==============================================================================
+.checkout-panel {
+    // Multi-use panel used for Collection branch details, Order information,
+    // and the Order total panels.
+    margin: $base-padding 0;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid $grey-86;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__item {
+        // .checkout-panel__item
+        word-break: break-word;
+        
+        @media #{$small} {
+            &:last-child p {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__title {
+        // .checkout-panel__title
+        font-weight: bold;
+    }
+
+    &__text {
+        // .checkout-panel__text
+        font-size: 14px;
+        margin-bottom: $secondary-padding;
+    }
+
+    p {
+        // paragraph text in an .checkout-panel
+        margin-bottom: $secondary-padding;
+        line-height: 1.4;
+    }
+
+    &--total-order {
+        // .checkout-panel--total-order
+        // A table displaying carriage, Sub-total, VAT & Order total
+        // only shown on mobile/tablet
+        width: 100%;
+        border-collapse: separate;
+        padding: 0;
+        margin: 20px 0;
+
+        tr:nth-last-child(2) {
+            td {
+                border: none;
+            }
+        }
+
+        .total-order__column-blank {
+            // blank table-cell left and right of the panel
+            width: 10%;
+        }
+
+        .total-order__column-title {
+            // table-cell containing the row title
+            border-bottom: 1px solid $grey-86;
+            padding: $secondary-padding;
+            width: 50%;
+        }
+
+        .total-order__column-value {
+            /// table-cell containing the value
+            text-align: right;
+            border-bottom: 1px solid $grey-86;
+            padding: $secondary-padding;
+            width: 30%;
+            color: #666;
+        }
+
+        .total-order__row-total {
+            // The last tr containing the Order Total
+            td {
+                // table cell withing the row-total row
+                border-bottom: none;
+                border-top: 1px solid $grey-86;
+                color: black;
+                padding-top: $base-padding;
+                padding-bottom: $base-padding;
+                font-weight: bold;
+
+                &:first-child {
+                    border-radius: 0 0 0 5px;
+                }
+
+                &:last-child {
+                    border-radius: 0 0 5px 0;
+                }
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Checkout page footer
+//
+// Container for the back & forward navigation buttons.
+//==============================================================================
+.checkout-footer {
+    // At the foot of every checkout page
+    @include row;
+    padding-top: $base-padding;
+
+    @media #{$less-than-small} {
+        // apply negative bottom margin to cancel out padding applied
+        // to .checkout container
+        margin-bottom: - $base-padding;
+    }
+
+    &__forward-link {
+        // .checkout-footer__forward-link
+        // Container for the "Next" button
+        @include column;
+        width: 100%;
+        overflow: hidden;
+
+        @media #{$small} {
+            @include column-span(6);
+            float: right;
+        }
+
+        @media #{$medium} {
+            @include column-span(5);
+        }
+
+        @media #{$large} {
+            @include column-span(4);
+        }
+
+        &.is-collapsed {
+            // .checkout-footer__forward-link.is-collapsed
+            // Hidden state.
+            opacity: 0;
+
+            @media #{$less-than-small} {
+                height: 0;
+            }
+        }
+
+        &.is-hidden {
+            // .checkout-footer__forward-link.is-hidden
+            // Required to remove element from the tab index.
+            visibility: hidden;
+        }
+    }
+
+    &__back-link {
+        // .checkout-footer__back-link
+        // Container for the "Back" button
+        clear: left;
+        width: auto;
+        display: block;
+        text-align: center;
+
+        @media #{$small} {
+            text-align: left;
+
+            &--centered {
+                // .checkout-footer__back-link--centered
+                text-align: center;
+            }
+        }
+    }
+
+    &__back-button {
+        // .checkout-footer__back-button
+        // Text link at the foot of the page for previous page.
+        display: inline-block;
+        text-align: center;
+        font-weight: normal;
+        font-size: 15px;
+        position: relative;
+        height: 45px;
+        line-height: 45px;
+        text-decoration: none;
+        padding: 0 30px;
+
+        &:before {
+            // back-facing chevron icon
+            @include icon;
+            font-size: .7em;
+            content: "\25c0";
+            transition: 0.2s left ease-in-out;
+            position: absolute;
+            display: block;
+            left: 15px;
+            top: 19px;
+            color: $tlc-blue;
+        }
+
+        &:hover {
+            // moves the chevron on hover
+            &:before {
+                left: 10px;
+                color: $tlc-red;
+            }
+        }
+    }
+}

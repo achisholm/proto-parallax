@@ -1,0 +1,240 @@
+//******************************************************************************
+// Clearance Stock page.
+//
+// List of discount and clearance products categorised into groups.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.group";
+@import "module.product-table";
+@import "module.quantity-control";
+@import "module.price-breaks";
+@import "module.price-drop";
+
+// Non-critical styles that could be deferred...
+@import "module.out-of-stock-modal";
+@import "module.add-to-basket-confirmation";
+
+.page-clearance {
+    // Clearance page content wrapper with site width wrapper containing series
+    // of product groups.
+    background-color: $grey-96;
+    padding: 20px 0;
+    border-top: 1px solid $grey-86;
+
+    @media #{$small} {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+//==============================================================================
+// Categories Menu.
+//
+// Menu located at the top of page with on-page links to each category on
+// the Clearance page.
+//==============================================================================
+
+.categories-menu {
+    // Quick link category menu's outer container.
+    width: 100%;
+    background-color: white;
+
+    &__title {
+        // .categories-menu__title
+        // "Clearance Categories" heading title.
+        font-weight: 700;
+        text-transform: lowercase;
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        margin-bottom: 5px;
+        color: $grey-40;
+    }
+
+    &__group {
+        // .categories-menu__group
+        // Inner container including the menu title and category-options
+        // inside .site-width-wrapper.
+        @include clearfix;
+        padding: 15px $base-padding;
+
+        @media #{$small} {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    &__group-options {
+        // .categories-menu__group-options
+        // Wrapper that contains set of menu items displayed in columns.
+        grid-column: 1 / 4;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-column-gap: 10px;
+        line-height: 2;
+        font-size: 0.9em;
+
+        // Fallback to CSS columns for when CSS grid isn't supported...
+
+        @media (min-width: 768px) {
+            @include column-count(2);
+        }
+
+        @media #{$medium} {
+            @include column-count(3);
+        }
+
+        @media #{$large} {
+            @include column-count(4);
+        }
+    }
+
+    &__group-options-overflow {
+        // .categories-menu__group-options-overflow
+        // Hidden container for menu items that are not shown on initial page-load.
+        // JavaScript employed to move contents into .categories-menu__group-options
+        //when the view more button is clicked.
+        display: none;
+    }
+
+    &__view-more-control {
+        // .categories-menu__view-more-control
+        // "View More" button that reveals expansive list of menu items on click.
+        @include appearance(none);
+        display: block;
+        font-size: 0.85em;
+        color: $grey-56;
+        background-color: transparent;
+        border: none;
+        padding: 0 15px 0 0;
+        margin: 0 0 -5px 0;
+        overflow: hidden;
+        outline: none;
+        position: relative;
+        cursor: pointer;
+        clear: left;
+
+        &:hover {
+            // .categories-menu__view-more-control:hover
+            text-decoration: underline;
+            color: $tlc-red;
+
+            .categories-menu__view-more-icon {
+                // .categories-menu__view-more-control:hover .categories-menu__view-more-icon
+                color: $grey-67;
+            }
+        }
+
+        &.is-hidden {
+            // .categories-menu__view-more-control.is-hidden
+            // View more button's "Hidden" state, applied by JavaScript on click.
+            opacity: 0;
+            height: 0;
+        }
+    }
+
+    &__view-more-icon {
+        // .categories-menu__view-more-icon
+        // The "View More" button's icon (downward triangle).
+        color: $grey-80;
+        font-size: 0.85em;
+        position: absolute;
+        right: 0;
+        top: 7px;
+    }
+
+    &__option {
+        // .categories-menu__option
+        // A category menu item (<a> hyperlink to each on-page category).
+        @include inline-flex;
+        @include flex-direction(row);
+        @include align-items(center);
+        @include break-inside(avoid);
+        position: relative;
+        text-decoration: none;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        float: left;
+        clear: left;
+        max-width: 100%;
+
+        &:hover {
+            // .categories-menu__option:hover
+
+            .categories-menu__option-title {
+                // .categories-menu__option:hover .categories-menu__option-title
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__option-title {
+        // .categories-menu__option-title
+        // Wrapper <span> for the category title text.
+        @extend %text-truncated;
+        color: $grey-20;
+    }
+
+    &__option-count {
+        // .categories-menu__option-count
+        // Label <span> positioned after each filter category with number of search results
+        color: $grey-67;
+        margin-left: 5px;
+    }
+}
+
+
+//==============================================================================
+// Product stock level.
+//
+//==============================================================================
+
+.product__stock-level {
+    // Stock level indicator text (e.g. "3 Left" or "1 Left").
+    display: block;
+    color: $tlc-red;
+}
+
+
+//==============================================================================
+// Group (Clearance).
+//
+// Variation of the .group UI component for categories on the Clearance page.
+//==============================================================================
+
+.group--clearance {
+    // A clearance page version of the group UI component.
+    border: none;
+
+    &:first-child {
+        // .group--clearance:first-child
+        // Remove top margin for the first group on the page.
+        margin-top: 0;
+    }
+
+    .group__heading {
+        // .group--clearance .group__heading
+        // Remove default bottom margin on group's heading and apply rounded
+        // top-corners on desktop view.
+        margin-bottom: 0;
+
+        @media #{$small} {
+            padding: 5px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+    }
+
+    .heading__title {
+        // .group--clearance .heading__title
+        // Slightly increased font-size for group's headings.
+        font-size: 16px;
+    }
+
+    .product-table {
+        // .group--clearance .product-table
+        // Remove any vertical space between group's heading and product table.
+        padding-top: 0;
+    }
+}

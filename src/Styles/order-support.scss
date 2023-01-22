@@ -1,0 +1,284 @@
+//******************************************************************************
+// Individual Order Customer Support form.
+//
+// 
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+@import "module.headings";
+
+//==============================================================================
+// Contact Form for sending order-specific messages to TLC Customer Services. 
+//==============================================================================
+.order-contact-form {
+    // Contact form container.
+    @include clearfix;
+    padding: 10px 12px 0 10px;
+    border-radius: 5px;
+    background-color: $grey-96;
+    border: 1px solid $grey-86;
+
+    @media #{$small} {
+        padding-bottom: 12px;
+    }
+
+//------------------------------------------------------------------------------
+// Contact Form Information Fields.
+//-----
+    &__field {
+        // 3x email-style informational fields at the the top of the contact form.
+        @include flexbox;
+        background-color: $grey-93;
+        border-radius: 3px;
+        margin-bottom: 5px;
+        padding: 5px;
+        font-size: 14px;
+    }
+    
+    &__field-label {
+        // .order-contact-field__label
+        // "To:", "From:" & "Subject:" text labels.
+        @include flex(0, 0, 65px);
+        font-weight: bold;
+        text-align: right;
+        padding-right: 6px;
+        color: $grey-20;
+    }
+    
+    &__field-text {
+        // .order-contact-field__value
+        // Text values 
+        @include flex(1, 1, auto);
+        @extend %text-truncated;
+        color: $grey-40;
+    }
+
+//------------------------------------------------------------------------------
+// Contact Form Textarea field.
+//-----
+    &__message-field .field__input {
+        // .order-contact-form__message-field .field__input
+        // Set a taller height for the message text area.
+        min-height: 180px;
+    }
+}
+
+//==============================================================================
+// Order Contact Form Buttons.
+//
+// Container for the "Cancel" & "Send Message" buttons at the foot of the form.
+//==============================================================================
+.order-contact-buttons {
+    // Container for "Cancel" & "Send Message" buttons at the foot of the contact form.
+    @include row;
+    
+//------------------------------------------------------------------------------
+// "Send Message" button.
+//-----
+    &__send {
+        // .order-contact-buttons__send
+        // Container for the "Send Message" button.
+        @include column;
+        width: 100%;
+
+        @media #{$small} {
+            @include column-span(8);
+            float: right;
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// "Cancel" button.
+//-----
+    &__cancel {
+        // .order-contact-buttons__cancel
+        // Container for the "Cancel" button.
+        clear: left;
+        width: auto;
+        display: block;
+        text-align: center;
+
+        @media #{$small} {
+            @include column-span(4);
+            text-align: left;
+        }
+    }
+    
+    &__cancel-button {
+        // .order-contact-buttons__cancel-button
+        // Text link at the foot of the page for previous page.
+        display: inline-block;
+        text-align: center;
+        font-weight: normal;
+        font-size: 15px;
+        position: relative;
+        height: 45px;
+        line-height: 45px;
+        text-decoration: none;
+        padding: 0 30px;
+
+        &:before {
+            // .order-contact-buttons__cancel-button:before
+            // Back-facing chevron icon.
+            @include icon;
+            font-size: .7em;
+            content: "\25c0";
+            transition: 0.2s left ease-in-out;
+            position: absolute;
+            display: block;
+            left: 15px;
+            top: 19px;
+            color: $tlc-blue;
+        }
+
+        &:hover:before {
+            // .order-contact-buttons__cancel-button:hover:before
+            // Moves the chevron on hover.
+            left: 10px;
+            color: $tlc-red;
+        }
+    }
+}
+
+//==============================================================================
+// Contact Form Page Footer.
+//
+// Alternative contact details, placed after the contact form.
+//==============================================================================
+
+.order-contact-footer {
+    // Container for the page footer content.
+    padding-top: 30px;
+
+    &__title {
+        // .order-contact-footer__title
+        // H2 heading reading "Other ways you can contact TLC".
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        padding-bottom: 3px;
+    }
+    
+    &__sub-title {
+        // .order-contact-footer__sub-title
+        // h3 heading reading "Any questions? We're always happy to help!"
+        text-align: center;
+        color: $grey-40;
+        margin-bottom: 25px;
+    }
+
+    &__details {
+        // .order-contact-footer__details
+        // Container for both phone number and email address.
+        @include flexbox;
+        @include flex-direction(column);
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 1.2;
+        text-align: center;
+
+        @media (min-width: 550px) {
+            @include flex-direction(row);
+            text-align: left;
+        }
+        
+        .icon {
+            // .order-contact-footer__details .icon
+            // Both headset & email icons.
+            padding-right: 6px;
+            color: $tlc-blue;
+            position: relative;
+            top: 3px;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Phone contact details.
+//-----
+    &__phone {
+        // .order-contact-footer__phone
+        // Contains a headset icon and phone number.
+        padding: 0 20px;
+    }
+    
+    &__small-text {
+        // .order-contact-footer__small-text
+        // Small text under the phone number showing opening hours.
+        font-weight: normal;
+        font-size: 11px;
+        color: $grey-56;
+        padding-left: 33px;
+    }
+
+//------------------------------------------------------------------------------
+// Email contact details.
+//-----
+    &__email {
+        // .order-contact-footer__email
+        // Contains an email icon and email address hyperlink.
+        padding: 0 20px;
+
+        a {
+            // .order-contact-footer__email a
+            // Email link style.
+            text-decoration: none;
+            color: black;
+
+            &:hover {
+                // .order-contact-footer__email a:hover
+                text-decoration: underline;
+                color: $tlc-red;
+            }
+            
+        }
+    }
+}
+
+//==============================================================================
+// Support Request Confirmation Page.
+// 
+// Landing page after customer writes message and clicks "Send Message" button,
+// with title "Support Request Received".
+//==============================================================================
+
+.page--flex {
+    // Make page vertically flexible.
+
+    @media #{$medium} {
+        @include flexbox;
+        @include flex-direction(column);
+        min-height: 100%;
+
+        > .navbar,
+        > .header-listings,
+        > .page-footer,
+         {
+            // Fix header & footer component's height.
+            @include flex(0,0,auto);
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Confirmation buttons wrapper.
+//-----
+.confirmation-buttons {
+    // Wrapper for two buttons "Review Your Order" & "Continue Shopping".
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+//------------------------------------------------------------------------------
+// Step Complete Icon page-specific style.
+//
+// Hide the icon for small mobile screens to prevent line-wrapping.
+//-----
+.step-complete-icon {
+    // Hidden for small mobile screens.
+    @media #{$less-than-x-small} {
+        display: none;
+    }
+}

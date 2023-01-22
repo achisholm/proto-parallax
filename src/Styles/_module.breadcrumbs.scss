@@ -1,0 +1,120 @@
+//******************************************************************************
+// Breadcrumbs.
+//
+// Main navigation menu on for desktop & mobile touch menu.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+//==============================================================================
+// Breadcrumbs Header.
+//
+// Navbar in header that contains breadcrumb nav &.m-menu.
+//==============================================================================
+
+.header-listings {
+    // <header> element at the top of every listings page
+    // Contains breadcrumbs and mega menu.
+    @include clearfix;
+    border-bottom: 1px solid $menu-border-color;
+    clear: both;
+    background-color: white;
+    font-size: 15px;
+    position: relative;
+    line-height: 40px;
+    
+    > .site-width-wrapper {
+        // .header-listings > .site-width-wrapper
+        @include flexbox;
+        @include justify-content (space-between);
+        @include flex-direction(column);
+        
+        @media #{$small} {
+            @include flex-direction(row);
+        }
+    }
+}
+
+//==============================================================================
+// Breadcrumbs
+//==============================================================================
+
+.breadcrumbs {
+    // Breadcrumb navigation <nav> element.
+    @include flexbox;
+    @include flex(0, 1, auto);
+    padding: 0 20px;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    
+    @media #{$small} {
+        padding: 0 0 0 0;
+        border-bottom: 0;
+    }
+    
+//==============================================================================
+// Breadcrumbs Unordered List.
+//==============================================================================
+
+    &__list {
+        // .breadcrumbs__list
+        // Breadcrumbs <ul> element.
+        @include flexbox;
+        width: 100%;
+        list-style: none;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+//==============================================================================
+// Breadcrumbs List Item.
+//==============================================================================
+    
+    &__item {
+        // .breadcrumbs__item
+        // Breadcrumb's <li> element.
+        @include inline-flex;
+        @include align-items(center);
+        
+        @media #{$small} {
+            border-bottom: 0;
+        }
+        
+        &:after {
+            // .breadcrumbs__item:after
+            // Chevron divider.
+            height: 12px;
+            width: 25px;
+            display: inline-block;
+            content: '';
+            position: relative;
+            top: 0px;
+            left: 2px;
+            background-image: url(/Graphics/icon-chevron.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        
+        &:last-of-type:after {
+            // .breadcrumbs__item:last-of-type:after
+            // Don't display the chevron for the deepest breadcrumb node.
+            display: none;
+        }
+    }
+
+//==============================================================================
+// Breadcrumb Anchor Link.
+//==============================================================================
+
+    &__link {
+        // .breadcrumbs__link
+        // Breadcrumb's <a> element.
+        color: $tlc-red;
+        
+        &:hover {
+            // .breadcrumbs__link
+            color: red;
+        }
+    }
+}

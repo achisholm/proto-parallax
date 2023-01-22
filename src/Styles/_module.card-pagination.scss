@@ -1,0 +1,95 @@
+//******************************************************************************
+// Card Pagination.
+//******************************************************************************
+
+.card-pagination {
+    // Card used to contain pagination controls dispalyed at foot of page.
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(space-between);
+    padding: 20px 20px;
+
+    @media #{$small} {
+        padding: 30px 40px;
+    }
+
+    &__description {
+        // .card-pagination__description
+        // text description of pagination (e.g. "Showing 1 to 50 of 57 orders".
+        padding-right: 10px;
+    }
+}
+
+
+.pagination {
+    // Container for pagination buttons.
+    @include flexbox;
+    @include flex(1, 1, auto);
+    @include justify-content(flex-end);
+    margin: 0 0 0 auto;
+
+    @media #{$small} {
+        @include justify-content(flex-end);
+    }
+
+    > :first-child {
+        // .pagination > :first-child
+        // Rounded left corners for first item.
+        border-radius: 8px 0 0 8px;
+    }
+    
+    > :last-child {
+        // .pagination > :last-child
+        // Rounded right corners for last item.
+        border-radius: 0 8px 8px 0;
+        border-right-width: 1px;
+    }
+    
+    &--mobile {
+        // .pagination--mobile
+        // The simplified pagination controls displayed on mobile/tablet.
+        @media #{$large} {
+            display: none;
+        }
+    }
+
+    &--desktop {
+        // .pagination--desktop
+        // The full pagination controls displayed on desktop screens.
+        @media #{$less-than-large} {
+            display: none;
+        }
+    }
+}
+
+.pagination-button {
+    // Pagination menu item – links to pages (e.g. '1', '2' etc.)
+    @include flex(0, 1, 50px);
+    @include user-select(none);
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: $grey-86;
+    padding: 15px;
+    text-decoration: none;
+    text-align: center;
+    color: $grey-86;
+
+    &--active {
+        // .pagination-button--active
+        // Pagination menu item state for the current page.
+        box-shadow: inset 0 -3px 0 0 $tlc-blue;
+        color: $tlc-blue;
+    }
+}
+
+a.pagination-button {
+    // Pagination links.
+    color: $grey-40;
+    cursor: pointer;
+
+    &:hover {
+        // a.pagination-button:hover
+        color: $grey-20;
+        background-color: $grey-98;
+    }
+}

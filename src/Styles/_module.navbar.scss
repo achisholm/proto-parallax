@@ -1,0 +1,233 @@
+//******************************************************************************
+// Navbar.
+//
+// The TLC website's header.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.navbar-links-menu";
+@import "module.navbar-primary-menu";
+@import "module.navbar-dropdown-menu";
+@import "module.navbar-category-menu";
+@import "module.navbar-mobile-menu";
+@import "module.navbar-user-account-menu";
+@import "module.badge";
+@import "module.navbar-search";
+@import "module.navbar-basket";
+
+@keyframes navbar-slide-in {
+    // Animation that fades in and slides upwards into place.
+    from {
+        opacity: 0.5;
+        top: -100px;
+    }
+    to {
+        opacity: 1;
+        top: 0;
+    }
+}
+
+.navbar {
+    // Container element for the site header.
+    background-color: $tlc-blue;
+    color: white;
+    font-size: 16px;
+    
+    &.is-fixed {
+        // .navbar.is-fixed
+        position: sticky;
+        animation-duration: 0.2s;
+        animation-timing-function: ease-in-out;
+        animation-name: navbar-slide-in;
+        top: 0px;
+        z-index: $z-sticky-navbar;
+    }
+
+    @media #{$small} {
+        font-size: 15px;
+    }
+
+    &__container {
+        // .navbar__container
+        // Container to constrain & centre the site header content.
+        display: grid;
+        grid-template-columns: 3fr 2fr 3fr;
+        grid-template-rows: 50px 45px;
+        align-items: center;
+        padding-bottom: 10px;
+        
+        @media #{$small} {
+            height: 100px;
+            grid-template-columns: 90px auto 1fr auto auto;
+            grid-template-rows: 40% 60%;
+        }
+        
+        @media (min-width:800px) and (max-width: 920px) {
+            grid-template-rows: 50% 50%;
+            grid-template-columns: auto 1fr auto auto;
+        }
+
+        @media (min-width: 1000px) {
+            grid-template-columns: 115px minmax(auto, 205px) minmax(auto, 525px) auto 140px;
+        }
+    }
+
+    &__logo {
+        // .navbar__logo
+        // TLC logo.
+        @include user-select(none);
+        display: block;
+        background-image: url(/Graphics/tlc-logo-v4.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        text-indent: -9999px;
+        overflow: hidden;
+        color: transparent;
+        margin: auto;
+        max-width: 80px;
+        width: 100%;
+        height: 40px;
+        
+        @media #{$small} {
+            height: 100%;
+            margin: 0;
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            align-self: center;
+            margin-top: 5px;
+            max-width: 70px;
+        }
+
+        @media (min-width: 800px) and (max-width: 920px) { 
+            grid-row: 1 / 2;
+        }
+
+        
+        @media (min-width: 1000px) {
+            margin-top: 10px;
+            max-width: 110px;
+        }
+    }
+    
+    &__branding {
+        // .navbar__branding
+        // "Electrical Supplies direct" SVG image.
+        display: none;
+        background-image: url(/Graphics/electrical-supplies-direct-v3.svg);
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        grid-column: 2 / -1;
+        grid-row: 1 / 2;
+        align-self: center;
+        height: 23px;
+        
+        @media (min-width: 970px) {
+            display: block;
+            width: 200px;
+        }
+        
+        @media (min-width: 1030px) {
+            width: 260px;
+        }
+        
+        @media (min-width: 1125px) {
+            padding-top: 35px;
+            width: 350px;
+        }
+    }
+
+    &__contact {
+        // .navbar__contact
+        // Container for link to Customer Services contact information.
+        // Deprecated in the standard header, but still used in the checkout header.
+        display: none;
+
+        @media #{$small} {
+            @include flexbox;
+            @include flex(0, 0, auto);
+            height: 50px;
+            border-width: 0 1px;
+            border-style: solid;
+            border-color: $border-blue;
+            padding: 0 14px 8px 50px;
+            background-image: url(/Graphics/icon-headset.svg);
+            background-repeat: no-repeat;
+            background-position: 13px center;
+            line-height: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            margin-left: auto;
+
+            &:hover {
+                color: white;
+                background-color: rgba(white, 0.1);
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // .navbar--minimal
+    //
+    // Hides the navbar's search, button & menu controls. Used on checkout pages
+    // in the funnel.
+    //-----
+
+    &--minimal {
+        // .navbar--minimal
+        border-bottom: 5px solid $tlc-red;
+        
+        .navbar__container {
+            // .navbar--minimal .navbar__container
+            display: flex;
+            height: 55px;
+            position: relative;
+            padding-bottom: 0;
+            
+            @media #{$small} {
+                padding-left: 135px;
+            }
+        }
+    
+        .navbar__logo {
+            // .navbar--minimal .navbar__logo
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            @media #{$small} {
+                top: 0;
+                left: 20px;
+                right: auto;
+                max-width: 110px;
+                height: 80px;
+            }
+        }
+
+        .navbar__branding {
+            // .navbar--minimal .navbar__branding
+
+            @media #{$small} {
+                display: block;
+                width: 350px;
+            }
+
+            @media (min-width: 950px) {
+                width: 450px;
+            }
+        }
+
+        .navbar-basket {
+            // .navbar--minimal .navbar-basket
+            border-radius: 0;
+            padding: 0 15px 0 15px;
+        }
+    }
+}

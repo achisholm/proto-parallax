@@ -1,0 +1,471 @@
+//******************************************************************************
+// Basket.
+//
+// Basket component on the Your Order page.
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+// Basket item column widths.
+//-----
+
+// Image widths.
+$basket-image-width    : 40px;
+$basket-image-width-2  : 60px;
+$basket-image-width-3  : 80px;
+
+// 'Order Code' width.
+$basket-order-code-width  : 150px;
+
+// 'Price' column width.
+$basket-price-width       : 120px;
+
+// 'Quantity' column width
+$basket-qty-width         : 100px;
+
+// 'Total' column width.
+$basket-total-width       : 80px;
+$basket-total-width-2     : 100px;
+$basket-total-width-3     : 120px;
+
+// Remove column width.
+$basket-remove-width      : 30px;
+
+//------------------------------------------------------------------------------
+// Colour vars.
+//-----
+
+$basket-row-highlight     : #fff7eb;
+$basket-row-invalid       : #fcedee;
+
+$basket-background-color  : #f9f9f9;
+$basket-border-color      : #dcdcdc;
+$basket-dark-color        : #5e5e5e;
+
+//==============================================================================
+// Imports.
+//==============================================================================
+
+@import "module.basket-item";
+@import "module.basket-qty-spinner";
+@import "module.basket-remove-button";
+
+@import "module.quick-order-entry";
+@import "module.price-breaks";
+
+@import "module.reusable-bag-entry";
+@import "module.basket-alert";
+@import "module.basket-totals";
+
+
+//==============================================================================
+// Basket Container / Table.
+//==============================================================================
+.basket {
+    // The basket table containing thead, tbody & tfoot.
+
+    @media #{$small} {
+        border: 1px solid $grey-86;
+        border-radius: 5px;
+        background-color: $basket-background-color;
+    }
+
+//------------------------------------------------------------------------------
+// Basket Table Header.
+//-----
+    &__thead {
+        // .basket__thead
+        // Table header row containing column headings.
+        @include flexbox;
+        font-size: 15px;
+        line-height: 1;
+        font-variant: small-caps;
+        font-variant: all-small-caps;
+        text-transform: lowercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+        width: 100%;
+        border-width: 1px 0;
+        border-style: solid;
+        border-color:  $grey-86;
+        background-color: $grey-96;
+        overflow: hidden;
+        
+        @media #{$small} {
+            border-radius: 4px 4px 0 0;
+            border-width: 0 0 1px 0;
+        }
+
+        @media #{$medium} {
+            padding: 0 10px;
+            background-color: $grey-94;
+            border-width: 0 0 3px 0;
+            border-color: $grey-93;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Basket Table Header Row Cells.
+//-----
+    &__th {
+        // .basket__th
+        // Basket's table header row cell.
+        @include flex(0, 0, auto);
+        padding: 0 10px;
+        line-height: 40px;
+        white-space: nowrap;
+
+        @media #{$medium} {
+            line-height: 32px;
+            font-weight: bold;
+        }
+        
+        &--title {
+            // .basket__th--title
+            @include flex-grow(1);
+
+            @media #{$medium} {
+                display: none;
+            }
+        }
+        
+        &--image {
+            // .basket__th--image
+            // Image table header cell (empty).
+            display: none;
+            width: $basket-image-width;
+
+            @media #{$medium} {
+                display: block;
+            }
+        }
+        
+        &--order-code {
+            // .basket__th--order-code
+            // Order Code table header cell.
+            display: none;
+            width: $basket-order-code-width;
+            
+            @media #{$medium} {
+                display: block;
+            }
+        }
+        
+        &--description {
+            // .basket__th--description
+            // Description table header cell.
+            display: none;
+
+            @media #{$medium} {
+                display: block;
+            }
+        }
+
+        &--price {
+            // .basket__th--price
+            // Price table header cell.
+            width: $basket-price-width;
+            text-align: right;
+            margin-left: auto;
+            transition: background-color 0.2s ease;
+
+            @media (max-width: $basket-bp-4 - 1) {
+                display: none;
+            }
+
+            &:hover {
+                // .basket__th--price:hover
+                background-color: rgba(black, 0.025);
+                cursor: pointer;
+
+                .vat-preference-text__value {
+                    // .basket__th--price:hover .vat-preference-text__value
+                    color: $bright-blue;
+                    border-bottom-color: $bright-blue;
+                }
+            }
+        }
+        
+        &--qty {
+            // .basket__th--qty
+            // Quantity table header cell.
+            text-align: center;
+            width: $basket-qty-width;
+
+            @media (max-width: $basket-bp-4 - 1) {
+                display: none;
+            }
+        }
+        
+        &--total {
+            // .basket__th--total
+            // Total table header cell.
+            text-align: right;
+            width: $basket-total-width-2;
+
+            @media (max-width: $basket-bp-4 - 1) {
+                display: none;
+            }
+
+            @media #{$medium} {
+                width: $basket-total-width-3;
+                background-color: rgba(black, 0.02);
+            }
+        }
+        
+        &--remove {
+            // .basket__th--remove
+            // Remove button table header cell (empty).
+            text-align: center;
+            border-top-right-radius: 4px;
+            display: none;
+
+            @media #{$medium} {
+                display: block;
+                width: $basket-remove-width;
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Table body.
+//==============================================================================
+.basket__tbody {
+    // Table body (container for product rows).
+    font-size: 15px;
+    line-height: 1;
+
+//------------------------------------------------------------------------------
+// Table body "Empty" & "Loading" states.
+//-----
+     &.is-empty,
+     &.is-loading {
+         // .basket__tbody.is-empty, .basket__tbody.is-loading
+         // "Empty" & "Loading" states for the basket table tbody.
+         color: $grey-67;
+         padding: 30px 0;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         min-height: 10vw;
+        
+        @media (max-width: $basket-bp-6 - 1) {
+            background-color: white;
+            border-bottom: 1px solid $grey-93;
+        }
+         
+         @media (min-width: $basket-bp-6) {
+            padding-bottom: 15px;
+         }
+     }
+}
+
+.order-loading {
+    // Loading spinner displayed while the basket loads.
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .ajax-spinner {
+        // .order-loading .ajax-spinner
+        border-color: $tlc-blue $tlc-blue $tlc-blue transparent;
+        margin-bottom: 20px;
+        border-width: 2px;
+        width: 15px;
+        height: 15px;
+    }
+}
+
+
+//==============================================================================
+// Table footer.
+//
+//==============================================================================
+
+.basket__tfoot {
+    // Table footer (container for quick order entry, catalogue checkbox, 
+    // basket totals, checkout buttons & continue shopping button).
+
+    @media (min-width:$basket-bp-4) {
+        display: grid;
+        @include justify-content(space-between);
+        grid-column-gap: 10px;
+        grid-template-columns: 1fr minmax(320px, 1fr);
+        grid-template-rows: auto auto auto auto;
+    }
+
+    @media #{$small} {
+       padding-bottom: 20px; 
+    }
+
+    @media (min-width:$basket-bp-6) {
+        grid-template-columns: 1fr 350px;
+        grid-column-gap: 20px;
+        padding: 15px 20px 25px 20px;
+    }
+    
+    @media #{$large} {
+        padding-right: 40px;
+    }
+}
+
+
+//==============================================================================
+// TLC Catalogue checkbox.
+//
+// Checkbox field labelled "Send me a FREE copy of the TLC Catalogue".
+//==============================================================================
+
+.catalogue-preference {
+    // Div container for checkbox and labels.
+    font-size: 15px;
+    @include flexbox;
+    @include align-items(center);
+    margin-bottom: 10px;
+
+    @media (max-width: $basket-bp-6 - 1) {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    &__image {
+        // .catalogue-preference__image
+        // Label wrapping the catalogue image.
+
+        > img {
+            // .catalogue-preference__image > img
+            // Latest catalogue cover.
+            display: block;
+            max-width: 50px;
+            margin-right: 3px;
+        }
+    }
+
+    &__label {
+        // .catalogue-preference__label
+        // The label element surrounding the checkbox text.
+        font-weight: normal;
+    }
+}
+
+//==============================================================================
+// "Continue Shopping" button.
+//==============================================================================
+
+.basket__back-button {
+    // "Continue Shopping" button.
+    grid-row: 5/5;
+    margin: 8px 15px 0;
+    width: auto;
+    padding: 0 30px 0 50px;
+    max-width: 320px;
+    
+    @media (min-width: 350px) and (max-width: $basket-bp-4 - 1) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (min-width: $basket-bp-4) {
+        justify-self: start;
+    }
+
+    @media (min-width: $basket-bp-6) {
+        width: auto;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+//==============================================================================
+// "Spend another £xx.xx for FREE delivery" message.
+//==============================================================================
+.free-delivery-message {
+    // Message with van icon positioned above basket totals table.
+    font-size: 15px;
+    display: none;
+    text-align: center;
+    padding-bottom: 15px;
+    width: 100%;
+
+    @media (min-width: $basket-bp-4) {
+        display: block;
+    }
+    @media #{$small} {
+        margin-top: -10px;
+    }
+    
+    &__icon {
+        // .free-delivery-message__icon
+        // Van icon.
+        font-size: 2em;
+        line-height: 1;
+        padding-right: 5px;
+        position: relative;
+        top: 9px;
+    }
+}
+
+//==============================================================================
+// "OR" text.
+//==============================================================================
+
+.basket-or-text {
+    // Container for "or" text divider.
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+//==============================================================================
+// VAT Preference Text Labels.
+//==============================================================================
+
+.vat-preference-text {
+    // Clickable control to bring up 'VAT Preference' form in a modal dialog.
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    
+    &__value {
+        // .vat-preference-text__value
+        // Span text wrapper containing currently selected preference ('inc VAT' 
+        // or 'ex VAT').
+        color: $tlc-blue;
+        border-bottom: 1px $tlc-blue dotted;
+        line-height: 1;
+        display: inline-block;
+        margin-bottom: -1px;
+        font-weight: normal;
+    }
+    
+    &:hover {
+        // .vat-preference-text:hover
+        
+        .vat-preference-text__value {
+            // .vat-preference-text:hover .vat-preference-text__value
+            color: $bright-blue;
+            border-color: $bright-blue;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // VAT Preference table heading modifier.
+    //
+    // Style adjustments for the VAT Preference label shown in the 'Price' table 
+    // heading.
+    //-----
+
+    &--table-heading {
+        // .vat-preference-text--table-heading
+        font-size: 13px;
+        
+        .vat-preference-text__value {
+            // .vat-preference-text--table-heading:hover .vat-preference-text__value
+            border-bottom-color: $grey-67;
+        }
+    }
+}

@@ -1,0 +1,305 @@
+//******************************************************************************
+// Authorise this device form.
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+//==============================================================================
+// Page container.
+//==============================================================================
+
+.flex-container {
+    // Page content wrapper.
+    display: flex;
+    background: linear-gradient($tlc-blue 75%, #000044 100%);
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    
+    @media #{$x-small} {
+        padding: 20px;
+    }
+}
+
+//==============================================================================
+// TLC Logo.
+//==============================================================================
+
+.tlc-logo {
+    // TLC logo.
+    background-image: url(/Graphics/tlc-logo-v4.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 80px;
+    height: 40px;
+    display: block;
+
+    @media #{$x-small} {
+        width: 120px;
+        height: 70px;
+    }
+}
+
+//==============================================================================
+// Circle svg icons.
+//==============================================================================
+
+.circle-icon {
+    // Circular icon located in panel header.
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    
+    @media #{$x-small} {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+//==============================================================================
+// Content container.
+//==============================================================================
+
+.panel {
+    // Content container centered in the document
+    background: white;
+    margin: 10px auto 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 550px;
+    width: 100%;
+    box-shadow: 0 10px 20px 20px rgba(black, 0.1);
+    text-align: center;
+    
+    @media #{$x-small} {
+        margin-top: 20px;
+    }
+
+    &__heading {
+        // .panel__heading
+        // Panel's text heading.
+        font-size: 20px;
+        display: inline-block;
+        border-bottom: 1px solid rgba($tlc-blue, 0.1);
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+
+        @media #{$x-small} {
+            font-size: 24px;
+        }
+    }
+
+    &__message {
+        // Panel's main message/body text.
+        // .panel__message
+        font-size: 13px;
+        max-width: 340px;
+        margin: auto;
+        
+        @media #{$x-small} {
+            font-size: 16px;
+            max-width: 400px;
+        }
+        
+        p {
+            // .panel__message p
+            padding-bottom: 15px;
+            line-height: 1.4;
+        }
+    }
+
+    &__fieldset {
+        // Fieldset for form fields.
+        // .panel__fieldset
+        max-width: 250px;
+        margin: auto;
+    }
+    
+    &__link {
+        // Panel's hyperlink style.
+        // .panel__link
+        color: rgba($tlc-blue, 0.5);
+        
+        &:hover {
+            // .panel__link:hover
+            color: rgba($tlc-blue, 0.7);
+        }
+        
+    }
+
+    &__alert {
+        // .panel__alert
+        // Grey-background content container.
+        background: $grey-98;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+}
+
+//==============================================================================
+// 'Authorise this device' form.
+//==============================================================================
+
+.device-auth-form {
+    // Form for submitting 6-digit verification code.
+    height: auto;
+    opacity: 1;
+    overflow: hidden;
+    
+    &.is-collapsed {
+        // .device-auth-form.is-collapsed
+        opacity: 0;
+        height: 0;
+    }
+    
+    &.is-hidden {
+        // .device-auth-form.is-hidden
+        // Remove element from the tab index.
+        visibility: hidden;
+    }
+
+    &__text-small {
+        // .device-auth-form__text-small
+        font-size: 12px;
+        max-width: 275px;
+        line-height: 1.4;
+        margin: 10px auto;
+        color: $grey-30;
+
+        @media #{$x-small} {
+            max-width: 320px;
+            font-size: 14px;
+            margin: 30px auto;
+        }
+    }
+}
+
+//==============================================================================
+// Loading state.
+//==============================================================================
+
+.device-auth-loading {
+    // Loading state.
+    height: auto;
+    opacity: 1;
+    overflow: hidden;
+    
+    &.is-collapsed {
+        // .device-auth-loading.is-collapsed
+        opacity: 0;
+        height: 0;
+    }
+
+    &.is-hidden {
+        // .device-auth-loading..is-hidden
+        // Remove element from the tab index.
+        visibility: hidden;
+    }
+
+    &__heading {
+        // .device-auth-loading__heading
+        padding-top: 30px;
+        font-size: 24px;
+    }
+
+    &__message {
+        // .device-auth-loading__message
+        padding-bottom: 30px;
+    }
+
+    &__spinner-container {
+        // .device-auth-loading__spinner-container
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        .ajax-spinner {
+            // .device-auth-loading__spinner-container .ajax-spinner
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    &__form {
+        // .device-auth-loading__form
+        // Hidden form.
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+//==============================================================================
+// 'Device successfully added' message.
+//==============================================================================
+
+.device-auth-success {
+    // Thank you / confirmation message with 'Continue' button.
+    height: auto;
+    opacity: 1;
+    overflow: hidden;
+
+    &.is-collapsed {
+        // .device-auth-success.is-collapsed
+        opacity: 0;
+        height: 0;
+    }
+
+    &.is-hidden {
+        // .device-auth-success.is-hidden
+        // Remove element from the tab index.
+        visibility: hidden;
+    }
+    
+    &__message {
+        // .device-auth-success__message
+        // "The device has been added to your trusted devices..." message.
+        max-width: 260px;
+
+        @media #{$x-small} {
+            max-width: 310px;
+        }
+    }
+}
+
+//==============================================================================
+// 'Invalid' message.
+//==============================================================================
+
+.device-auth-invalid {
+    //
+    height: auto;
+    opacity: 1;
+    overflow: hidden;
+
+    &.is-collapsed {
+        // .device-auth-invalid.is-collapsed
+        opacity: 0;
+        height: 0;
+    }
+
+    &.is-hidden {
+        // .device-auth-invalid.is-hidden
+        // Remove element from the tab index.
+        visibility: hidden;
+    }
+}
+
+//==============================================================================
+// Page footer text.
+//==============================================================================
+
+.panel-footer {
+    // Footer text, below panel.
+    font-size: 14px;
+    color: rgba(white, 0.3);
+    width: 100%;
+    text-align: center;
+}

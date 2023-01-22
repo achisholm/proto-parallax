@@ -1,0 +1,220 @@
+---
+// import logo from './logo.svg';
+import '/src/Styles/_module.navbar.scss';
+import '/src/Styles/_module.search-autosuggest.scss';
+
+---
+
+<!-- Start Template Header -->
+<header class="navbar">
+  <div class="site-width-wrapper navbar__container">
+    <div class="navbar-button js-mobile-menu-button">
+      <span class="navbar-button__icon icon icon--menu"></span>
+    </div>
+    <a class="navbar__logo" href="/" title="TLC home"></a>
+    <span class="navbar__branding"></span>
+    <nav class="secondary-menu">
+      <a class="secondary-menu__item" href="/Information/Services/Default.htm">
+        <div class="secondary-menu__icon icon icon--help"></div>
+        <div class="secondary-menu__text text-bold">Customer Services</div>
+      </a>
+      <a class="secondary-menu__item" href="/contact/">
+        <div class="secondary-menu__icon icon icon--headset"></div>
+        <div class="secondary-menu__text">Contact Us</div>
+      </a>
+      <a class="secondary-menu__item" href="/Information/branches/">
+        <div class="secondary-menu__icon icon icon--pin"></div>
+        <div class="secondary-menu__text">Branch Finder</div>
+      </a>
+      <a class="secondary-menu__item" href="/tcl/my-order#quick-entry">
+        <div class="secondary-menu__icon icon icon--cart"></div>
+        <div class="secondary-menu__text">Quick Entry</div>
+      </a>
+      <a class="secondary-menu__item" href="/Information/delivery/Delivery.htm">
+        <div class="secondary-menu__icon icon icon--export"></div>
+        <div class="secondary-menu__text">Delivery &amp; Stock</div>
+      </a>
+    </nav>
+    <nav class="primary-menu">
+      <div class="primary-menu__item primary-menu__item--home">
+        <a class="primary-menu__home-link" href="/">Home</a>
+        <div class="primary-menu__dropdown-control menu-dropdown-parent js-category-menu-control" tabindex="0">
+          <div class="primary-menu__icon icon icon--chevron-down"></div>
+        </div>
+        <div class="menu-dropdown-container">
+          <div class="category-menu menu-dropdown js-category-menu is-loading">
+            <p class="navbar-mobile-menu__title">All Categories A–Z</p>
+            <div class="category-menu__grid-container js-category-menu-container">
+              <span class="ajax-spinner ajax-spinner--dark"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="primary-menu__item primary-menu__item--offers menu-dropdown-parent" tabindex="0">
+        Offers<div class="primary-menu__icon icon icon--chevron-down"></div>
+        <div class="menu-dropdown-container">
+          <div class="menu-dropdown">
+            <a class="menu-dropdown__link" href="/Main_Index/Special_Offers/">Special Offers</a>
+            <a class="menu-dropdown__link" href="/Main_Index/Whats_New/">What's New</a>
+            <a class="menu-dropdown__link" href="/Main_Index/Clearance_Home/">Clearance</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <form class="navbar-search js-navbar-search" action="/tcl/search" method="get">
+      <input class="navbar-search__input js-navbar-search-input" type="text" name="query" placeholder="Search 17,000 products on TLC Direct…" data-placeholder-long="Search 17,000 products on TLC Direct…" data-placeholder-short="Search" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" autosave="off" />
+      <button class="navbar-search__button-submit" type="submit" title="Search">
+        <span class="icon icon--magnify"></span>
+      </button>
+      <div class="autosuggest js-search-autosuggest">
+        <div class="autosuggest-result js-autosuggest-result template js-autosuggest-result" data-value="">
+          <div class="autosuggest-result__image js-autosuggest-result-image">
+            <img src="data:," alt="" />
+          </div>
+          <div class="autosuggest-result__text">
+            <div class="autosuggest-result__title js-autosuggest-result-title"></div>
+            <div class="autosuggest-result__description js-autosuggest-result-description"></div>
+          </div>
+          <div class="autosuggest-result__aside js-autosuggest-result-aside">
+            <div class="autosuggest-result__aside-image js-autosuggest-result-aside-image">
+              <img src="data:," alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="autosuggest__results js-search-autosuggest-results"></div>
+      </div>
+    </form>
+    <div class="navbar-account-menu menu-dropdown-parent js-navbar-account is-loading">
+      <div class="navbar-account-menu__content navbar-account-menu__content--guest">
+        <div class="navbar-account-menu__icon">
+          <div class="icon icon--user-circle"></div>
+        </div>
+        <div class="navbar-account-menu__text">
+          <div class="navbar-account-menu__text-line-1">
+            Hello,&nbsp;<a class="js-navbar-sign-in-link" href="/tcl/user/sign-in">Sign In</a>
+          </div>
+          <div class="navbar-account-menu__text-line-2">
+            or&nbsp;<a class="js-navbar-register-link" href="/tcl/user/register">Register</a>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-account-menu__content navbar-account-menu__content--signed-in">
+        <div class="navbar-account-menu__icon">
+          <div class="icon icon--user-circle"></div>
+        </div>
+        <div class="navbar-account-menu__text">
+          <div class="navbar-account-menu__text-line-1">
+            Hello&nbsp;<span class="text-semibold navbar-account-menu__name js-navbar-account-name"></span>
+          </div>
+          <div class="navbar-account-menu__text-line-2 text-bold">My Account</div>
+        </div>
+        <div class="navbar-account-menu__icon">
+          <div class="icon icon--chevron-down"></div>
+        </div>
+        <div class="menu-dropdown-container">
+          <div class="menu-dropdown">
+            <div class="my-account-menu">
+              <div class="my-account-menu__column">
+                <a class="menu-dropdown__link text-bold" href="/tcl/my-account">My Account</a>
+                <a class="menu-dropdown__link" href="/tcl/personal-details">Personal Details</a>
+                <a class="menu-dropdown__link" href="/tcl/address-book">Address Book</a>
+                <a class="menu-dropdown__link" href="/tcl/card-details">Card Details</a>
+                <a class="menu-dropdown__link" href="/tcl/vat-preference">VAT Preference</a>
+                <a class="menu-dropdown__link" href="/tcl/update-password">Update Password</a>
+                <div class="my-account-menu__column-footer">
+                  <form class="form-action-link js-navbar-sign-out-form" action="/tcl/user/sign-out" method="POST">
+                    <input class="form-action-link__input menu-dropdown__link p-b-0" type="submit" value="Sign Out" />
+                    <input type="hidden" name="next_url" value="/" />
+                  </form>
+                </div>
+              </div>
+              <div class="my-account-menu__column">
+                <a class="menu-dropdown__link text-bold" href="/tcl/my-orders">My Orders</a>
+                <a class="menu-dropdown__link js-navbar-account-in-progress-orders is-hidden" href="/tcl/my-orders#in-progress">In-Progress<div class="badge"></div></a>
+                <a class="menu-dropdown__link" href="/tcl/my-orders#order-history">Order History</a>
+                <a class="menu-dropdown__link js-navbar-account-open-orders" href="/tcl/open-orders">Open Orders<div class="badge badge--inverted"></div></a>
+                <div class="my-account-menu__column-footer">
+                  <a class="menu-dropdown__link" href="/tcl/previous-purchases">Previous Purchases</a>
+                  <a class="menu-dropdown__link" href="/tcl/return-requests/new">Start a Return</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="navbar-basket js-navbar-basket is-loading" href="/tcl/my-order">
+      <div class="navbar-basket__icon icon icon--cart">
+        <div class="navbar-basket__count js-navbar-basket-count">
+          <span class="ajax-spinner"></span>
+        </div>
+      </div>
+      <div class="navbar-basket__total js-navbar-basket-total">
+        <span class="ajax-spinner"></span>
+      </div>
+    </a>
+    <div class="navbar-mobile-menu js-mobile-menu is-hidden">
+      <div class="navbar-mobile-menu__header">
+        <span class="navbar-mobile-menu__header-user-icon icon icon--user-circle"></span>
+        <span class="js-mobile-menu-welcome">Hello. <a href="/tcl/user/sign-in">Sign in</a> or <a href="/tcl/user/register">Register</a>.</span>
+        <span class="navbar-mobile-menu__header-close-icon icon icon--cross-2 js-mobile-menu-close-control"></span>
+      </div>
+      <div class="navbar-mobile-menu__body">
+        <div class="navbar-mobile-menu__sub-menu js-mobile-sub-menu" data-menu-id="home">
+          <div class="navbar-mobile-menu__signed-in-controls js-mobile-menu-signed-in-controls is-hidden">
+            <p class="navbar-mobile-menu__title">My Account</p>
+            <span class="navbar-mobile-menu__item navbar-mobile-menu__item--children js-mobile-menu-item" data-show-menu="my-account">My Account</span>
+            <a class="navbar-mobile-menu__item" href="/tcl/my-orders">My Orders</a>
+            <a class="navbar-mobile-menu__item" href="/tcl/previous-purchases">Previous Purchases</a>
+            <div class="navbar-mobile-menu__divider"></div>
+          </div>
+          <p class="navbar-mobile-menu__title">Shop</p>
+          <a class="navbar-mobile-menu__item" href="/">Home</a>
+          <div class="navbar-mobile-menu__item navbar-mobile-menu__item--children js-mobile-menu-item" data-show-menu="all-categories">A&ndash;Z</div>
+          <a class="navbar-mobile-menu__item" href="/Main_Index/Special_Offers/">Special Offers</a>
+          <a class="navbar-mobile-menu__item" href="/Main_Index/Whats_New/">What's New</a>
+          <a class="navbar-mobile-menu__item" href="/Main_Index/Clearance_Home/">Clearance</a>
+          <div class="navbar-mobile-menu__divider"></div>
+          <p class="navbar-mobile-menu__title">Help and Support</p>
+          <a class="navbar-mobile-menu__item" href="/Information/branches/">Branch Finder</a>
+          <a class="navbar-mobile-menu__item" href="/Information/Services/">Customer Services</a>
+          <a class="navbar-mobile-menu__item" href="/Information/delivery/Delivery.htm">Delivery Information</a>
+          <a class="navbar-mobile-menu__item" href="/contact/">Contact Us</a>
+        </div>
+        <div class="navbar-mobile-menu__sub-menu js-mobile-sub-menu" data-menu-id="my-account">
+          <div class="navbar-mobile-menu__back-button navbar-mobile-menu__item navbar-mobile-menu__item--back js-mobile-menu-item" data-show-menu="home">
+            <span class="navbar-mobile-menu__back-icon icon icon--chevron-left"></span>
+            Go back
+          </div>
+          <div class="navbar-mobile-menu__divider"></div>
+          <p class="navbar-mobile-menu__title">My Account</p>
+          <a class="navbar-mobile-menu__item" href="/tcl/personal-details">Personal Details</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/update-password">Update Password</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/card-details">Card Details</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/address-book">Address Book</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/my-orders">My Orders</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/previous-purchases">Previous Purchases</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/vat-preference">VAT Preference</a>
+          <a class="navbar-mobile-menu__item" href="/tcl/return-requests/new">Start a Return</a>
+          <div class="navbar-mobile-menu__divider"></div>
+          <a class="navbar-mobile-menu__item" href="/tcl/my-account">My Account Overview</a>
+          <span class="js-mobile-menu-sign-out"></span>
+        </div>
+        <div class="navbar-mobile-menu__sub-menu navbar-mobile-menu__sub-menu--categories js-mobile-sub-menu" data-menu-id="all-categories">
+          <div class="navbar-mobile-menu__back-button navbar-mobile-menu__item navbar-mobile-menu__item--back js-mobile-menu-item" data-show-menu="home">
+            <span class="navbar-mobile-menu__back-icon icon icon--chevron-left"></span>
+            Go back
+          </div>
+          <div class="navbar-mobile-menu__divider"></div>
+          <div class="js-mobile-menu-categories is-loading">
+            <p class="navbar-mobile-menu__title">All Categories A–Z</p>
+            <div class="category-menu__grid-container js-category-menu-container">
+              <span class="ajax-spinner ajax-spinner--dark"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- End Template Header -->

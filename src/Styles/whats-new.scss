@@ -1,0 +1,406 @@
+//******************************************************************************
+// What's New page.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.group";
+@import "module.price-breaks";
+
+
+body.is-ex-vat .is-inc-vat,
+body.is-inc-vat .is-ex-vat {
+    // Show/hide inc and ex VAT elements.
+    display: none;
+}
+
+.page-whats-new {
+    // Class on the body element.
+    background: $grey-96;
+}
+
+.whats-new {
+    // Page content container.
+    padding: 15px;
+    
+    .group__footer {
+        // .whats-new .group__footer
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.group--whats-new {
+    // Group modifier for the groups on the What's new page
+    border: none;
+    padding: 0;
+    margin: 0;
+    
+    .group__heading {
+        // What's New style group heading.
+        margin-bottom: 10px;
+        padding: 8px 20px;
+        font-size: 1.4em;
+        border-radius: 5px;
+    }
+}
+
+
+.whats-new-products {
+    // Wrapper for products.
+    
+    @media (min-width: 700px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 20px;
+    }
+}
+
+//==============================================================================
+// What's New Product.
+//
+// Product tile.
+//==============================================================================
+
+.whats-new-product {
+    // <section> wrapper for each product
+    @include flexbox;
+    @include flex-direction(column);
+    @include justify-content(space-between);
+    background-color: white;
+    border: 1px solid;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05), 
+                0 5px 15px rgba(0, 0, 0, 0.01);
+    
+    &:hover {
+        // .whats-new-product:hover
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08),
+                    0 5px 15px rgba(0, 0, 0, 0.05);
+        
+        .whats-new-product__description {
+            // .whats-new-product:hover .whats-new-product__description
+            color: $bright-blue;
+        }
+        
+        .whats-new-product__code {
+            // .whats-new-product:hover .whats-new-product__code
+            color: lighten($tlc-blue, 20%);
+            
+            &:before {
+                // .whats-new-product:hover .whats-new-product__code:before
+                color: black;
+            }
+        }
+    }
+    
+    &__title {
+        // .whats-new-product__title
+        // Descriptive title e.g. 'Wiring Accessories'.
+        position: absolute;
+        left: -1px;
+        top: -15px;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        border-radius: 5px 5px 5px 0;
+        padding: 5px 10px;
+        background-color: $tlc-blue;
+        pointer-events: none;
+        
+        @media #{$small} {
+            font-size: 1.1em;
+        }
+    }
+
+    &__header {
+        // .whats-new-product__header
+        // Clickable anchor element containing What's New product header.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(space-around);
+        @include flex-direction(column);
+        @include flex(1);
+        padding: 20px 15px 0px 15px;
+        color: inherit;
+        text-decoration: none; 
+        
+        &:hover {
+            // .whats-new-product__header:hover
+            color: inherit;
+        }
+
+        @media #{$medium} {
+            @include flex-direction(row);
+        }
+    }
+    
+    &__image {
+        // .whats-new-product__image
+        // Product image wrapper.
+        @include flex(0, 0, 120px);
+        @include flexbox;
+        @include align-items(center);
+        padding: 0 15px 0 0;
+        margin: 0;
+        
+        img {
+            // .whats-new-product__image img
+            // The <img> element
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+    }
+    
+    &__price {
+        // .whats-new-product__price
+        // Container for price breaks.
+        @include flex(0, 0, auto);
+        margin-left: 10px;
+    }
+    
+    &__info {
+        // .whats-new-product__info
+        // Container for product information.
+        @include flex(0, 1, auto);
+        @include line-clamp(4);
+        text-align: center;
+        margin: 20px auto 10px auto;
+    }
+    
+    &__manufacturer-logo {
+        // .whats-new-product__manufacturer-logo
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        max-width: 75px;
+        pointer-events: none;
+        
+        img {
+            // .whats-new-product__manufacturer-logo img
+            max-width: 100%;
+            max-height: 40px;
+            width: auto;
+            height: auto;
+        }
+    }
+    
+    &__footer {
+        // .whats-new-product__footer
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(flex-end);
+        padding: 10px 15px 15px 15px;
+    }
+    
+    &__footer-text {
+        // .whats-new-product__footer-text
+        // Clickable anchor element containing product code and description.
+        @include flex(1, 1, auto);
+        color: inherit;
+        text-decoration: none; 
+        
+        &:hover {
+            // .whats-new-product__footer-text
+            color: inherit;
+        }
+    }
+
+    &__code {
+        // .whats-new-product__code
+        // Product code.
+        font-size: 15px;
+        font-weight: bold;
+        color: $tlc-blue;
+        text-decoration: none;
+        white-space: nowrap;
+        padding-bottom: 3px;
+
+        &:before {
+            // .whats-new-product__code:before
+            // "Product Code:" text label.
+            content: "Product Code: ";
+            color:black;
+            font-weight: normal;
+        }
+    }
+
+    &__description {
+        // .whats-new-product__description
+        // Product description.
+        font-weight: bold;
+        font-size: 15px;
+        color: $tlc-blue;
+        text-decoration: underline;
+    }
+}
+
+.price-label {
+    // "Price:" label text.
+    display: block;
+    color: $grey-20;
+    font-size: 12px;
+    padding: 0 0 5px 0;
+    -webkit-tap-highlight-color: transparent;   
+    white-space: nowrap;
+}
+
+.vat-preference-text {
+    // Control for accessing the VAT Preference modal dialog.
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: normal;
+    
+    &__value {
+        // .vat-preference-text__value
+        // Span text wrapper containing currently selected preference ('inc VAT' 
+        // or 'ex VAT').
+        color: $tlc-blue;
+        border-bottom: 1px $tlc-blue dotted;
+        line-height: 1;
+        display: inline-block;
+        margin-bottom: -1px;
+    }
+}
+
+
+//==============================================================================
+// Colour modifiers.
+//==============================================================================
+$color-red          : rgb(220, 38, 38);
+$color-orange       : rgb(234, 88, 12);
+$color-amber        : rgb(217, 119, 6);
+$color-yellow       : rgb(202, 138, 4);
+$color-lime         : rgb(101, 163, 13);
+$color-green        : rgb(22, 163, 74);
+$color-emerald      : rgb(5, 150, 105);
+$color-teal         : rgb(13, 148, 136);
+$color-cyan         : rgb(8, 145, 178);
+$color-light-blue   : rgb(2, 132, 199);
+$color-blue         : rgb(37, 99, 235);
+$color-indigo       : rgb(79, 70, 229);
+$color-violet       : rgb(124, 58, 237);
+$color-purple       : rgb(147, 51, 234);
+$color-fuchsia      : rgb(192, 38, 211);
+$color-crimson      : rgb(219, 39, 119);
+$color-rose         : rgb(225, 29, 72);
+$color-black        : $grey-20;
+
+.group--red {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-red }
+    .whats-new-product        { border-color:     $color-red }
+}
+
+.group--orange {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-orange }
+    .whats-new-product        { border-color:     $color-orange }
+}
+
+.group--amber {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-amber }
+    .whats-new-product        { border-color:     $color-amber }
+}
+
+.group--yellow {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-yellow }
+    .whats-new-product        { border-color:     $color-yellow }
+}
+
+.group--lime {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-lime }
+    .whats-new-product        { border-color:     $color-lime }
+}
+
+.group--green {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-green }
+    .whats-new-product        { border-color:     $color-green }
+}
+
+.group--emerald {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-emerald }
+    .whats-new-product        { border-color:     $color-emerald }
+}
+
+.group--teal {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-teal }
+    .whats-new-product        { border-color:     $color-teal }
+}
+
+.group--cyan {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-cyan }
+    .whats-new-product        { border-color:     $color-cyan }
+}
+
+.group--light-blue {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-light-blue }
+    .whats-new-product        { border-color:     $color-light-blue }
+}
+
+.group--blue {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-blue }
+    .whats-new-product        { border-color:     $color-blue }
+}
+
+.group--indigo {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-indigo }
+    .whats-new-product        { border-color:     $color-indigo }
+}
+
+.group--violet {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-violet }
+    .whats-new-product        { border-color:     $color-violet }
+}
+
+.group--purple {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-purple }
+    .whats-new-product        { border-color:     $color-purple }
+}
+
+.group--fuchsia {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-fuchsia }
+    .whats-new-product        { border-color:     $color-fuchsia }
+}
+
+.group--crimson {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-crimson }
+    .whats-new-product        { border-color:     $color-crimson }
+}
+
+.group--rose {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-rose }
+    .whats-new-product        { border-color:     $color-rose }
+}
+
+.group--black {
+    .group__heading,
+    .whats-new-product__title { background-color: $color-black }
+    .whats-new-product        { border-color:     $color-black }
+}

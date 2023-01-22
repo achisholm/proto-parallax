@@ -1,0 +1,99 @@
+//------------------------------------------------------------------------------
+// Order Totals Table.
+//-----
+.order-totals {
+    // Table of totals at the bottom of the order sheet, under the table of
+    // basket items.
+    font-size: 15px;
+    flex: 0 0 auto;
+    
+    @media #{$small} {
+        margin: 20px 0 20px auto;
+        width: 50%;
+    }
+
+    @media #{$large} {
+        // Set width the same as combined width of Price, Ordered, Sent & Total
+        // table columns.
+        width: 34.375%;
+    }
+    
+//------------------------------------------------------------------------------
+// Totals Table Row.
+//-----
+    &__row {
+        // .order-totals__row
+        // Wrapper for each table row containing two table cells.
+        @include flexbox;
+
+        &:first-child .order-totals__td--total {
+            // .order-totals__row:first-child .order-totals__td--total
+            // Round corner of top-right cell.
+            border-radius: 0 10px 0 0;
+        }
+        
+        &--total {
+            // .order-totals__row--total
+            // Last row in the Totals table. Shows order's grand total.
+            
+            .order-totals__td {
+                // .order-totals__row--total .order-totals__td
+                // Both cells in the "Total" (last) table row.
+                color: white;
+                background-color: $grey-30;
+                height: 40px;
+                line-height: 30px;
+                
+                &:first-child {
+                    // .order-totals__row--total .order-totals__td:first-child
+                    // Last row, first cell. Rounds the bottom-left corner.
+                    border-radius: 0 0 0 10px;
+                }
+                
+                &--total {
+                    // .order-totals__row--total .order-totals__td--total
+                    // Last row, last cell. Enlarges text size and rounds bottom-right corner.
+                    background-color: $grey-20;
+                    border-radius: 0 0 10px 0;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Totals Table Cell.
+//-----
+    &__td {
+        // .totals-table__td
+        // Each of the table cells in the Totals table.
+        line-height: 20px;
+        padding: 5px;
+        
+        &:first-child {
+            // .totals-table__td:first-child
+            // Cells showing labels (column 1 of 2). Same width as Price, Ordered & Sent columns.
+            @include flex(0, 0, 63.6363%);
+            padding-left: 20px;
+        }
+        
+        &--title {
+            // .totals-table__td--title
+            font-weight: bold;
+        }
+        
+        &--total {
+            // .totals-table__td--total
+            @include flex(1, 0, 36.3636%);
+            background-color: $grey-98;
+            padding-right: 20px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        &--border-dotted {
+            // .totals-table__td--border-dotted
+            border-top: 1px dotted $grey-86;
+        }
+    }
+}

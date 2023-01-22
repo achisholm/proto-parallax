@@ -1,0 +1,174 @@
+// *************************************************************************
+// Card Details
+//
+// Card Details page accessible from the My Account Overview.
+// *************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+//==============================================================================
+// Credit / Debit Card.
+//
+// Visual representation for each credit/debit card display in a 3-column grid.
+//==============================================================================
+.credit-card {
+    // Rectangular panel with credit card information and "delete" control.
+    background-color: #003E7C;
+    background-image: url(/Graphics/card-bg.svg), linear-gradient(35deg, #003E7C, #007BF7);
+    background-size: cover;
+    color: white;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 10px;
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+    position: relative;
+    padding-bottom: 60%;
+    
+    @media (min-width: 600px) and (max-width:950px) {
+        // 2 column layout.
+        width: 49%;
+        padding-bottom: 31%;
+        
+        &:nth-child(2n+1) {
+            margin-right: 2%;
+        }
+    }
+    
+    @media #{$medium} {
+        // 3 column layout.
+        width: 32%;
+        margin-right: 2%;
+        padding-bottom: 21%;
+                            
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+    }
+    
+    &__content {
+        // .credit-card__content
+        // Container for all debit card details.
+        @include flexbox;
+        @include flex-direction(column);
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+    }
+    
+    &__buttons {
+        // .credit-card__buttons
+        // Button container.
+        @include flex(2, 0, auto);
+        margin-left: auto;
+        width: 80px;
+    }
+    
+    &__button {
+        // .credit-card__button
+        // "Delete" button.
+
+        + .credit-card__button {
+            // .credit-card__button + .credit-card__button
+            // Used to provide a gap if buttons are stacked.
+            margin-top: 5px;
+        }
+
+        .field__button {
+            box-shadow: inset 0 0 0 1px white;
+            background-color: transparent;
+            color: white;
+            
+            &:hover {
+                background-color: white;
+                color: #003E7C;
+            }
+        }
+    }
+
+    &__number {
+        // .credit-card__number
+        // The long number displayed in the centre.
+        @include flex(0, 0, auto);
+        @extend %text-truncated;
+        clear: both;
+        font-family: monospace;
+        display: block;
+        width: 100%;
+        text-align: left;
+        text-align-last: justify;
+        font-size: 1.4em;
+        text-shadow: 2px 2px rgba(black, 0.5);
+        
+        // 1 column
+        @media #{$tiny}           {font-size: 1.8em}
+        @media #{$x-small}        {font-size: 2.3em}
+        // 2 column
+        @media (min-width: 600px) {font-size: 1.3em}
+        @media #{$small}          {font-size: 1.9em}
+        // 3 column
+        @media #{$medium}         {font-size: 1.4em}
+        @media #{$large}          {font-size: 1.6em}
+        @media #{$huge}           {font-size: 1.9em}
+    }
+
+    &__expires {
+        // .credit-card__expires
+        // Container for both label and expiry date.
+        @include flex(1, 0, auto);
+        font-family: monospace;
+        text-transform: uppercase;
+        text-shadow: 2px 2px rgba(black, 0.5);
+    }
+    
+    &__expires-label {
+        // .credit-card__expires-label
+        // Label titled "EXPIRES".
+        font-size: 0.8em;
+    }
+    
+    &__details {
+        // .credit-card__details
+        // Wrapper for Cardholder's Name and Address card information.
+        @include flexbox;
+        @include flex-wrap(wrap);
+        @include align-items(baseline);
+        width: 100%;
+    }
+    
+    &__name {
+        // .credit-card__name
+        // Cardholder's Name.
+        @include flex(1, 1, auto);
+        @extend %text-truncated;
+        font-family: monospace;
+        text-transform: uppercase;
+        font-size: 1.2em;
+        text-shadow: 2px 2px rgba(black, 0.5);
+        
+    }
+
+    &__address {
+        // .credit-card__address
+        // Shows House No./Name & Postcode positioned in bottom-right corner.
+        @include flex(0, 1, auto);
+        font-family: monospace;
+        text-transform: uppercase;
+        text-shadow: 2px 2px rgba(black, 0.5);
+
+    }
+
+    &__type {
+        // .credit-card__type
+        // Image placed in top-left showing card type (Visa or Mastercard).
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}

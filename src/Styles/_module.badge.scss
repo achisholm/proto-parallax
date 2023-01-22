@@ -1,0 +1,51 @@
+//******************************************************************************
+// Badge UI Component.
+//
+//******************************************************************************
+
+.badge {
+    // Count and labeling UI component.
+    display: inline-block;
+    font-weight: normal;
+    border: 1px solid $grey-86;
+    background-color: $grey-93;
+    color: $grey-50;
+    padding: 4px 6px 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+
+    &--positive {
+        // .badge--positive
+        // Green coloured badge.
+        border: 1px solid rgba($color-positive, 0.1);
+        background-color: rgba($color-positive, 0.2);
+        color: $color-positive;
+    }
+
+    &--negative {
+        // .badge--negative
+        // Red coloured badge.
+        border: 1px solid rgba($color-negative, 0.1);
+        background-color: rgba($color-negative, 0.2);
+        color: $color-negative;    
+    }
+
+    &--neutral {
+        // .badge--neutral
+        // Orange coloured badge.
+        border: 1px solid rgba($color-neutral, 0.1);
+        background-color: rgba($color-neutral, 0.2);
+        color: $color-neutral;    
+    }
+
+    // &--lg {
+    //     // .badge--lg
+    //     // Large badge.
+    //     padding: 8px 12px;
+    //     border-radius: 6px;
+    //     font-size: 14px;
+    // }
+}

@@ -1,0 +1,113 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import NotificationBanner from '../components/NotificationBanner.astro';
+
+import SiteFooter from '../components/SiteFooter.astro';
+
+// import '/src/Styles/core.scss';
+import '/src/Styles/_tools.vars.scss';
+import '/src/Styles/_tools.mixins.scss';
+import '/src/Styles/_tools.iconfont.scss';
+import "/src/Styles/_base.globals.scss";
+
+
+import '/src/Styles/_module.ajax-spinner.scss'
+// import '/src/Styles/_tools.column-grid.scss'
+import '/src/Styles/_tools.helpers.scss'
+
+
+import '/src/styles/_vendor.qtip.scss'
+import '/src/styles/_module.validation.scss'
+
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Start Template PageTitle -->
+    <title>{title} | TLC Electrical</title>
+    <!-- End Template PageTitle -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" />
+    <link rel="preload" as="font" href="/fonts/iconfont.ttf?c7htna" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="/Styles/core.css" /> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://js.qcode.co.uk/vendor/qtip/2.2.1/jquery.qtip.min.css" media="print" onload="this.media='all'" />
+    <!-- <link rel="stylesheet" type="text/css" media="all" href="/Styles/checkout.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/Styles/basket.css"/>
+    <link rel="stylesheet" href="/Styles/modal-dialog.css" media="print" onload="this.media='all'" /> -->
+
+    <script>
+      var tagManagerDataLayer = tagManagerDataLayer || [];
+      tagManagerDataLayer.push({ isPurchase: false, google_tag_params: {} });
+    </script>
+
+    <!-- Start Template GTMCustomDataLayer -->
+    <!-- End Template GTMCustomDataLayer -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'tagManagerDataLayer', 'GTM-PNZ7C2');
+    </script>
+    <script>
+      tagManagerDataLayer.push({
+        google_tag_params: {
+          ecomm_pagetype: 'cart',
+          ecomm_prodid: ['CM1017'],
+          ecomm_totalvalue: 1.03,
+        },
+      });
+    </script>
+  </head>
+
+  <body class="plugins-loading page--checkout page-your-order">
+    <NotificationBanner />
+    <SiteHeader />
+
+    <slot />
+
+    <SiteFooter />
+
+    <!-- Category menu item template-->
+    <a class="template category-menu-item js-template-category-menu-item" href="">
+      <div class="category-menu-item__image">
+        <img class="js-category-menu-item-img" src="#" alt="" loading="lazy" />
+      </div>
+      <div class="category-menu-item__title js-category-menu-item-title"></div>
+    </a>
+
+    <slot name="after-footer"/>
+
+    <script is:inline src="https://js.qcode.co.uk/vendor/jquery/3.5.1/jquery.min.js"></script>
+    <script is:inline src="https://js.qcode.co.uk/vendor/jquery-migrate/3.3.0/jquery-migrate.min.js"></script>
+    <script is:inline src="/Javascript/jquery-ui-1.13.2-custom.min.js"></script>
+    <script is:inline src="https://js.qcode.co.uk/vendor/jquery-validation/1.13.1/jquery.validate.min.js"></script>
+    <script is:inline src="https://js.qcode.co.uk/vendor/qtip/2.2.1/jquery.qtip.min.js"></script>
+    <script is:inline src="https://js.qcode.co.uk/vendor/js-cookie/1.5.1/js-cookie.min.js"></script>
+    <script is:inline src="/Javascript/qcode-ui/qcode-ui-4.31.0-custom.js"></script>
+    <script is:inline src="/Javascript/core.js"></script>
+    <slot name="scripts-body"/>
+    
+    <script>
+      // Trigger pluginsReady event.
+      $('body').trigger('pluginsReady');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,283 @@
+//******************************************************************************
+// Contact Us Information Page.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.contact-us-tiles";
+
+//==============================================================================
+// Local Branches table
+//==============================================================================
+
+.table-contact-list {
+    // The Local Branches contact list table
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: $grey-86;
+    
+    &__td--icon {
+        // .table-contact-list__td--icon
+        text-align: center;
+        color: $grey-50;
+    }
+    
+    &__tr:hover {
+        // .table-contact-list__tr:hover
+        
+        .table-contact-list__td--icon {
+            // .table-contact-list__tr:hover .table-contact-list__td--icon
+            color: $bright-blue;
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // Mobile layout.
+    //-----
+
+    @media #{$less-than-small} {
+        border: none;
+        display: block;
+        
+        &__thead {
+            // .table-contact-list__thead
+            display: none;
+        }
+        
+        &__tbody {
+            // .table-contact-list__tbody
+            display: block;
+
+             @media #{$x-small} {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+             }
+        }
+
+        &__tr {
+            // .table-contact-list__tr
+            @include break-inside(avoid);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: 0 0 20px 0;
+            border: 1px solid $grey-86;
+            
+            @media #{$x-small} {
+                width: calc(50% - 10px);
+            
+                &:nth-child(odd) {
+                    margin-right: $base-padding;
+                }
+            }
+        }
+
+        &__td {
+            // .table-contact-list__td
+            // Displays 4 cells as table rows
+            display: block;
+            padding: 5px 15px;
+            border-width: 0 0 1px 0;
+            border-color: $grey-86;
+            border-style: solid;
+            
+            &--branch {
+                // .table-contact-list__td--branch
+                // Displays Branch name as Header row
+                text-align: center;
+                background: $grey-86 !important;
+            }
+
+            &--manager,
+            &--telephone {
+                // .table-contact-list__td--manager, 
+                // .table-contact-list__td--telephone
+                //  Displays the other 3 cells, right-aligned
+                text-align: right;
+                
+                &:before {
+                    // .table-contact-list__td--manager:before,
+                    // .table-contact-list__td--telephone:before
+                    // left-aligned label for each row
+                    float: left;
+                    font-weight: bold;
+                }
+            }
+            
+            &--manager:before {
+                // .table-contact-list__td--manager:before
+                // Manager text label
+                content: "Manager";
+            }
+            
+            &--telephone:before {
+                // .table-contact-list__td--telephone:before
+                // Telephone text label
+                content: "Telephone";
+            }
+            
+            &:first-child {
+                // Give cells in the first column bold text
+                font-weight: bold;
+            }
+
+            &:last-child {
+                @media #{$less-than-small} {
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Crawley (Head Office) table.
+//==============================================================================
+
+.table-contact {
+    // Contact page tables.
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: $grey-86;
+    
+    &__th {
+        // .table-contact__th
+        // Header cells.
+        text-align: center;
+        background: $grey-86;
+        font-weight: bold;
+        
+        @media #{$less-than-x-small} {
+            width: 100%;
+        }
+
+        @media #{$x-small} {
+            text-align: left;
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // Mobile layout.
+    //-----
+    
+    @media #{$less-than-x-small} {
+        display: block;
+
+        &__thead,
+        &__th,
+        &__tbody {
+            // .table-contact__thead, .table-contact__th, .table-contact__tbody
+            display: block;
+        }
+
+        &__tr {
+            // .table-contact__tr
+            // Contact page table rows.
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        &__td {
+            // .table-contact__td
+            // Overrides table styles for all td cells
+            padding: 5px 15px;
+            border: none;
+            flex: 1;
+            
+            &:first-child {
+                // .table-contact__td:first-child
+                // Department column cells
+                flex: 1 0 100%;
+                font-weight: bold;
+                border: none;
+            }
+            
+            &:nth-child(2) {
+                // .table-contact__td:nth-child(2)
+                // Contact Name column cells
+                flex: 1 1 50%;
+            }
+            
+            &:last-child {
+                // .table-contact__td:last-child
+                // Telephone column cells
+                flex: 1 1 50%;
+                text-align: right;
+            }
+        }
+
+    }
+
+}
+
+
+//==============================================================================
+// Email Addresses.
+//==============================================================================
+
+.contact-list-email-addresses {
+    // Contact List Email Addresses
+    @include row;
+    list-style: none;
+    line-height: 1;
+    margin-top: 20px;
+}
+
+.email-address {
+    // An individual email address, including icon, title and email link
+    @include column;
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    
+    @media #{$x-small} {
+        @include column-span(6);
+        padding-right: 0;
+    }
+    
+    @media #{$large} {
+        @include column-span(4);
+        padding-right: 0;
+    }
+    
+    &__icon {
+        // .email-address__icon
+        // Icon to accompany the email address
+        flex: 0 0 40px;
+        float: left;
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+        
+        img {
+            // .email-address__icon img
+            max-width: 100%;
+        }
+    }
+    
+    &__text {
+        // .email-address__text
+        flex: 0 1 auto;
+        float: left;
+    }
+    
+    &__title {
+        // .email-address__title
+        // Title of the email address
+        @extend %text-truncated;
+        font-weight: bold;
+        padding-top: 4px;
+    }
+    
+    &__link {
+        // .email-address__link
+        // <a> link for email address
+        @extend %text-truncated;
+    }
+}

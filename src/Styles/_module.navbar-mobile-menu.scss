@@ -1,0 +1,425 @@
+//==============================================================================
+// Mobile navigation menu.
+//
+//
+//==============================================================================
+
+.navbar-button {
+    // Mobile navigation button.
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    color: white;
+    text-decoration: none;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    position: relative;
+    z-index: 1;
+    @include user-select(none);
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+    &:hover {
+        // .navbar-button:hover
+        color: white;
+    }
+    
+    @media #{$small} {
+        display: none;
+    }
+
+    &:before {
+        // .navbar-button:before
+        // Circle-shaped pseudo-element positioned behind the button
+        // (displayed when button is pressed or made active).
+        display: block;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        z-index: -1;
+        border-radius: 50%;
+    }
+
+    &.is-active, 
+    &.is-active:hover {
+        // .navbar-button.is-active, 
+        // .navbar-button:hover
+        // Button's active state.
+
+        &:before {
+            // .navbar-button.is-active:before, .navbar-button:hover:before
+            // Shows the circle background when active.
+            content: "";
+            background-color: rgba(white, 0.2);
+        }
+    }
+
+    &:active, 
+    &.is-active:active {
+        // .navbar-button:active, 
+        // .navbar-button.is-active:active
+        // Button's downpressed state.
+
+        &:before {
+            // .navbar-button:active:before, .navbar-button.is-active:active:before
+            // Shows the circle background during downpress.
+            content: "";
+            background-color: rgba(white, 0.1);
+        }
+    }
+
+    &__icon {
+        // .navbar-button__icon
+        // Button icon (hamburger menu).
+        font-size: 24px;
+    }
+}
+
+.navbar-mobile-menu {
+    // Mobile navigation menu container element.
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: $z-navbar-mobile-menu;
+    color: white;
+
+    &:after {
+        // .navbar-mobile-menu:after
+        // Semi-transparent background pseudo-element.
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(black, 0.85);
+        opacity: 0;
+        will-change: opacity;
+        pointer-events: none;
+        transition: opacity 0.3s cubic-bezier(0, 0, 0.3, 1);
+        z-index: -1;
+    }
+
+    &.is-hidden {
+        // .navbar-mobile-menu.is-hidden
+        display: none;
+    }
+
+    &.is-active {
+        // .navbar-mobile-menu.is-active
+
+        &:after {
+            // .navbar-mobile-menu.is-active:after
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+    
+    .ajax-spinner {
+        // .navbar-mobile-menu .ajax-spinner
+        // Loading spinner for category menu.
+        position: absolute;
+        right: 0%;
+        left: 0%;
+        top: 110px;
+        margin: auto;
+        border-width: 3px;
+    }
+
+    &__signed-in-controls {
+        // .navbar-mobile-menu__signed-in-controls
+
+        &.is-hidden {
+            // .navbar-mobile-menu__signed-in-controls
+            display: none;
+        }
+    }
+
+    &__header {
+        // .navbar-mobile-menu__header
+        // Menu header area containing user identity (e.g. "Hello Alan") and
+        // Close button.
+        @include flex(0, 0, 60px);
+        height: 60px;
+        line-height: 60px;
+        font-size: 1.2em;
+        opacity: 0;
+        transform: translateY(-100%);
+        will-change: transform, opacity;
+        transition-property: transform, opacity;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+
+        .navbar-mobile-menu.is-active & {
+            // .navbar-mobile-menu.is-active .navbar-mobile-menu-header
+            // When menu is activated, fade-in from top.
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        a,
+        a:hover {
+            // .navbar-mobile-menu__header a,
+            // .navbar-mobile-menu__header a:hover
+            color: white;
+        }
+    }
+
+    &__header-user-icon {
+        // .navbar-mobile-menu__header-user-icon
+        // User icon in header.
+        @include flexbox;
+        @include flex-direction(column);
+        @include align-items(center);
+        @include justify-content(center);
+        text-align: center;
+        float: left;
+        height: 60px;
+        width: 60px;
+        font-size: 1.3em;
+    }
+
+    &__header-close-icon {
+        // .navbar-mobile-menu__header-close-icon
+        // Close button positioned in top-right corner.
+        @include flexbox;
+        @include flex-direction(column);
+        @include align-items(center);
+        @include justify-content(center);
+        text-align: center;
+        float: right;
+        height: 60px;
+        width: 60px;
+        color: $grey-86;
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+            // .navbar-mobile-menu__header-close-icon:hover,
+            // .navbar-mobile-menu__header-close-icon:active
+            color: white;
+        }
+    }
+
+    &__body {
+        // .navbar-mobile-menu__body
+        // Container for the mobile nav sub-menus.
+        @include flex(1, 1, auto);
+        position: relative;
+    }
+
+    &__sub-menu {
+        // .navbar-mobile-menu__sub-menu
+        // Menu with white background.
+        @include scrollbar();
+        overflow: auto;
+        max-width: 270px;
+        width: 80%;
+        max-height: 100%;
+        color: $grey-20;
+        background-color: white;
+        box-shadow: 0 2px 6px rgba(black, 0.5);
+        padding: 10px 0;
+        position: absolute;
+        will-change: transform, opacity;
+        transition-property: transform, opacity;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transform: translateX(-130%) scale(0.7);
+        opacity: 0;
+
+        &.is-active {
+            // .navbar-mobile-menu__sub-menu.is-active
+            transform: translateX(0%) scale(1);
+            opacity: 1;
+        }
+
+        &--categories {
+            // .navbar-mobile-menu__sub-menu--categories
+            // The menu titled "All Categories".
+            max-width: none;
+            width: 90%;
+        }
+    }
+
+    &__grid-container {
+        // .navbar-mobile-menu__grid-container
+        // Wrapper element that enables multi-column menu.
+
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+    
+        @media #{$medium} {
+            @include column-count(3);
+        }
+
+        @media #{$large} {
+            @include column-count(4);
+        }
+
+    }
+
+    &__item {
+        // .navbar-mobile-menu__item
+        // An individual menu item link.
+        @include user-select(none);
+        @extend %text-truncated;
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 20px;
+        color: $grey-20;
+        cursor: pointer;
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(black, 0);
+
+        &:hover {
+            // .navbar-mobile-menu__item:hover
+            color: inherit;
+            
+            @media #{$small} {
+                color: $tlc-red;
+                background-color: rgba(black,0.009);
+            }
+        }
+
+        &:active {
+            // .navbar-mobile-menu__item:active
+            background-color: $grey-98;
+            color: $tlc-red;
+
+            &:after {
+                // .navbar-mobile-menu__item:active:after
+                color: $tlc-blue;
+            }
+        }
+
+        &:focus {
+            // .navbar-mobile-menu__item:focus
+            outline: none;
+        }
+
+        &--children {
+            // .navbar-mobile-menu__item--children
+
+            &:after {
+                // .navbar-mobile-menu__item--children:after
+                // Chevron icon.
+                @include flexbox;
+                @include flex-direction(column);
+                @include align-items(center);
+                @include justify-content(center);
+                text-align: center;
+                float: right;
+                display: block;
+                height: 40px;
+                width: 40px;
+                font-family: "iconfont";
+                content: "\25b6";
+                color: $grey-86;
+            }
+        }
+
+        &.is-hidden {
+            // .navbar-mobile-menu__item.is-hidden
+            display: none;
+        }
+
+        &.form-action-link {
+            // .navbar-mobile-menu__item.form-active-link
+            // The "Sign out" menu item.
+            position: relative;
+
+            .form-action-link__input {
+                // .navbar-mobile-menu__item.form-active-link .form-action-link__input
+                position: absolute;
+                color: inherit;
+                text-decoration: inherit;
+                margin: 0;
+                top: 0;
+                left: 0;
+                width: 100%;
+                text-align: left;
+                padding-left: 20px;
+                border-radius: 0;
+
+                &:focus {
+                    // .navbar-mobile-menu__item.form-active-link .form-action-link__input:focus
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    &__back-button {
+        // .navbar-mobile-menu__back-button
+        // "Go back" menu item at the top of sub-menus.
+        margin: -10px 0;
+        background-color: $grey-98;
+
+        &:hover,
+        &:active {
+            // .navbar-mobile-menu__back-button:hover
+            // .navbar-mobile-menu__back-button:active
+            background-color: $grey-98;
+        }
+    }
+
+    &__back-icon {
+        // .navbar-mobile-menu__back-icon
+        // Left chevron icon.
+        font-size: 0.7em;
+        color: $grey-67;
+    }
+
+    &__divider {
+        // .navbar-mobile-menu__divider
+        // Horizontal divider.
+        border-bottom: 1px solid $grey-86;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    &__title {
+        // .navbar-mobile-menu__title
+        // Menu section title.
+        @include user-select(none);
+        @extend %text-truncated;
+        padding-left: 20px;
+        font-weight: 700;
+        text-transform: lowercase;
+        font-variant: small-caps;
+        letter-spacing: .08em;
+        margin-bottom: 5px;
+        color: $grey-67;
+    }
+
+    &__message-area {
+        // .navbar-mobile-menu__message-area
+        // Validation plugin generated message.
+        @include flex(0, 1, auto);
+        margin: 0 20px 20px;
+    }
+}
+
+
+.no-scroll {
+    // Class applied to <body> to lock down scrolling.
+    position: fixed;
+    overflow: hidden;
+    touch-action: none;
+}

@@ -1,0 +1,485 @@
+//******************************************************************************
+// Payment Details (Step 3 of 4.)
+//
+// Checkout page that allows customer to select their payment method and enter
+// card details if Credit/Debit Card is selected.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.cheque-address {
+    // Postal address inside 'Cheque' option content.
+    font-style: italic;
+    margin-left: 20px;
+}
+
+//==============================================================================
+// Payment Details wrapper.
+//
+//==============================================================================
+
+.payment-details {
+    // Wrapper containing Totals, intro text and payment method radio group.
+    // Displays stacked on mobile, and 2 column re-ordered layout on desktop.
+
+    @media #{$small} {
+        @include flexbox;
+        @include flex-wrap(wrap);
+        @include align-items(flex-start);
+        @include justify-content(space-between);
+    }
+
+    &__intro-text {
+        // Intro text ("Please select one of the following payment methods:").
+        @include flex-basis(100%);
+    }
+
+    &__options {
+        // The payment method radio group.
+
+        @media #{$small} {
+            @include flex-shrink(0);
+            @include flex-grow(0);
+            @include flex-basis(calc(66.666% - 10px));
+        }
+    }
+}
+
+//==============================================================================
+// Totals UI component.
+//
+// Order Total with disclosure control to show/hide sub-totals breakdown.
+//==============================================================================
+
+.totals {
+    // Shows order total with breakdown of total.
+    border-radius: 5px;
+    border: 1px solid $grey-80;
+    background: white;
+    margin-bottom: 15px;
+    line-height: 1;
+    font-size: 0.8em;
+
+    @media #{$small} {
+        @include order(3);
+        @include flex-shrink(0);
+        @include flex-grow(0);
+        @include flex-basis(calc(33.333% - 10px));
+        position: sticky;
+        top: 20px;
+    }
+    
+    //------------------------------------------------------------------------------
+    // Expandable Extra Rows.
+    //
+    // Content wrapper to show/hide additional rows. Hidden by default on mobile.
+    //-----
+    &__details {
+        // .totals__details
+
+        @media #{$less-than-small} {
+            overflow: hidden;
+            height: 0;
+            opacity: 0;
+
+            &.is-expanded {
+                // .totals.is-expanded .totals__details
+                height: auto;
+                opacity: 1;
+            }
+        }
+        
+        @media #{$small} and (max-width: 900px) {
+            font-size: 0.8em;
+        }
+
+    }
+      
+    //------------------------------------------------------------------------------
+    // Totals Rows.
+    //
+    // Each row in the Totals table.
+    //-----
+
+    &__row {
+        // .totals__row
+        @include flexbox;
+        @include justify-content(space-between);
+
+        + .totals__row {
+            // .totals__row + .totals__row
+            // Apply a top border to all (except for first) rows.
+            border-top: 1px dotted $grey-86;
+        }
+
+        //------------------------------------------------------------------------------
+        // Order Total Row.
+        //-----
+        
+        &--order-total {
+            // .totals__row--order-total
+            // The last, always visiable row labelled "Order Total" containing the
+            // toggle control.
+            font-weight: bold;
+            border-top: 1px solid transparent;
+
+            @media #{$small} {
+                border-top-color: $grey-80;
+            }
+
+            .totals.is-expanded & {
+                // .totals.is-expanded .totals__row--order-total
+                border-top-color: $grey-80;
+            }
+
+            .totals__cell {
+                // .totals__row--order-total .totals__cell
+                // Make the Order Total cells slightly taller.
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+
+            .totals__label {
+                // .totals__row--order-total .totals__cell
+                color: black;
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // Toggle Control.
+    //
+    // "Show details" / "Hide details" text link on mobile view.
+    //-----
+    &__toggle-control {
+        // .totals__toggle-control
+        display: none;
+
+        @media #{$less-than-small} {
+            display: inline-block;
+            color: $grey-56;
+            cursor: pointer;
+
+            &:hover {
+                // .totals__toggle-control:hover
+                text-decoration: underline;
+            }
+            &:after {
+                // .totals__toggle-control:after
+                content: "Show details";
+
+                .totals.is-expanded & {
+                    content: "Hide details";
+                }
+            }
+
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // Cells.
+    //-----
+    &__cell {
+        // .totals__cell
+        // All cells in the Totals UI component.
+        padding: 10px 15px;
+    }  
+    
+    &__label {
+        // .totals__label
+        // Left-hand cells with label/title.
+        color: $grey-30;
+    }
+    
+    &__value {
+        // .totals__value
+        // Right-hand cells with price/value.
+        white-space: nowrap;
+    }
+}
+
+
+.security-code-image {
+    // Security Code SVG image.
+    position: relative;
+    top: -2px;
+    height: 23px;
+    pointer-events: none;
+}
+
+.field__message--inline {
+    // Override the default '.field__message--inline' so that layout on narrow 
+    // mobile devices is displayed inline.
+    position: absolute;
+    top: 16px;
+    right: 15px;
+}
+
+.cc-brand {
+    // Indicator for displaying which card type has been identified.
+    position: relative;
+    display: block;
+    height: 23px;
+    width: 35px;
+    transition-property: opacity, top, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    opacity: 0;
+    top: 2px;
+    transform: scale(0.9, 0.9);
+    
+    &:after {
+        // .cc-brand:after
+        // Pre-load these images without displaying them.
+        position: absolute;
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        z-index: -1;
+        content: 
+            url(/Graphics/amex.svg)
+            url(/Graphics/maestro.svg)
+            url(/Graphics/mastercard.svg)
+            url(/Graphics/visa.svg)
+            url(/Graphics/visa-electron.svg);
+    }
+}
+
++ .field__message .cc-brand {
+    // Card type logo/images.
+    
+    .amex &,
+    .maestro-uk &,
+    .maestro-international &,
+    .mastercard &,
+    .visa &,
+    .visa-electron & {
+        opacity: 1;
+        top: -2px;
+        transform: scale(1,1);
+    }
+    
+    .amex &                  { background-image: url(/Graphics/amex.svg) }
+    .maestro-uk & ,
+    .maestro-international & { background-image: url(/Graphics/maestro.svg) }
+    .mastercard &            { background-image: url(/Graphics/mastercard.svg) }
+    .visa &                  { background-image: url(/Graphics/visa.svg) }
+    .visa-electron &         { background-image: url(/Graphics/visa-electron.svg) }
+}
+
+//==============================================================================
+// Submit button for credit/debit card form.
+//
+//==============================================================================
+
+#card_submit {
+    // Credit/Debit form's submit button.
+    background-color: darken($color-positive, 5%);
+    transition-property: background-color, color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+    color: rgba(white, 0.6);
+    
+    .icon {
+        // #card_submit .icon
+        opacity: 0;
+        transition: ease 0.3s opacity;
+    }
+    
+    &.is-valid {
+        // #card_submit.is-valid
+        // When form fields are valid, brighten background colour & display 
+        // the padlock icon.
+        background-color: $color-positive;
+        color: white;
+        animation: shadow-highlight 1s ease;
+        
+        .icon {
+            // #card_submit.is-valid .icon
+            opacity: 1;    
+        }
+    }
+}
+
+@keyframes shadow-highlight {
+    // Shadow highlight animation.
+    
+    0%, 
+    100% {
+        box-shadow: 0 0 0 0 rgba(black, 0);
+    }
+    
+    50% {
+        box-shadow: 0 0 3px 3px rgba(black, 0.1);
+    }
+}
+
+
+//==============================================================================
+// 'Valid' state for .field component.
+//
+//==============================================================================
+
+.field--valid {
+    // 'valid' modifier class for the .field component, used on card input fields.
+    position: relative;
+    
+    .field__input:focus {
+        // .field--valid .field__input:focus
+        box-shadow: 0 0 0 2px $color-positive;
+    }
+    
+    &:after {
+        // .field--valid:after
+        // Green circle with white tick icon.
+        font-family: "iconfont";
+        color: white;
+        line-height: 20px;
+        font-size: 10px;
+        text-align: center;
+        content: "\43";
+        display: block;
+        height: 20px;
+        width: 20px;
+        background-color: $color-positive;
+        position: absolute;
+        right: 25px;
+        top: 24px;
+        border-radius: 50%;
+        animation: fade-in .2s ease-in-out;
+        pointer-events: none;
+    }
+    
+    .field__message--inline {
+        // .field--valid .field__message--inline
+        // Hide inline field messages in place of the green circle.
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    // Fade in transition for the green circle tick icon.
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+input::-webkit-credit-card-auto-fill-button {
+    // Hide autofill control on Safari.
+    visibility: hidden;
+}
+
+.card-type-image {
+    // SVG logos for payment types, right aligned.
+    display: none;
+    margin-left: auto;
+    margin-right: 10px;
+    pointer-events: none;
+
+    @media (min-width: 400px) {
+        @include inline-flex;
+        float: right;
+    }
+    
+    img {
+        // .card-type-image img
+        max-height: 24px;
+        width: 100%;
+    }
+}
+
+.saved-card-label {
+    // Label text and logo image for pre-saved card option.
+    @include flexbox;
+    @include align-items(center);
+    
+    &__logo {
+        // .saved-card-label__logo
+        // Card type logo (e.g. Visa, Mastercard etc).
+        display: none;
+        
+        @media (min-width: 325px) {
+            @include flexbox;
+            width: 30px;
+            margin-right: 10px;
+        }
+        
+        @media #{$tiny} {
+            width: 45px;
+            margin-right: 15px;
+        }
+        
+        img {
+            // .saved-card-label__logo img
+            max-height: 30px;
+            width: 100%;
+        }
+    }
+        
+    &__expiry {
+        // .saved-card-label__expiry
+        display: block;
+        font-weight: normal;
+        color: $grey-50;
+    }
+}
+
+
+
+
+
+//------------------------------------------------------------------------------
+//
+// TEMPORARY CSS FOR THE EXISTING / LEGACY CARD PAYMENT FORM.
+//
+//------------------------------------------------------------------------------
+.card-details {
+    // Negative margin used to fix a horizontal clipping issue with .fieldset children.
+    margin-left: -1px;
+    margin-right: -1px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.cardholder-address.is-hidden,
+.card-details.is-hidden {
+    // Hidden states for Cardholder Address fields wrapper and Use Another Card fields wrapper.
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.disguised {
+    // An alternative to hidden (still present in the DOM but hidden off-canvas).
+    // Used by the dummy expiry date fields required to fix Safari's Autofill behaviour.
+    display: block;
+    appearance: none;
+    -webkit-appearance: none;
+    overflow: hidden;
+    height: 0;
+    width: 0;
+    position: absolute;
+    padding: 0;
+    left: -9999px;
+    top: -9999px;
+}
+
+#cc_no ~ .field__message .cc-brand {
+    display: none;
+}
+
+.credit-card-logo-banner {
+    display: block;
+    max-width: 100%;
+    max-height: 32px;
+    position: relative;
+    top: 0; 
+}

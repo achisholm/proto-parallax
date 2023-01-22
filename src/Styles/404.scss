@@ -1,0 +1,88 @@
+//******************************************************************************
+// 404 page.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+body {
+    background-color: $grey-98;
+    
+    > .site-width-wrapper {
+        // body > .site-width-wrapper
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        margin: auto;
+    }
+}
+
+.card-404 {
+    // 404 page content container.
+    background-color: white;
+    padding: 50px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    
+    @media (min-width: 450px) {
+        border-radius: 20px;
+        margin: 20px;        
+    }
+    
+    @media (min-width: 600px) {
+        margin: 50px 20px;
+        padding: 50px;
+        box-shadow: rgba(black, 0.25) 0px 25px 50px -12px;
+    }
+    
+    &__title {
+        // 'Page not found' text.
+        font-weight: bold;
+        font-size: 32px;
+        margin-bottom: 40px;
+    }
+    
+    &__hero-text {
+        // Main message 'We're sorry, the page you were trying to reach...'.
+        color: $grey-50;
+        margin: 0 auto 40px auto;
+        font-size: 17px;
+        max-width: 350px;
+    }
+
+    &__heading {
+        // h2 headings
+        font-weight: bold;
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+    
+    &__text {
+        // Paragraph text.
+        color: $grey-50;
+        margin-bottom: 20px;
+        font-size: 15px;
+        
+         @media (max-width: 599px) {
+             max-width: 240px;
+             margin-left: auto;
+             margin-right: auto;
+         }
+        
+        a {
+            color: $grey-50;
+        }
+    }
+    
+    .icon--magnify {
+        // .card-404 .icon--magnify
+        // Hide the icon in the search button in desktop view.
+        
+        @media #{$small} {
+            display: none;
+        }
+    }
+}

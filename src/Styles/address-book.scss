@@ -1,0 +1,197 @@
+// *************************************************************************
+// Address Book
+//
+// Address Book page accessible from the My Account Overview.
+// *************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+.address-book {
+    // Container for grid list of customer's delivery addresses.
+    @include flexbox;
+    @include flex-wrap(wrap);
+}
+
+//==============================================================================
+// Address Card.
+//==============================================================================
+.address-card {
+    // Panel with delivery address displayed in a grid.
+    @include flexbox;
+    @include flex-direction(column);
+    @include justify-content(space-between);
+    background-color: $grey-98;
+    border: 1px solid $grey-86;
+    border-radius: 5px;
+    padding: 15px 20px;
+    width: 100%;
+    margin-bottom: 2%;
+
+    @media (min-width: 450px) and (max-width:719px) {
+        // 2 column layout.
+        width: 49%;
+        
+        &:nth-child(2n+1) {
+            margin-right: 2%;
+        }
+    }
+    
+    @media (min-width: 720px) and (max-width:1049px) {
+        // 3 column layout.
+        width: 32%;
+        margin-right: 2%;
+        
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+    }
+
+    @media #{$large} {
+        // 4 column layout.
+        width: 23%;
+        margin-right: 2%;
+                            
+        &:nth-child(4n) {
+            margin-right: 0;
+        }
+    }
+    
+    &__text {
+        // .address-card__text
+        // Address text.
+        @extend %text-truncated;
+        font-size: 15px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    &__controls {
+        // .address-card__controls
+        // Container for "Edit" & "Delete" buttons.
+        @include clearfix;
+    }
+
+    &__button-edit {
+        float: left;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: inline-block;
+        width: auto;
+        border-radius: 3px;
+        min-width: 70px;
+        border: none;
+        box-shadow: 0 0 0 1px $tlc-blue;
+        margin-right: 8px;
+
+        &:active {
+            box-shadow: 0 0 0 1px $tlc-blue;
+        }
+   }
+
+    &__button-delete {
+        // .address-card__button
+        // "Edit" & "Delete" buttons.
+        float: left;
+    
+        .field__button {
+            padding-left: 10px;
+            padding-right: 10px;
+            display: inline-block;
+            width: auto;
+            border-radius: 3px;
+            min-width: 70px;
+            border: none;
+            box-shadow: 0 0 0 1px $tlc-blue;
+        }
+    }
+
+
+}
+
+//==============================================================================
+// Add a New Address button.
+//==============================================================================
+.add-a-new-address {
+    // Form element address card that  contains the "Add a New Address" button.
+    min-height: 200px;
+    @include flexbox;
+    @include flex-direction(column);
+    @include justify-content(center);
+    @include align-items(center);
+    background-color: $grey-93;
+    border: 1px dashed $grey-40;
+    transition: background-color 0.1s ease-in-out;        
+    padding: 30px 20px;
+    text-decoration: none;
+    
+    &:hover {
+        background-color: $grey-98;
+    }
+    
+    &__icon {
+        // .add-a-new-address__icon
+        // Green plus circle icon.
+        font-size: 2em;
+        color: $color-positive;
+        margin-top: auto;
+        margin-bottom: 30px;
+    }
+
+    &__text {
+        // .add-a-new-address__text
+        // Button text ("Add A New Address").
+        color: $grey-40;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin-bottom: auto;
+    }
+}
+
+//==============================================================================
+// "Add a New Address" submit button.
+//==============================================================================
+.add-new-address-submit-button {
+    // "Add a New Address" button.
+    overflow: hidden;
+
+    &.is-collapsed {
+        // Hidden button state.
+        pointer-events: none;
+        opacity: 0;
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &.is-hidden {
+        // Required to remove element from the tab index.
+        visibility: hidden;
+    }
+}
+
+//==============================================================================
+// Fieldset for "Save Address" button.
+//
+// Submit button on the Add a New Address page.
+//==============================================================================
+
+.fieldset--submit-button {
+    // Fieldset containing the form's submit button.
+    overflow: hidden;
+    height: auto;
+    opacity: 1;
+    
+    &.is-collapsed {
+        // .fieldset--submit-button.is-collapsed
+        // Hidden state.
+        opacity: 0;
+        height: 0;
+    }
+
+    &.is-hidden {
+        // Required to remove element from the tab index.
+        visibility: hidden;
+    }
+}

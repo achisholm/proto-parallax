@@ -1,0 +1,280 @@
+//******************************************************************************
+// Customer Services.
+//
+// Page-specific styles for Customer Services.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.contact-us-tiles";
+
+//==============================================================================
+// Customer Services page content wrapper.
+//==============================================================================
+
+.customer-services {
+    // Customer Services page wrapper.
+    padding: 20px;
+    background-color: $grey-96;
+
+    @media #{$small} {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    &__primary-heading {
+        // .customer-services__primary-heading
+        // Main headings (e.g. "TLC Customer Services").
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    &__secondary-heading {
+        // .customer-services__secondary-heading
+        // Sub-heading text.
+        text-align: center;
+        color: $grey-40;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+    }
+
+    &__columns-container {
+        // .customer-services__columns-container
+        // Wrapper for the Customer Services Groups/panels.
+
+        @media (min-width:650px) {
+            @include column-count(2);
+        }
+
+        @media (min-width: 1000px) {
+            @include column-count(3);
+        }
+    }
+
+    &__contact {
+        // .customer-services__contact
+        // Container for "Phone" & "Email" panels.
+        max-width: 900px;
+        margin: auto;
+
+        @media (min-width: 1000px) {
+            @include column-count(2);
+        }
+    }
+
+    &__email-addresses {
+        // .customer-services__email-addresses
+        // Container for "Email Addresses" panel.
+        max-width: 900px;
+        margin: auto;
+    }
+}
+
+//==============================================================================
+// Customer Services group panels.
+//==============================================================================
+
+.customer-services-group-wrapper {
+    // Wrapper element that prevents breaking across columns and adds
+    // space below the group.
+    @include break-inside(avoid);
+    padding-bottom: 20px;
+}
+
+.customer-services-group {
+    // The Customer Service in groups
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid $grey-86;
+    padding: 20px;
+    position: relative;
+
+    &__heading {
+        // .customer-services-group__heading
+        font-weight: 700;
+        font-size: 1.1em;
+        text-align: left;
+        padding-left: 55px;
+        margin-bottom: 10px;
+    }
+
+    //--------------------------------------------------------------------------
+    // Icons.
+    //-----
+
+    &:before {
+        // .customer-services-group:before
+        // Icon next to heading.
+        @include icon;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 75px;
+        line-height: 25px;
+        text-align: center;
+        font-size: 1.8em;
+        color: $grey-56;
+    }
+
+    &--orders:before {
+        // .customer-services-group--orders:before
+        // Cart icon.
+        content: "\e902";
+    }
+
+    &--our-services:before {
+        // .customer-services-group--our-services:before
+        // Wrench icon.
+        content: "\1f527";
+    }
+
+    &--delivery-collections:before {
+        // .customer-services-group--delivery-collections:before
+        // Export icon.
+        content: "\1f69a";
+        font-size: 36px;
+    }
+
+    &--feedback:before {
+        // .customer-services-group--feedback:before
+        // Speech Bubbles icon.
+        content: "\e917";
+    }
+
+    &--returns-refunds:before {
+        // .customer-services-group--returns-refunds:before
+        // Returns icon.
+        content: "\1f4e6";
+    }
+
+    &--disposal-recycling:before {
+        // .customer-services-group--disposal-recycling:before
+        // Recycle icon.
+        content: "\267b";
+    }
+
+    &--terms-conditions:before {
+        // .customer-services-group--terms-conditions:before
+        // TLC logo icon.
+        content: "\e911";
+        font-size: 20px;
+    }
+
+    //--------------------------------------------------------------------------
+    // Customer Services Group - Unordered List.
+    //-----
+
+    &__list {
+        // .customer-services-group__list
+        // The <ul> element.
+        list-style: none;
+        padding-left: 55px;
+    }
+
+    //--------------------------------------------------------------------------
+    // Customer Services Group - List Item.
+    //-----
+
+    &__list-item {
+        // .customer-services-group__list-item
+        // The <li> element.
+        margin-bottom: 10px;
+        line-height: 1.2;
+
+        &:last-child {
+            // .customer-services-group__list-item:last-child
+            // Trim off the margin for the last list item.
+            margin-bottom: 0;
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // Customer Services Group - Hyperlink.
+    //-----
+
+    &__link {
+        // .customer-services-group__link
+        // The <a> element.
+        text-decoration: none;
+
+        &:hover {
+            // .customer-services-group__link:hover
+            text-decoration: underline;
+        }
+    }
+}
+
+//==============================================================================
+// Email Addresses Section.
+//==============================================================================
+
+.email-addresses {
+    // Email addresses container.
+    @include row;
+    list-style: none;
+    line-height: 1;
+    margin-top: 20px;
+}
+
+.email-address {
+    // A container for icon, title and email link.
+    @include column;
+    @include flexbox;
+    width: 100%;
+    margin-bottom: 20px;
+
+    @media (min-width:600px) {
+        @include column-span(6);
+        padding-right: 0;
+    }
+
+    @media #{$large} {
+        @include column-span(4);
+        padding-right: 0;
+    }
+
+    &__icon {
+        // .email-address__icon
+        // Icon to accompany the email address.
+        @include flex(0, 0, 40px);
+        float: left;
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+
+        img {
+            // .email-address__icon img
+            max-width: 100%;
+        }
+    }
+
+    &__text {
+        // .email-address__text
+        @include flex(0, 1, auto);
+        float: left;
+    }
+
+    &__title {
+        // .email-address__title
+        // Title of the email address.
+        @extend %text-truncated;
+        font-weight: bold;
+        padding-top: 4px;
+    }
+
+    &__link {
+        // .email-address__link
+        // <a> link for email address.
+        @extend %text-truncated;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

@@ -1,0 +1,94 @@
+//******************************************************************************
+// Previous Purchases.
+//
+// Page-specific styles for the Previous Purchases page.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.group";
+@import "module.product-table";
+@import "module.quantity-control";
+@import "module.price-breaks";
+@import "module.price-drop";
+@import "module.add-to-basket-confirmation";
+@import "module.out-of-stock-modal";
+
+//==============================================================================
+// Page Title.
+//==============================================================================
+
+.checkout__page-title {
+    // 
+    font-size: $base-padding;
+    font-weight: bold;
+    margin: 0 0 $primary-padding 0;
+
+    @media #{$small} {
+        font-size: 24px;
+        margin: $secondary-padding 0 $primary-padding 0;
+    }
+}
+
+//==============================================================================
+// Previous Purchases Header.
+//==============================================================================
+.purchases-header {
+    // Previous Purchases Header content container.
+    background-color: $grey-96;
+    padding: $base-padding $base-padding 10px $base-padding;
+
+    @media #{$small} {
+        padding: 10px $base-padding;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.purchases-header__fieldset {
+    // fieldset containing purchases description, "sort by..." dropdown select.
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+    min-height: 40px;
+
+    @media #{$small} {
+        @include flex-direction(row);
+    }
+}
+
+.purchases-header__description {
+    // Previous Purchases intro description.
+    display: inline;
+    line-height: 1.2;
+    width: 100%;
+
+    @media #{$small} {
+        @include flex(1, 1, 1%);
+        width: auto;
+        margin-bottom: 0;
+    }
+}
+
+.purchases-header__sort-select {
+    // "Sort by" dropdown select field wrapper.
+    @include flex(0, 0, auto);
+
+    @media #{$small} {
+        width: auto;
+        min-width: 280px;
+    }
+}
+
+//==============================================================================
+// Previous Purchases Body.
+//==============================================================================
+.purchases {
+    // Container for Purchases Results (list of products).
+    @include clearfix;
+    background-color: $grey-96;
+    border-top: 1px solid $grey-86;
+    padding: 10px 0;
+}

@@ -1,0 +1,369 @@
+//******************************************************************************
+// Helpers.
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+//==============================================================================
+// Utility classes for Text formatting.
+//
+// Can be applied to text wrapped in <span> tags or other
+// elements such as tables.
+//==============================================================================
+
+.text-muted {
+    // .text-muted
+    // Muted, grey text style
+    color: $grey-50;
+}
+
+.text-semibold {
+    // .text-bold
+    // bold text style.
+    font-weight: 600;
+}
+
+
+.text-bold {
+    // .text-bold
+    // bold text style.
+    font-weight: bold;
+}
+
+.text-loud {
+    // .text-loud
+    // Red and bold text style
+    font-weight: bold;
+    color: $tlc-red;
+}
+
+.text-normal {
+    // .text-normal
+    // Normal weighted font text style
+    font-weight: normal !important;
+}
+
+.text-left {
+    // .text-left
+    // Left-aligned text.
+    text-align: left !important;
+}
+
+.text-center {
+    // .text-center
+    // Center-aligned text
+    text-align: center !important;
+}
+
+.text-right {
+    // .text-right
+    // Right-aligned text
+    text-align: right !important;
+}
+
+.text-nowrap {
+    // .text-nowrap
+    // Prevent text wrapping
+    @media (min-width: 320px) {
+        white-space: nowrap !important;
+    }
+}
+
+.text-color-positive {
+    // .text-color-positive
+    // Green text
+    color: $color-positive;
+}
+
+.text-color-negative {
+    // .text-color-negative
+    // Red text
+    color: $color-negative;
+}
+
+.text-color-neutral {
+    // .text-color-neutral
+    // Amber coloured text
+    color: $color-neutral;
+}
+
+.text-small {
+    // .text-small
+    // Reduces font-size
+    font-size: 0.8em;
+}
+
+.text-large {
+    // .text-large
+    // Increases font-size
+    font-size: 1.8em;
+}
+
+//------------------------------------------------------------------------------
+// Line Height.
+//-----
+
+.leading-none {
+    line-height: 1!important;
+}
+
+.leading-tight {
+    line-height: 1.25!important;
+}
+
+// .leading-snug {
+//     line-height: 1.375!important;
+// }
+
+.leading-normal {
+    line-height: 1.5!important;
+}
+
+// .leading-relaxed {
+//     line-height: 1.625!important;
+// }
+
+// .leading-loose {
+//     line-height: 2!important;
+// }
+
+//==============================================================================
+// Responsive images
+//
+// Applied on img elements so that they scale with their parent element.
+//==============================================================================
+
+.img-fluid {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+//==============================================================================
+// Visibility Classes.
+//
+// Show or hide elements based on screen size.
+//==============================================================================
+
+.hidden,
+[hidden] {
+    display: none !important;
+}
+
+.desktop-only {
+    // Show only on Desktop-view (800px width) and up
+    @media #{$less-than-small} {
+        display: none !important;
+    }
+}
+
+.mobile-only {
+    // Hide for viewport widths >= 'desktop' breakpoint.
+
+    @media #{$small} {
+        display: none !important;
+    }
+}
+
+.x-small-and-up,
+.hide-lt-x-small {
+    // Show on X-Small view (width) and up
+    @media #{$less-than-x-small} {
+        display: none !important;
+    }
+}
+
+.hide-lt-tiny {
+    // Hide for viewport widths < 'tiny' breakpoint.
+    
+    @media #{$less-than-tiny} {
+        display: none !important;
+    }
+}
+
+.hide-lt-medium {
+    // Hide for viewport widths < 'medium' breakpoint.
+    
+    @media #{$less-than-medium} {
+        display: none !important;
+    }
+}
+
+.hide-lt-large {
+    // Hide for viewport widths < 'large' breakpoint.
+    
+    @media #{$less-than-large} {
+        display: none !important;
+    }
+}
+
+.hide-lt-huge {
+    // Hide for viewport widths < 'huge' breakpoint.
+    
+    @media #{$less-than-huge} {
+        display: none !important;
+    }
+}
+
+//==============================================================================
+// Flexbox body class.
+//==============================================================================
+
+.page-flex {
+    // Maximises height of main page content, anchors footer to bottom.
+    height: 100%;
+    overflow-x: hidden; // IE browser quirk
+    @include flexbox;
+    @include flex-direction(column);
+    @include justify-content(stretch);
+
+    .navbar,
+    .header-listings,
+    .page-footer {
+        @include flex(0, 0, auto);
+    }
+
+    .checkout {
+        width: 100%;
+    }
+}
+
+//==============================================================================
+// Debug Class.
+//
+// Using Developer tools, add the debug class to the html
+// element to display the current media-queries in DOM.
+//==============================================================================
+
+.debug {
+    // To be placed on the 'html' element
+    &:before, &:after {
+        font-family: $base-font;
+        font-size: 11px;
+        position: fixed;
+        content: 'base';
+        bottom: 20px;
+        padding:0 10px;
+        background: rgba(red,.1);
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        color: black;
+        z-index: $z-debug;
+    }
+
+    &:before {
+        // width media query labels
+        left: 20px;
+
+        @media #{$tiny}     {content:'W: tiny'}
+        @media #{$x-small}  {content:'W: x-small'}
+        @media #{$small}    {content:'W: small'}
+        @media #{$medium}   {content:'W: medium'}
+        @media #{$large}    {content:'W: large'}
+        @media #{$huge}     {content:'W: huge'}
+    }
+
+    &:after {
+        // height media query labels
+        right: 20px;
+
+        @media #{$height-tiny}   {content:'H: tiny'}
+        @media #{$height-short}  {content:'H: short'}
+        @media #{$height-medium} {content:'H: medium'}
+        @media #{$height-tall}   {content:'H: tall'}
+        @media #{$height-huge}   {content:'H: huge'}
+    }
+}
+
+//==============================================================================
+// Spacing Utility Classes.
+//
+// Derived from Bootstrap 4 spacing utility classes
+// https://github.com/twbs/bootstrap/blob/v4-dev/scss/utilities/_spacing.scss
+//
+// Usage:
+//
+// Class names can be built up with the following segments:
+// [m|p]-[a|t|r|b|l|x|y]-[1|2|3]
+//
+//
+// m = margin
+// p = padding
+//
+// a = top, right, bottom + left
+// t = top
+// r = right
+// b = bottom
+// l = left
+// x = left + right
+// y = top + bottom
+//
+// 1 = 10px
+// 2 = 15px
+// 3 = 20px
+//
+// Examples:
+//
+// m-t-2 = margin-top: 15px
+// p-y-3 = padding-top: 20px + padding-bottom: 20px
+//==============================================================================
+
+//------------------------------------------------------------------------------
+// Width.
+//-----
+
+.w-100 { width: 100% !important; }
+
+//------------------------------------------------------------------------------
+// Margin and Padding.
+
+.m-x-auto {
+    margin-right: auto !important;
+    margin-left:  auto !important;
+}
+
+@each $prop, $abbrev in (margin: m, padding: p) {
+    @each $size, $lengths in $spacers {
+        $length-x:   map-get($lengths, x);
+        $length-y:   map-get($lengths, y);
+
+        .#{$abbrev}-a-#{$size} { #{$prop}:        $length-y $length-x !important; } // a = All sides
+        .#{$abbrev}-t-#{$size} { #{$prop}-top:    $length-y !important; }
+        .#{$abbrev}-r-#{$size} { #{$prop}-right:  $length-x !important; }
+        .#{$abbrev}-b-#{$size} { #{$prop}-bottom: $length-y !important; }
+        .#{$abbrev}-l-#{$size} { #{$prop}-left:   $length-x !important; }
+
+        // Axes
+        .#{$abbrev}-x-#{$size} {
+            #{$prop}-right:  $length-x !important;
+            #{$prop}-left:   $length-x !important;
+        }
+        .#{$abbrev}-y-#{$size} {
+            #{$prop}-top:    $length-y !important;
+            #{$prop}-bottom: $length-y !important;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Positioning.
+//-----
+
+.pos-f-t {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: $z-debug;
+}

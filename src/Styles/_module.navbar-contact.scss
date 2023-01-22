@@ -1,0 +1,66 @@
+//******************************************************************************
+// Navbar - Contact
+//
+// Customer Services phone number.
+//******************************************************************************
+
+//==============================================================================
+// Customer Services contact information.
+//==============================================================================
+.navbar-contact {
+    // Container for contact info
+    display: none;
+
+    @media #{$small} {
+        @include flexbox;
+        @include order(1);
+        @include flex(0, 0, auto);
+        height: 50px;
+        border-width: 0 1px;
+        border-style: solid;
+        border-color: $border-blue;
+        padding: 0 14px 8px 50px;
+        background-image: url(/Graphics/icon-headset.svg);
+        background-repeat: no-repeat;
+        background-position: 13px center;
+        line-height: 50px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+        margin-left: auto;
+
+        &:hover {
+            color: white;
+            background-color: $border-blue;
+        }
+    }
+}
+
+//==============================================================================
+// Contact Text.
+//==============================================================================
+.navbar-contact__text {
+    // Text container element
+    font-size: 12px;
+    float: left;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.navbar-contact__text-title {
+    // <p> element - Text reading "Customer Services"
+    font-size: 11px;
+}
+
+.navbar-contact__text-number {
+    // <p> element - Text reading "01293 565 630"
+    font-size: 14px;
+    font-weight: bold;
+
+    > a[href^=tel] {
+        // Overwrite default blue for telephone link
+        color:white;
+        text-decoration:none;
+    }
+}

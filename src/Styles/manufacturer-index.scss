@@ -1,0 +1,92 @@
+//******************************************************************************
+// Manufacturer Info sidebar panel.
+//
+// Group Index page for an individual Manufacturer with contact details.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.category-panel";
+
+.manufacturer-info {
+    // Manufacturer information panel
+    background-color: white;
+    line-height: 1.4;
+    text-decoration: none;
+    font-size: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #DFD8C2;
+    padding: 5px 20px 20px 20px;
+    margin: 10px 0 20px 0;
+
+    @media #{$small} {
+        display: inline-block;
+        float: left;
+        margin: 0 10px 0 0;
+        padding: 0 15px 15px 15px;
+        width: 320px;
+    }
+
+    &__content {
+        // Wrapper for all of the Manufacturers contact details (<h2> & <p>s)
+	padding-top: 10px;
+        @media #{$less-than-small} {
+            @media #{$x-small} {
+	        @include column-count(2);
+            }
+        }
+    }
+
+    &__logo {
+        // The manufacturer logo <img>
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+        margin: 0 auto 10px auto;
+    }
+
+    &__item {
+        // Wrapper for <h2> & <p> element
+        @include break-inside(avoid);
+    }
+
+    &__heading {
+        // The <h1> heading (Manufacturer name)
+        font-weight: bold;
+        padding: 5px 0 3px 0;
+        text-align: center;
+	font-size:1.2em;
+	border-bottom: 1px solid $grey-86;
+    }
+
+    .manufacturer-info__sub-heading {
+        // <h2> headings (address, Tel, Fax etc.)
+        font-weight: bold;
+    }
+
+    p {
+        // The contact details
+        margin-bottom: 10px;
+    }
+}
+
+.literature-request-form {
+    // Literature request form in the Manufacturer Info section.
+
+    .field__checkbox-wrapper {
+        // Shorten Literature Request checkboxes
+        min-height: 30px;
+    }
+
+    .field__checkbox-label {
+        // Normal weight Literature Request checkbox labels
+        font-weight: normal;
+    }
+
+    &__button {
+        // Clear float to prevent button affecting container's width
+        clear: left;
+    }
+}

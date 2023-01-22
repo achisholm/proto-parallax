@@ -1,0 +1,189 @@
+//******************************************************************************
+// Global
+//
+// Global rules & resets.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+//==============================================================================
+// CSS Reset
+// http://meyerweb.com/eric/tools/css/reset/ v2.0
+//==============================================================================
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;margin:0;padding:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:none}
+
+//==============================================================================
+// Base -
+// Global rules
+//==============================================================================
+
+// Apply a natural box layout model to all elements, but allowing components
+// to change.
+html {
+    box-sizing: border-box;
+    -webkit-text-size-adjust: none;
+}
+
+*, *:before, *:after {box-sizing: inherit;}
+
+html{
+    font-size: 17px;
+    height: 100%;
+}
+
+body {
+    font-family: $base-font;
+    font-weight: 400;
+    line-height: 154%;
+    font-size: 90%;
+    width: 100%;
+    
+    @media #{$small} {
+        font-size: 100%;
+    }
+}
+
+.prevent-scroll {
+    // Class applied to <body> to lock down scrolling.
+    overflow: hidden;
+    touch-action: none;
+}
+
+
+.smooth-scroll {
+    // Class applied to root <html> element to enable animated scrolling.
+    scroll-behavior: smooth;
+}
+
+
+//==============================================================================
+// Site width wrapper.
+//
+// Container that constrains and centres page content.
+//==============================================================================
+.site-width-wrapper {
+    margin: 0 auto;
+    max-width: $site-width;
+    width: 100%;
+
+    @media (min-width: 800px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+//==============================================================================
+// Base Typography.
+//==============================================================================
+a {
+    // All <a> links
+    color: blue;
+
+    &:hover {
+        color: $tlc-red;
+    }
+}
+
+strong, b {
+    // <strong> & <b> elements bold text style
+    font-weight: bold;
+}
+
+i, em {
+    // <i> & <em> element italic text style
+    font-style: italic;
+}
+
+u {
+    // <u> element underlined text style
+    text-decoration: underline;
+}
+
+font[color="red"] {
+    // Replaces primary red with a softer red when the <font color='red'> tag is used
+    color: $tlc-red;
+}
+
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    // Move superscripted text up
+    top: -0.5em;
+}
+
+sub {
+    // Move subscripted text down
+    bottom: -0.25em;
+}
+
+table {
+    // 'table' element defaults
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+code {
+    font-family: monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: $tlc-red;
+    background-color: lighten($tlc-red, 50%); //#f9f2f4;
+    border-radius: 4px;
+}
+
+//==============================================================================
+// Forms.
+//==============================================================================
+button,
+input,
+select,
+textarea {
+    // override the UA styles for some browsers, set font properties to 'inherit'
+    font: inherit;
+}
+
+input {
+    // Prevent zoom on focus for mobile iOS devices.
+    font-size: 16px;
+}
+
+//==============================================================================
+// Template.
+//==============================================================================
+.template {
+    // A substitute for the <template> element
+    display: none !important;
+}
+
+//==============================================================================
+// External Link.
+//
+// Applied to hyperlinks to insert an external link icon, positioned after the
+// link's text.
+//==============================================================================
+
+.external-link {
+    // Adds an external link icon to <a> links positioned after text.
+    position: relative;
+    
+    &:after {
+        // .external-link:after
+        // The external link icon.
+        @include icon;
+        content: "\e900"; // .icon--link-external
+        display: inline-block;
+        font-size: 75%;
+        text-decoration: none;
+        padding: 0 0.3em;
+        line-height: inherit;
+    }
+}

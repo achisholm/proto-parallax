@@ -1,0 +1,127 @@
+//******************************************************************************
+// Order Summary.
+//
+// Checkout page "Order Summary".
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.card";
+@import "module.card-table";
+@import "module.order-items";
+@import "module.order-totals-table";
+@import "module.special-delivery-labels";
+$basket-bp-2: 414px;
+$basket-bp-3: 500px;
+$basket-bp-6: 900px;
+@import "module.basket-alert";
+
+//==============================================================================
+// Order Summary Header.
+//==============================================================================
+.order-summary-header {
+    // Intro text and proceed button at the top of the order summary.
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    
+    @media (min-width: 675px) {
+        flex-direction: row;
+        align-items: center;
+
+        :last-child {
+            // .order-summary-header :last-child
+            // No margin-bottom on the last element.
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+        // .order-summary-header__text
+        // Intro text container.
+        flex: 1;
+
+        @media #{$medium} {
+            width: 350px;
+        }
+        
+        @media #{$large} {
+            width: auto;
+        }
+
+    }
+    
+    &__button {
+        // .order-summary-header__button
+        // Proceed button container.
+
+        @media (min-width: 675px) {
+            flex: 0 1 350px;
+            margin-left: 20px;
+        }
+    }
+}
+
+
+//==============================================================================
+// Order Summary.
+//==============================================================================
+
+.order-summary {
+    // Container for label/values (Invoice address, Delivery Address, Email, Phone etc.)
+    
+    @media (min-width:768px) {
+        @include column-count(2);
+    }
+
+    @media #{$large} {
+        @include column-count(3);
+    }
+
+    @media #{$huge} {
+        @include column-count(4);
+    }
+
+    &__item {
+        // .order-summary__item
+        // Order summary item, each with a label & value.
+        @include break-inside(avoid);
+        padding-bottom: 10px;
+    }
+}
+
+.column-break-before {
+    // Utility to prevent an element breaking over columns. 
+    break-before: column;
+    -webkit-column-break-before: always;
+}
+
+
+//==============================================================================
+// Order Summary Footer.
+//==============================================================================
+
+.order-summary-footer {
+    // Container for basket alert messages and totals.
+    display: flex;
+    flex-direction: column;
+    
+    @media #{$small} {
+        align-items: flex-start;
+        flex-direction: row;
+    }
+}
+
+.basket-alerts {
+    // Container for basket's alert messages.
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-column-gap: 10px;
+    grid-column-start: 1;
+    margin: 0 0 10px 0;
+    
+    @media #{$small} {
+        margin: 20px 20px 20px 0;
+    }
+}

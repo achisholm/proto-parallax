@@ -1,0 +1,90 @@
+//******************************************************************************
+// Your Account Details Form.
+//
+//
+//******************************************************************************
+.page--trade-account-details {
+
+    .fieldset {
+        .remove-buyer-control {
+            // Add & remove buttons hidden by default
+            display: none;
+        }
+
+        .add-buyer-control .field__button {
+            // Add Sales Contact button hidden by default
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition-property: height, opacity;
+            transition-duration: 500ms;
+            transition-timing-function: ease-in-out;
+        }
+
+        &--show-controls {
+            //.fieldset--show-controls
+            // Toggle class to show / hide Sales Contact add and remove buttons
+            .remove-buyer-control {
+                display: inline
+            }
+
+            .add-buyer-control .field__button {
+                height: 50px;
+                opacity: 1;
+            }
+        }
+    }
+
+    .fieldset__secondary-title {
+        // Secondary title used for Sales Contacts 1,2 & 3
+        font-size: 18px;
+        font-weight: bold;
+        margin: 20px 8px 5px 8px;
+        border-bottom: 1px solid $grey-86;
+        padding-bottom: 5px;
+        clear: left;
+    }
+}
+
+.add-buyer-control .field__button {
+    // "Add an additional Sales Contact" button
+    clear: both;
+    line-height: 48px;
+    text-align: center;
+    color: $grey-40;
+    position: relative;
+    @include fade;
+    height: 50px;
+    border: 1px dashed grey;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: $grey-96;
+    background-repeat: no-repeat;
+    background-image: url(/Graphics/icon-plus-circle-green.svg);
+    background-position: 15px center;
+    background-size: 22px;
+    font-size: 16px;
+    font-weight: inherit;
+    font-family: $base-font;
+    letter-spacing: normal;
+    text-transform: none;
+
+    &:hover,
+    &:active {
+        background-color: white;
+        color: $grey-40;
+    }
+}
+
+.remove-buyer-control {
+    // "Remove" text link button for Sales contacts
+    color: blue;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: normal;
+    line-height: 0;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

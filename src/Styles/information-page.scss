@@ -1,0 +1,447 @@
+//******************************************************************************
+// Information Pages.
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.headings";
+@import "module.table";
+@import "module.list";
+
+.information-page {
+    // Container for information page content. Two-column layout on desktop.
+    @include flexbox;
+    
+    @media #{$less-than-small} {
+        @include flex-direction(column);
+    }
+    
+    &__menu {
+        // .information-page__menu
+        // Container for the quick-link navigation menu.
+        margin: 20px 0;
+        @include flex-grow(1);
+        
+
+        &:before {
+            // .information-page__menu:before
+            // Text label for in-page menu.
+            color: $grey-56;
+            font-size: 12px;
+            display: block;
+            content: "On this page:";
+        }
+        
+        @media #{$less-than-small} {
+            margin: 10px 20px 0 20px;
+        }
+        
+        @media #{$small} {
+            max-width: 30%;
+        }
+    }
+    
+    &__content {
+        // .information-page__content
+        // Content wrapper for Information page content.
+        margin: 0 auto;
+        text-align: left;
+        width: 100%;
+        max-width: 800px;
+        padding: 20px;
+        
+        &--730px {
+            // .information-page__content--730px
+            max-width: 730px;
+        }
+
+        p {
+            // .information-page__content p
+            // Information page paragraphs.
+            margin-bottom: 1em;
+        }
+        
+        address {
+            // .information-page__content address
+            // Information page addresses.
+            margin-bottom: 1em;
+            margin-left: 20px;
+            line-height: 1.4;
+            color: $grey-20;
+        }
+    }
+
+    &__title {
+        // .information-page__title
+        // Information page's title heading.
+
+        @media #{$less-than-small} {
+            display: none;
+        }
+    }
+}
+
+//==============================================================================
+// Anchor Target.
+//
+//==============================================================================
+
+.anchor-target {
+    // Div wrapper containing a section of text, linked to from the in-page 
+    // navigation menu.
+    padding-top: 15px;
+    margin-top: -15px;
+    padding-bottom: 15px;
+    margin-bottom: -15px;
+
+
+    &:target {
+        // .anchor-target:target
+        //  Briefly highlight the current active element being linked to.
+        border-radius: 20px;
+        animation-duration: 3s;
+        animation-name: highlight-section;
+    }
+}
+
+@keyframes highlight-section {
+    // Animation to highlight a section of text when visited.
+    
+    from {
+        background-color: rgba($color-neutral, 0.075);
+        box-shadow: 0 0 5px 10px rgba($color-neutral, 0.075);
+    }
+    
+    to {
+        background-color: rgba($color-neutral, 0);
+        box-shadow: 0 0 5px 10px rgba($color-neutral, 0);
+    }
+}
+
+
+//==============================================================================
+// In-Page Links Navigation Menu.
+//==============================================================================
+
+.navbar.is-fixed ~ .information-page .in-page-menu {
+    // Shift position of in-page menu when the navbar is fixed.
+    top: 120px;
+}
+
+.in-page-menu {
+    // .in-page-menu__menu
+    // The <nav> element containing list of menu items.
+    z-index: $z-in-page-nav-menu;
+    font-size: 15px;
+    
+    @media #{$less-than-small} {
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+        @media (min-width: 700px) {
+            @include column-count(3);
+        }
+    }
+    
+    @media #{$small} {
+        @include scrollbar(5px, 5px);
+        max-height: calc(100vh - 40px);
+        border-width: 0 1px 0 0;
+        border-style: solid;
+        border-color: $grey-86;
+        position: sticky;
+        position: -webkit-sticky; // vendor prefix for Safari.
+        top: 20px;
+        overflow: auto;
+    }
+
+    &__list {
+        // .in-page-menu__list
+        // The <ul> element.
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        
+        &--nested {
+            // .in-page-menu__list--nested
+            // A second-level or third-level list.
+            
+            .in-page-menu__link {
+                // .in-page-menu__list--nested .in-page-menu__link
+                // A second-level menu item link.
+                padding-left: 15px;
+                
+                @media #{$small} {
+                    padding-left: 40px;
+                }
+
+                &:before {
+                    // .in-page-menu__list--nested .in-page-menu__link:before
+                    // Visual indicator for nested menu items.
+                    content: "";
+                    display: block;
+                    width: 6px;
+                    height: 6px;
+                    border-color: $grey-86;
+                    border-width: 0 0 2px 2px;
+                    border-style: solid;
+                    line-height: inherit;
+                    position: absolute;
+                    left: 0;
+                    top: 10px;
+                    
+                    @media #{$small} {
+                        left: 23px;
+                        top: 14px;
+                    }
+                }
+            }
+            
+            .in-page-menu__list .in-page-menu__link {
+                // .in-page-menu__list--nested .in-page-menu__list .in-page-menu__link
+                // A third-level menu item link.
+                padding-left: 30px;
+                
+                @media #{$small} {
+                    padding-left: 60px;
+                }
+                
+                &:before {
+                    // .in-page-menu__list--nested .in-page-menu__list .in-page-menu__link:before
+                    left: 15px;
+
+                    @media #{$small} {
+                        left: 43px;
+                    }
+                }
+            }
+        }
+    }
+    
+    &__item {
+        // .in-page-menu__item
+        // An in-page menu list item (<li>).
+        @include break-inside(avoid);
+    }
+    
+    &__link {
+        // .in-page-menu__link
+        // The menu-item's link <a> element.
+        display: block;
+        line-height: 1.2;
+        padding: 5px 0;
+        position: relative;
+        cursor: pointer;
+        color: black;
+        transition-property: color, box-shadow;
+        transition-duration: 0.2s;
+        transition-timing-function: linear;
+        box-shadow: inset 0px 0 transparent;
+        color: $grey-30;
+        
+        @media #{$small} {
+            padding: 10px 20px;
+            color: $grey-20;
+            text-decoration: none;
+
+            &:hover {
+                // .in-page-menu__link:hover
+                background-color: $grey-98;
+            }
+
+            &.is-active {
+                // .in-page-menu__link.is-active
+                background-color: $grey-98;
+                color: $tlc-red;
+                box-shadow: inset 10px 0 0 $grey-93;
+            }
+        }
+    }
+    
+    > .in-page-menu__list > .in-page-menu__item:first-child  {
+        // .in-page-menu > .in-page-menu__list > .in-page-menu__item:first-child
+        //  Target the first menu item in the menu and remove border-top.
+        border-top: none;
+    }
+}
+
+//==============================================================================
+// Body Copy.
+//==============================================================================
+.intro {
+    // Can be used to make the first paragraph stand out.
+    font-size: 20px;
+    line-height: 1.4em;
+    margin-bottom: 1.5em;
+}
+
+//==============================================================================
+// Doorbell Chimes.
+//==============================================================================
+.chime {
+    // Door Bell Chime
+    margin-bottom: $secondary-padding;
+    
+    &__title {
+        // .chime__title
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    &__audio {
+        // .chime__audio
+        audio {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+    
+    @media #{$less-than-small} {
+        background-color: $grey-96;
+        border-radius: 3px;
+        border: 1px solid $grey-86;
+        padding: $secondary-padding;;
+    }
+    
+    @media #{$small} {
+        // Table-layout for desktop view
+        display: table;
+        width: 100%;
+        
+        &__title {
+            width: 20%;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+            padding-right: 10px;
+            font-size: .8em;
+            line-height: 1.2;
+        }
+        
+        &__audio {
+            width: 80%;
+            display: table-cell;
+        }
+    }
+}
+
+//==============================================================================
+// Full-width horizontal page divider.
+//==============================================================================
+.divider {
+    // A horizontal divider that spans the full width of the screen.
+    margin: 0;
+    padding: $base-padding 0 ($base-padding + 18px) 0;
+    border: none;
+    
+    &:before {
+        // full-width divider
+        @extend %mobile-divider;
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        max-width: 100%;
+        width: 100%;
+        
+        @media #{$small} {
+            border-bottom: 1px solid $grey-86;
+        }
+    }
+}
+
+//==============================================================================
+// Pattern Library Code Examples & Blocks.
+//==============================================================================
+.code-example {
+    // Container for code examples
+    position: relative;
+    padding: 45px 15px 15px;
+    background-color: white;
+    border: 1px $grey-86 solid;
+    border-radius: 3px 3px 0 0;
+    margin: 0 0 40px 0;
+    
+    &:before {
+        // "EXAMPLE" text
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        color: $grey-40;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        content: "Example";
+    }
+}
+
+.code-block {
+    // Container for example code blocks (adjacent sibling of .code-example).
+    margin-top: -41px;
+    border-width: 1px;
+    border-radius: 0 0 3px 3px;
+    padding: 9px 14px;
+    margin-bottom: $base-padding;
+    background-color: lighten($tlc-blue, 79%);
+    border: 1px solid $grey-86;
+    font-size: .8em;
+    line-height: 1.5;
+    
+    pre code {
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+        white-space: pre-wrap;
+        background-color: transparent;
+    }
+}
+
+//==============================================================================
+// Blockquote.
+//==============================================================================
+
+.blockquote {
+    // Blockquote element.
+    position: relative;
+    padding: 15px;
+    background-color: white;
+    border: 1px $grey-86 solid;
+    border-radius: 3px;
+    margin: 0 0 40px 0;
+    font-style: italic;
+}
+
+//==============================================================================
+// Disclosure UI Widget.
+//==============================================================================
+
+.disclosure-details {
+    // The <details> element.
+    
+    p {
+        // .disclosure-details p
+        // Styles for text paragraphs in the disclosure widget.
+        border-left: 5px $grey-93 solid;
+        padding-left: 10px;
+        line-height: 1.3;
+    }
+}
+
+.disclosure-summary {
+    // The <summary> element.
+    display: inline-block;
+    color: $bright-blue;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 0.3em;
+    text-decoration: underline;
+    
+    &:hover {
+        // .disclosure-summary:hover
+        color: $tlc-red;
+    }
+}

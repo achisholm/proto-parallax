@@ -1,0 +1,90 @@
+//******************************************************************************
+// Customer Sign In page.
+//
+// Includes Sign-In form for existing customers and links to Register/Continue
+// for guest users.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+@import "module.headings";
+
+.navbar-account-menu {
+    // Hide the 'Sign In or Register' links in the navbar for this page.
+    visibility: hidden;
+}
+
+.sign-in-panel {
+    // Both of the panel, displayed stacked in mobile/tablet & 2-column layout
+    // on desktop.
+    @media #{$small} {
+        @media #{$less-than-medium} {
+            padding-top: 20px;
+        }
+    }
+
+    @media #{$medium} {
+        float: left;
+        padding-top: 40px;
+        padding-bottom: 60px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &--existing-customer {
+        // .sign-in-panel--existing-customer
+        // Left-hand panel containing sign in form.
+        @media #{$medium} {
+            width: 45%;
+            padding-right: 20px;
+            border-right: 1px solid $grey-86;
+        }
+
+        @media #{$large} {
+            padding-right: 40px;
+        }
+    }
+
+    &--new-customer {
+        // .sign-in-panel--new-customer
+        // Right-hand panel containing 'create an account' and 'continue as
+        // guest' buttons.
+        padding-bottom: 20px;
+
+        @media #{$medium} {
+            width: 55%;
+            padding-left: 20px;
+        }
+
+        @media #{$large} {
+            padding-left: 40px;
+        }
+    }
+}
+
+.h2--no-border {
+    // Remove the heading's border.
+    border-bottom: none;
+}
+
+.page--flex {
+    // Make page vertically flexible.
+
+    @media #{$medium} {
+        @include flexbox;
+        @include flex-direction(column);
+        min-height: 100%;
+
+        > .navbar,
+        > .header-listings,
+        > .page-footer {
+            // Fix header & footer component's height
+            @include flex(0,0,auto);
+        }
+
+        > .site-width-wrapper {
+            // Centered in remaining vertical space
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+}

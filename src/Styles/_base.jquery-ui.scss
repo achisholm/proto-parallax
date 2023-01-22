@@ -1,0 +1,11 @@
+//******************************************************************************
+// jQuery UI overrides.
+//
+// Used on group pages to adjust appearance of Remember My VAT Preference dialog
+//******************************************************************************
+
+.ui-widget {
+    // Alter the font size of the grey theme to prevent
+    // wrapping text.
+    font-size: 14px;
+}

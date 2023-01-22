@@ -1,0 +1,53 @@
+//******************************************************************************
+// Multi-purpose grid system.
+//
+// General set of classes that use the Grid System mixins
+// in _tools.mixins.scss
+//******************************************************************************
+
+.row {
+    // General row wrapper that contains columns inside
+    @include row;
+}
+
+.column {
+    // General column without a specified width
+    @include column;
+    width: 100%;
+
+    // Column width classes
+    &--quarter {
+        // .column--quarter
+        @media #{$small} {
+            @include column-span(6);
+        }
+        @media #{$medium} {
+            @include column-span(3);
+        }
+    }
+    &--third {
+        // .column--third
+        @media #{$small} {
+            @include column-span(4);
+        }
+    }
+    &--half {
+        // .column--half
+        @media #{$small} {
+            @include column-span(6);
+        }
+    }
+    &--two-thirds {
+        // .column--two-thirds
+        @media #{$small} {
+            @include column-span(8);
+        }
+    }
+    &--three-quarters {
+        // .column--three-quarters
+        @media #{$small} {
+            @include column-span(9);
+        }
+    }
+
+}

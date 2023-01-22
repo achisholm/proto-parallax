@@ -1,0 +1,531 @@
+//******************************************************************************
+// Search.
+//
+// Search Results page.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.alert-message";
+@import "module.product-table";
+@import "module.quantity-control";
+@import "module.price-breaks";
+@import "module.price-drop";
+@import "module.index";
+@import "module.category-panel";
+@import "module.headings";
+
+// Non-critical styles that could be deferred...
+@import "module.out-of-stock-modal";
+@import "module.add-to-basket-confirmation";
+
+.search-results .group {
+    // Removes the border on .group for search results
+    border: none;
+}
+
+//==============================================================================
+// Search Header.
+//==============================================================================
+.search-header {
+    // Search Header content container
+    background-color: $grey-96;
+    padding: $base-padding $base-padding 10px $base-padding;
+
+    @media #{$small} {
+        padding: 10px $base-padding;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.search-header__fieldset {
+    // fieldset containing search description, refine button & "sort by..." dropdown select
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+    min-height: 40px;
+
+    @media #{$small} {
+        @include flex-direction(row);
+    }
+}
+
+.search-header__description {
+    // Search description ("Showing x results for ...")
+    @include order(1);
+    display: inline;
+    line-height: 1.2;
+    width: 100%;
+
+    @media #{$small} {
+        @include flex(1, 1, 1%);
+        width: auto;
+        margin-bottom: 0;
+    }
+}
+
+.fieldset .search-header__sort-select,
+.fieldset .search-header__refine-button {
+    // "Sort by" dropdown & "Refine" button
+    @include flex(0, 0, auto);
+
+    @media #{$small} {
+        width: auto;
+    }
+}
+
+.search-header__sort-select {
+    // "Sort by" dropdown select field wrapper
+    @include order(2);
+
+    @media #{$small} {
+        @include order(3);
+    }
+}
+
+.search-header__refine-button {
+    // "Refine" button field wrapper
+    @include order(3);
+
+    @media #{$small} {
+        @include order(2);
+    }
+}
+
+//==============================================================================
+// Filter / Refine button.
+//==============================================================================
+.search-header__refine-button .field__button {
+    // "Refine button"
+    overflow: visible;
+
+    &:focus {
+        outline: none;
+    }
+
+    @media #{$small} {
+        display: inline-block;
+        width: auto;
+        padding-left: $base-padding;
+        padding-right: $base-padding;
+    }
+
+    &:after {
+        // grey triangle that connects the refine button with the expandable category filters
+        content: "";
+        display: block;
+        width: 12px;
+        height: 12px;
+        transform: rotate(45deg);
+        border-width: 1px 0 0 1px;
+        border-style: solid;
+        border-color: transparent;
+        position: absolute;
+        bottom: -24px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background-color: transparent;
+        z-index: $z-search-refine;
+        transition-property: border-color, opacity, background-color;
+        transition-duration: 200ms;
+        transition-timing-function: cubic-bezier(.02, .01, .47, 1);
+    }
+
+    &.is-active {
+        // "Refine" button active state
+
+        &:after {
+            // reveals grey triangle that connects "Refine" button with category filter panel
+            border-color: $grey-86;
+            background-color: white;
+        }
+    }
+}
+
+.refine__title {
+    // "Filter by Category" heading title
+    font-weight: 700;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    letter-spacing: .08em;
+    margin-bottom: 5px;
+    color: $grey-40;
+}
+
+.refine {
+    // Filter options panel (hidden by default).
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    border-style: solid;
+    border-color: $grey-86;
+    background-color: white;
+
+    &.is-active {
+        // Filter options panel - open / active state
+        height: auto;
+        opacity: 1;
+        border-top-width: 1px;
+    }
+}
+
+.refine__group {
+    // Contains Title and category-options
+    @include clearfix;
+    padding: 15px $base-padding;
+
+    @media #{$small} {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.refine__group-options {
+    // Wrapper that contains set of category links, displayed in columns
+    height: auto;
+    line-height: 2;
+    font-size: 0.9em;
+
+    @media (min-width: 768px) {
+        @include column-count(2);
+    }
+
+    @media #{$medium} {
+        @include column-count(3);
+    }
+
+    @media #{$large} {
+        @include column-count(4);
+    }
+}
+
+.refine__option {
+    // A category option (<a> link to each category).
+    @include inline-flex;
+    @include flex-direction(row);
+    @include align-items(center);
+    @include break-inside(avoid);
+    position: relative;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    float: left;
+    clear: left;
+    max-width: 100%;
+
+    &:hover {
+        .refine__option-title {
+            text-decoration: underline;
+        }
+    }
+
+    &--active {
+        // .refine__option-active
+        // The selected/active category link style.
+        background-color: lighten($tlc-blue, 78%);
+        border-color: lighten($tlc-blue, 75%);
+        padding: 0 8px;
+
+        &:hover {
+            .refine__option-title {
+                text-decoration: none;
+            }
+        }
+
+        .refine__option-title {
+            font-weight: bold;
+
+        }
+
+        &:after {
+            // Green check / tick icon
+            @include flex(0 ,0 , 12px);
+            @include icon;
+            content: "\43"; // check mark (tick) icon
+            display: inline-block;
+            width: 12px;
+            height: 16px;
+            margin: 0 0 0 10px;
+            line-height: 17px;
+            color: $color-positive;
+        }
+    }
+}
+
+.refine__option-title {
+    // Wrapper <span> for the category title text.
+    @extend %text-truncated;
+    color: #222;
+}
+
+.refine__option-count {
+    // Label <span> positioned after each filter category with number of search results
+    color: $grey-67;
+    margin-left: 5px;
+}
+
+.refine__clear-button {
+    // "No Filter" link
+    max-width: 180px;
+    position: relative;
+    text-decoration: none;
+
+    .icon {
+        font-size: 50%;
+        color: $tlc-red;
+        line-height: inherit;
+        padding-left: 5px;
+        position: absolute;
+        top: 8px;
+    }
+}
+
+//==============================================================================
+// Search Results.
+//==============================================================================
+.search-results {
+    // Container for Search Results (list of products).
+    @include clearfix;
+    background-color: $grey-96;
+    border-top: 1px solid $grey-86;
+}
+
+//==============================================================================
+// Search Results Footer.
+//==============================================================================
+.search-footer {
+    // Search results footer containing a search bar
+    background-color: $grey-96;
+    padding: 20px;
+    border-top: 1px solid $grey-86;
+
+    &__wrapper {
+        // search-footer__wrapper
+        max-width: 800px;
+    }
+}
+
+//==============================================================================
+// Breadcrumb link.
+//==============================================================================
+
+// TODO: rewrite the breadcrumbs component with rtl text-flow /
+//       better truncation.
+
+.breadcrumbs li a.breadcrumbs__link--filter {
+    // breadcrumb link with border and cross icon
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid $grey-86;
+    line-height: 28px;
+    color: #333;
+    padding: 0px 8px;
+
+    &:after {
+        // cross icon
+        @include icon;
+        content: "\78";
+        display: inline-block;
+        width: 12px;
+        height: 16px;
+        margin: 0 0 0 8px;
+        line-height: 17px;
+        color: $tlc-red;
+        font-size: 0.6em;
+    }
+
+    &:hover {
+        background-color: $grey-98;
+        color: black;
+
+        &:after {
+            color: red;
+        }
+    }
+}
+
+//==============================================================================
+// Search Results - High-level / Category view.
+//==============================================================================
+.search-categories {
+    // Search categories wrapper.
+    padding: 20px 20px 0 20px;
+    margin: 0 -10px;
+    @include flexbox;
+    @include flex-wrap(wrap);
+
+    @media #{$small} {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.search-result-category {
+    // Search category panel wrapper.
+    @include column;
+    @include column-span(12);
+    @include flexbox;
+    @include flex-direction(column);
+    @include flex(0, 0, auto);
+    margin-bottom: 20px;
+
+    @media #{$x-small} {
+        @include column-span(6);
+    }
+
+    @media #{$small} {
+        @include column-span(4);
+    }
+
+    @media #{$medium} {
+        @include column-span(3);
+    }
+
+    &__link {
+        // .search-result-category__link
+        // Search category <a> element.
+        @include flex(1, 1, auto);
+        @include flexbox;
+        @include flex-direction(column);
+        @include align-items(center);
+        text-align: center;
+        text-decoration: none;
+        padding: 0 0 10px 0;
+        background-color: white;
+        box-shadow: 0 5px 12px -3px rgba(black, .05), 
+                    0 0px 5px -3px rgba(black, .04);
+        border-radius: 10px;
+        min-height: 1px; // Fixes a flexbox bug on IE 10 & 11 (https://github.com/philipwalton/flexbugs/issues/75)
+
+        &:hover {
+            box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1),
+                        0px 0 0px -3px rgba(2, 2, 2, 0.8);
+
+            .search-result-category__title {
+                color: $tlc-red;
+            }
+            .search-result-category__image {
+                filter: contrast(101%) brightness(101%);
+            }
+        }
+    }
+
+    &__image {
+        // .search-result-category__image
+        // Search category image.
+        @include flex(0, 0, auto);
+        width: 100%;
+
+        > img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    &__title {
+        // .search-result-category__title
+        // Search Category Title.
+        @include flex(1,1,auto);
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        line-height: 1.2;
+        padding: 5px 0 10px 0;
+    }
+
+    &__count {
+        // .search-result-category__count
+        // Product Count, <span> displaying number of results in a category.
+        display: inline-block;
+        color: $grey-40;
+        font-size: 0.8em;
+        line-height: 20px;
+        padding: 0px 10px;
+        border-radius: 20px;
+        border: 1px solid $grey-86;
+    }
+}
+
+
+//==============================================================================
+// Alert message for discontinued items.
+//
+//==============================================================================
+
+.alert-message--discontinued {
+    // Highlighted alert message box.
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+
+    @media #{$less-than-small} {
+        @include flex-direction(column);
+    }
+
+    .alert-message__image {
+        // Alert message image.
+
+        @media #{$less-than-small} {
+            display: block;
+            margin: 0 auto;
+        }
+        @media #{$small} {
+            margin-right: 20px;
+        }
+    }
+
+    .alert-message__text {    
+        // Alert message text.
+        text-align: left;
+    }
+}
+
+
+
+//==============================================================================
+// Menu-item.
+//
+// Search page specific styles.
+//==============================================================================
+
+.menu-item {
+    
+    &__text {
+        // .menu-item__text
+        // Add vertical padding to prevent text overlapping with product count.
+        padding: 20px 0;
+    }
+
+    &__count {
+        // .menu-item__count
+        // Product Count, <span> displaying number of results in a category.
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 2px 5px;
+        border-width: 0 0 1px 1px;
+        border-style: solid;
+        border-color: $grey-86;
+        border-radius: 0 0 0 5px;
+        font-size:0.8em;
+        color: $grey-40;
+        background-color: white;
+    }
+}
+
+//==============================================================================
+// Google Search Results.
+//==============================================================================
+
+.gcsc-more-maybe-branding-root {
+    // Hides branding and link to access other websites at the foot of 
+    // Google's JS-injected search listing HTML.
+    display: none;
+}

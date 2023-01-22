@@ -1,0 +1,162 @@
+// ******************************************************************************
+// Radio Group.
+//
+// Multi-Select form UI component that uses a hidden standard radio input to
+// store checked state. When selected, reveals (optional) additional content.
+// ******************************************************************************
+
+.radio-group {
+
+//==============================================================================
+// Radio Group Option.
+//==============================================================================
+    &__option {
+        // .radio-group__option
+        // A single option in a radio group.
+        background-color: $option-color;
+        margin-bottom: -1px;
+        border: 1px solid $option-border-color;
+        position: relative;
+
+        &:first-child {
+            // .radio-group__option:first-child
+            // Round top corners for the first option in a radio group.
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        &:last-child {
+            // .radio-group__option:last-child
+            // Round bottom corners for the last option in a radio group.
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        &:hover {
+            // .radio-group__option:hover
+            background-color: $option-color-hover;
+        }
+
+        //==============================================================================
+        // Radio Group Option selected/active state.
+        //==============================================================================
+        &.is-active {
+            // .radio-group__option.is-active
+            background-color: $option-color-checked;
+            
+            .option__label {
+                // .radio-group__option.is-active .option-label
+                cursor: default;
+                
+                &:before {
+                    // .radio-group__option.is-active .option-label:before
+                    // When checked, show a selected state for the circular radio button.
+                    border-color: $tlc-blue;
+                    border-width: 5px;
+                }
+            }
+        }
+    }
+    
+//==============================================================================
+// Radio Option Label.
+//
+// Visible, clickable area of the option.
+//==============================================================================
+    .option__label {
+        // .radio-group .option-label.
+        display: table;
+        width: 100%;
+        cursor: pointer;
+        
+//------------------------------------------------------------------------------
+// Circular Radio Button.
+//-----
+        &:before {
+            // .radio-group .option-label:before
+            // The circular radio button.
+            @include flex(16px, 0, 0);
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid $option-border-color;
+            margin: 17px;
+            background-color: white;
+            transition-property: background-color, border-width;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+        }
+    }
+    
+
+//==============================================================================
+// Radio Option Label Text.
+//==============================================================================
+    .option__label-text {
+        // .radio-group .option-label-text
+        // Vertically centered label text.
+        @include user-select(none);
+        display: table-cell;
+        vertical-align: middle;
+        margin: 0;
+        line-height: 1.2;
+        font-weight: bold;
+        padding: 10px 10px 10px 0;
+        width: 100%;
+        pointer-events: none;
+    }
+
+//==============================================================================
+// Radio Option Input.
+//==============================================================================
+    .option__input {
+        // .radio-group .option__input
+        // The hidden <input type='radio'> element. Holds selected/expanded state.
+        display: none;
+    }
+
+//==============================================================================
+// Radio Option Content.
+//==============================================================================
+    .option__content {
+        // .radio-group .option__content
+        height: 0;
+        overflow: hidden;
+        padding-top: 0;
+        padding-right: 20px;
+        padding-bottom: 0px;
+        padding-left: 50px;
+        line-height: 1.6;
+
+        &.option__content--active {
+            // .radio-group .option__content--active
+            // If the option is checked, display expanded state for the adjacent .radio-option__content
+            height: auto;
+        }
+
+        > .fieldset:last-child .field:last-child {
+            // Add margin for the last .field in the last .fieldset
+            margin-bottom: 20px;
+        }
+    }
+    
+    .checkout & small {		
+        // Darken the color of <small> text when inside a radio group to improve contrast.		
+        color: $grey-30;		
+    }		
+    
+    .field__message {		
+        // Darken the color of field message text when inside a radio group to improve contrast.		
+        color: $grey-30;		
+    }		
+}		
+
+.radio-group + .checkout__text,		
+.radio-group + .checkout__title,		
+.radio-group + .fieldset__text,		
+.radio-group + .fieldset__title {		
+    // Additional spacing for text immediately after radio group.
+    margin-top: 20px;
+}

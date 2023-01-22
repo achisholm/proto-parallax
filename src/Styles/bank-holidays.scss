@@ -1,0 +1,190 @@
+//******************************************************************************
+// Christmas & Bank Holiday Opening Times page.
+//
+// Page containing tables of chronological branch opening hours grouped by Year.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+//==============================================================================
+// Responsive holiday opening times table.
+//==============================================================================
+
+.table-holidays {
+    // Table displaying opening times for Christmas and bank holidays.
+    //
+    // mobile: non-table, structured text layout.
+    // desktop: A five-column table. Separate tables for each year.
+    margin-top: 0;
+    margin-bottom: 0;
+
+//==============================================================================
+// Desktop layout.
+//==============================================================================
+
+    @media (min-width: 651px) {
+
+        &__time {
+            // .table-holidays__time
+            // Table cells in the last two columns containing opening times,
+            // 'Normal Hours' or 'Closed'.
+            text-align:center;
+            width: 22%;
+        }
+    }
+
+//==============================================================================
+// Mobile layout.
+//==============================================================================
+    @media (max-width: 650px) {
+        display: block;
+
+        tr {
+            // .table-holidays tr
+            // Make table rows block elements on mobile.
+            display: block;
+            width: 100%;
+        }
+
+        thead {
+            // .table-holidays thead
+            // Make thead block elements on mobile.
+            display: block;
+
+//------------------------------------------------------------------------------
+// Year heading (e.g. '2018').
+//-----
+            .table-holidays__year {
+                // .table-holidays thead .table-holidays__year
+                // H2 Year heading e.g. '2018'.
+                display: block;
+                width: 100%;
+                background: transparent;
+                font-weight: bold;
+                font-size: 1.4em;
+                color: $tlc-red;
+                padding-top: 0;
+                padding-left: 0;
+            }
+        }
+
+        tbody {
+            // .table-holidays tbody
+            // Make tbody block elements on mobile.
+            display: block;
+
+            tr {
+                // .table-holidays tbody tr
+                // Make tbody table rows block elements and adjust styles on mobile.
+                display: block;
+                border-top: 1px dotted $grey-86;
+                padding-top: 5px;
+                padding-bottom: 10px;
+
+                &:first-child {
+                    // .table-holidays tbody tr:first-child
+                    // Don't show top border for first date in year.
+                    border: none;
+                }
+            }
+
+            td {
+                // .table-holidays tbody td
+                // Make tbody table cells block elements on mobile.
+                display: block;
+            }
+
+//------------------------------------------------------------------------------
+// Date (e.g. '25th December').
+//-----
+            .table-holidays__date {
+                // .table-holidays tbody .table-holidays__date
+                // Date table-cell e.g. '25th December'.
+                color: $tlc-blue;
+                display: inline-block;
+                font-weight: bold;
+                font-size: 1.2em;
+                background: transparent;
+                padding-left: 0;
+                padding-right: 0;
+                padding-bottom: 0;
+                border: none;
+                white-space: nowrap;
+
+                &:after{
+                    // .table-holidays tbody .table-holidays__date:after
+                    content:",";
+                }
+            }
+
+//------------------------------------------------------------------------------
+// Date Day (e.g. 'Saturday').
+//-----
+            .table-holidays__date-day {
+                // .table-holidays tbody .table-holidays__date-day
+                // Day of the week e.g. 'Saturday'.
+                color: $tlc-blue;
+                font-size: 1.2em;
+                display: inline-block;
+                background: transparent;
+                padding-left: 0;
+                padding-bottom: 0;
+                border: none;
+                white-space: nowrap;
+            }
+
+//------------------------------------------------------------------------------
+// Date Event (e.g. 'Good Friday).
+//-----
+            .table-holidays__date-event {
+                // .table-holidays tbody .table-holidays__date-event
+                // Type of holiday e.g. 'Good Friday'.
+                display: block;
+                background: transparent;
+                padding-top: 0;
+                padding-left: 0;
+                border: none;
+                font-weight: bold;
+            }
+
+//------------------------------------------------------------------------------
+// Opening Time. 
+//-----
+            .table-holidays__time {
+                // .table-holidays tbody .table-holidays__time
+                text-align: left;
+                padding: 0;
+                border: none;
+            }
+        }
+
+//------------------------------------------------------------------------------
+// Desktop-Only class.
+//-----
+        &__desktop-only {
+            // .table-holidays__desktop-only
+            // Applied to hide unwanted table elements on mobile.
+            display: none;
+        }
+
+    }
+
+}
+
+
+//==============================================================================
+// Container for AJAX-loaded page content.
+//==============================================================================
+
+.page-content {
+
+    &.is-loading {
+        // .page-content.is-loading
+        // Class removed on load by JS.
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

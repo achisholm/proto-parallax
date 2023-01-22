@@ -1,0 +1,65 @@
+//******************************************************************************
+// Print style sheet.
+//
+//
+//******************************************************************************
+
+@page {
+    size: 1200px 1697px;
+    margin: 1.5cm;
+}
+
+@media print {
+
+    body {
+        font-size: 80%;
+    }
+
+    .filter-options,
+    .group__footer,
+    .page-footer,
+    .navbar,
+    .header-listings {
+        // Hide some header & footer elements
+        display: none;
+    }
+
+    .page--checkout {
+        // do not apply background color when printed
+        background-color: transparent;
+    }
+
+    .accordion__content {
+        // Hide accordion border
+        border: none;
+        padding: 0;
+    }
+
+    .product__order-code:before {
+        // Hide the 'order code:' label
+        content: "";
+    }
+    body.is-ex-vat .price-breaks:before {
+        // Hide the VAT label
+        content: "";
+    }
+
+    // Manufacturer Page
+    .manufacturer-info {
+    	display: block;
+    	float: none;
+    	margin: 10px 20px 20px 20px;
+    	padding: 0 15px 15px 15px;
+    	min-width: 0%;
+    	max-width: 100%;
+
+    	.button.literature-request {
+    	    display:none;
+    	}
+    }
+
+    // Special Offers
+    .special-offer {
+	@include flex-basis(calc(33% - 20px));
+    }
+}

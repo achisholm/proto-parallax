@@ -1,0 +1,266 @@
+//******************************************************************************
+// Delivery Details (Step 1 of 4).
+//
+// Checkout page that comes after Your Order (basket).
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.form-section";
+@import "module.form-phone-number-fields";
+@import "module.form-checkbox-toggle-content";
+@import "module.basket-delivery-method-selector";
+@import "module.address-book-selector";
+
+
+// Modifiers for the Radio Group Form Ui component.
+.radio-group {
+
+//------------------------------------------------------------------------------
+// Radio Group with green-coloured 'selected' state.
+//
+// Used on both radio groups on the Delivery Details page.
+//-----
+    &--green {
+        // .radio-group--green
+        
+        .radio-group__option.is-active {
+            // Sets green background and border when selected.
+            background-color: #fafff8;
+            border-color: #5cba47;
+            z-index: 10;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// 'Single' radio group modifier.
+//-----
+    &--single {
+        // Applied to a radio group option when no selection is available. Hides the 
+        // radio button graphical element.
+        
+        .option__label:before {
+            // .radio-group--single .option__label:before
+            visibility: hidden;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Delivery Address Radio Group.
+//-----
+    &--delivery-address {
+        // .radio-group--delivery-address
+        margin-bottom: 20px;
+
+        .radio-group__option {
+            // .radio-group--delivery-address .radio-group__option
+            @include inline-flex;
+            @include flex(0, 1, auto);
+            max-width: 100%;
+        }
+
+        .option__label {
+            // .radio-group--delivery-address .option__label
+            @include flexbox;
+            height: 100%;
+            width: 100%;
+
+            &:before {
+                // .radio-group--delivery-address .option__label:before
+                @include flex-shrink(0);
+            }
+        }
+        
+        .option__label-text {
+            // .radio-group--delivery-address .option__label-text
+            @include flex(1, 1, auto);
+            @include flexbox;
+            @include flex-direction(column);
+            @include justify-content(space-between);
+            overflow: hidden;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-right: 100px;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Carriage Options Radio Group.
+//
+// Gives more vertical padding to options and supports carriage option layout.
+//-----
+
+    &--delivery-options {
+        // .radio-group--delivery-options
+
+        .option__label {
+            // .radio-group--delivery-options .option__label
+            @include flexbox;
+
+            &:before {
+                // .radio-group--delivery-options .option__label:before
+                @include flex-shrink(0);
+            }
+        }
+
+        .option__label-text {
+            // .radio-group--delivery-options .option__label-text
+            @include flexbox;
+            @include align-items(center);
+            padding-top: 14px;
+            padding-bottom: 20px;
+        }
+
+        .delivery-options-text {
+            // <span> wrapper for option title, description & date estimate.
+            @include flex(1, 1, auto);
+
+            &__title {
+                // <span> wrapper for option title e.g. "Royal Mail Tracked".
+                display: block;
+                margin-bottom: 6px;
+            }
+
+            &__description {
+                // <span> wrapper for option description text e.g. "Next working day". 
+                display: inline;
+                font-weight: 600;
+                font-size: 0.9em;
+                padding-right: 15px;
+                color: $grey-30;
+            }
+
+            &__estimate {
+                // <span> wrapper for delivery date estimate text.
+                display: block;
+                font-weight: normal;
+                font-size: 0.9em;
+                color: $tlc-red;
+
+                @media #{$x-small} {
+                    display: inline;
+                }
+            }
+
+            &__price {
+                // <span> wrapper for option price text (e.g. "£4.99").
+                display: block;
+                padding-right: 10px;
+                text-align: right;
+            }
+
+            &__price-type {
+                // <span> wrapper for option price vat-type.
+                color: $grey-40;
+                font-size: 0.6em;
+                font-weight: normal;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.delivery-details-address {
+    // <span> wrapper for delivery address text.
+    @extend %text-truncated;
+    display: block;
+    font-weight: normal;
+    font-size: 0.9em;
+    line-height: 1.3;
+}
+
+.delivery-details-address-controls {
+    // Container for delivery address "Edit" control.
+    display: block;
+    padding-top: 5px;
+    font-weight: normal;
+    font-size: 0.9em;
+    line-height: 1.3;
+    pointer-events: all;
+}
+
+//------------------------------------------------------------------------------
+// Safe place field.
+//
+// Input field for allowing customer to provide a short note for delivery man.
+// Shown via JS, only when Royal Mail tracked is the selected carriage option.
+//-----
+.safe-place {
+    // The .fieldset surrounding the 'Safe Place' field.
+
+    &.is-hidden {
+        // .safe-place.is-hidden
+        // Hides the fieldset containing the 'Safe Place' field.
+        display: none;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Delivery Options Title.
+//
+//-----
+.delivery-options-title {
+    // The .checkout__title for the 'Delivery Options' section.
+
+    &.is-hidden {
+        //.delivery-options-title.is-hidden
+        // Hides the title.
+        display: none;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Invoice address fieldset.
+//
+// Container for the Invoice Address, hidden by default. Shown/hidden via JS
+// that listens for the 'Same as Delivery Address' checkbox state.
+//-----
+
+.invoice-address {
+    // Container for the Invoice Address fields ('Full Name' field and
+    // address-finder).
+    clear: both;
+    height: auto;
+    overflow: hidden;
+    padding: 0 8px;
+    margin: 0 -8px;
+    
+    &.is-collapsed {
+        // .invoice-address.is-collapsed
+        // Hides the invoice address fields.
+        height: 0;
+    }
+
+    &.is-hidden {
+        // .invoice-address.is-hidden
+        // Required to remove descendents from the tab index.
+        visibility: hidden;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Safe Place.
+//
+//-----
+
+.field {
+    
+    input::-webkit-calendar-picker-indicator {
+        // .field input::-webkit-calendar-picker-indicator
+        // Repositions the picker indicator for Chrome.
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+.safe-place {
+    // Container for the 'Safe Place' toggle checkbox & field.
+    
+    .is-hidden {
+        // .safe-place.is-hidden
+        display: none;
+    }
+}

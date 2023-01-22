@@ -1,0 +1,165 @@
+//==============================================================================
+// Navbar - Primary Navigation Menu.
+// 
+// Main site navigation (Home (A-Z) & Offers links).
+//==============================================================================
+
+.primary-menu {
+    // Container element for main navigation menu.
+    grid-row-start: 2;
+    grid-row-end: 3;
+    align-self: center;
+    display: none;
+    
+    @media #{$small} {
+        display: flex;
+    }
+    
+    &__item {
+        // Menu item.
+        // .primary-menu__item
+        @include user-select(none);
+        display: flex;
+        align-items: center;
+        color: inherit;
+        line-height: 30px;
+        border: 1px solid rgba(white, 0.2);
+        border-radius: 15px;
+        margin-right: 10px;
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+            // .primary-menu__item:hover
+            border-color: rgba(white, 0.5);
+        }
+        
+        &--home {
+            // .primary-menu__item--home
+            // "Home" / "A-Z" menu item.
+            padding: 0;
+        }
+        
+        &--offers {
+            // .primary-menu__item--offers
+            // "Offers" menu item.
+            padding: 0 12px 0 16px;
+            
+            &:hover {
+                // .primary-menu__item--offers:hover
+                background: rgba(white, 0.1);
+            }
+            
+            .icon {
+                // .primary-menu__item--offers .icon
+                margin-left: 10px;
+                text-indent: 0;
+            }
+            
+            @media (max-width: 1000px) {
+                // 800-1000px layout.
+                // Display an icon in place of text label for tablet layout.
+                font-size: 0;
+                color: transparent;
+                padding-left: 12px;
+
+                &:before {
+                    // .primary-menu__item--offers:before
+                    display: inline-block;
+                    text-indent: 0;
+                    font-family: "iconfont";
+                    content: "\e91c"; // .icon--special-offers
+                    font-size: 22px;
+                    color: white;
+                }
+
+                .menu-dropdown {
+                    // .primary-menu__item--offers .menu-dropdown.
+                    text-indent: 0;
+                }
+            }
+        }
+    }
+    
+    &__home-link {
+        // .primary-menu_home-link
+        // "Home" link element.
+        color: white;
+        text-decoration: none;
+        padding: 0 8px 0 16px;
+        border-radius: 15px 0 0 15px;
+
+        &:hover {
+            // .primary-menu_home-link:hover
+            background: rgba(white, 0.1);
+            color: white;
+        }
+
+        @media (max-width: 1000px) {
+            // 800-1000px layout.
+            // Display an icon in place of text label for tablet layout.
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            overflow: hidden;
+            text-indent: -9999px;
+            padding: 0;
+            font-size: 0;
+            color: transparent;
+            
+            &:before {
+                // .primary-menu_home-link:before
+                // Home icon.
+                display: inline-block;
+                text-indent: 0;
+                font-family: "iconfont";
+                content: "\68"; // .icon--home
+                color: white;
+                font-size: 17px;
+            }
+        }
+    }
+
+    &__icon {
+        // .primary-menu__icon
+        // Chevron icon.
+        font-size: 10px;
+        color: white;
+        opacity: 0.5;
+    }
+
+    &__dropdown-control {
+        // .primary-menu__dropdown-control
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 10px;
+        align-self: stretch;
+        position: relative;
+        border-radius: 0 15px 15px 0;
+
+        &:hover,
+        &.is-active {
+            // .primary-menu__dropdown-control:hover
+            // .primary-menu__dropdown-control.is-active
+            background: rgba(white, 0.1);
+            
+            .icon {
+                // .primary-menu__dropdown-control:hover .icon
+                // .primary-menu__dropdown-control.is-active .icon
+                opacity: 0.6;
+            }
+        }
+
+        &:before {
+            // .primary-menu__dropdown-control:before
+            position: absolute;
+            left: 0;
+            display: block;
+            content: "";
+            height: 16px;
+            width: 1px;
+            background: rgba(white, 0.3);
+        }
+    }
+}

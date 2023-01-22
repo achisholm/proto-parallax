@@ -1,0 +1,426 @@
+//******************************************************************************
+// Request a Quote.
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+ //==============================================================================
+ // "Add a new Row" button.
+ //==============================================================================
+.add-row-control {
+    // Clickable "Add a new row" button area
+
+    &:hover {
+        .field__button {
+            background-color: rgba(white, 0.5);
+        }
+    }
+
+    .field__button {
+        // .add-row-control .field__button
+        // both cells with dashed borders
+        @include user-select(none);
+        background-color: transparent;
+        border: 1px dashed $grey-40;
+        color: $grey-40;
+        box-shadow: none;
+
+        .icon {
+            // green plus-circle icon
+            font-size: 1.5em;
+            color: $color-positive;
+        }
+    }
+
+    &__cell-quantity {
+        // .add-row-control__cell-quantity
+        // Second cell representing a quantity field, hidden on mobile view
+        padding-left: 27px;
+        padding-right: 27px;
+
+        @media #{$less-than-small} {
+            display: none;
+        }
+    }
+}
+//==============================================================================
+// Request a Quote product/quantity table rows.
+//==============================================================================
+.quote-product {
+    // A row in the product table, container with white bg on mobile view
+    display: block;
+    padding: 15px;
+    background: white;
+    border: 1px solid $grey-86;
+    border-radius: 5px;
+    position: relative;
+
+    @media #{$less-than-small} {
+        margin: 10px 0;
+    }
+
+    @media #{$small} {
+        @include flexbox;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    &__item-no {
+        // .quote-product__item-no
+        // Hanging number for each row reading "Item #x" or just "#x" on desktop
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+        height: 25px;
+        line-height: 25px;
+        font-size: 11px;
+        text-align: center;
+        background: $grey-96;
+        color: $grey-40;
+        border-radius: 0 4px 0 4px;
+        padding: 0 10px;
+        margin: 0;
+
+        &:before {
+            // Additional text content
+            display: inline;
+            color: $grey-40;
+            content: "Item # ";
+        }
+
+        @media #{$small} {
+            @include flex(0,0,auto);
+            left: -20px;
+            right: inherit;
+            line-height: 50px;
+            padding: 8px 0;
+
+            &:before {
+                content: "# ";
+            }
+        }
+    }
+
+    &__remove {
+        // .quote-product__remove
+        // Standard remove button on mobile, hanging circular button with cross icon on desktop view
+        @media #{$small} {
+            width: auto;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 24px;
+            right: -20px;
+        }
+
+        .field__button {
+            // .quote-product__remove .field__button
+
+            &:before {
+                // Cross icon, hidden on mobile
+                @include icon;
+                content: "\78"; // cross icon
+                text-indent: 0;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 5px;
+                margin: auto;
+                width: 10px;
+                display: none;
+                color: white;
+            }
+
+            @media #{$small} {
+                // Display button as hanging circle
+                color: white;
+                font-size: 10px;
+                width: 19px;
+                height: 19px;
+                border-radius: 50%;
+                background-color: $grey-40;
+                cursor: pointer;
+                margin-left: 15px;
+                position: relative;
+                text-indent: -9999px;
+                overflow: hidden;
+                border: transparent;
+
+                &:before {
+                    display: block;
+                }
+
+                &:hover {
+                    background-color: $tlc-red;
+                }
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Table heading row.
+//==============================================================================
+.quote-products {
+    // Wrapper for the column headings and first row
+
+    &__heading {
+        // .quote-products__heading
+        display: none;
+        font-weight: bold;
+        padding-bottom: 5px;
+        margin-bottom:0;
+
+        @media #{$small} {
+            display: inline-block;
+        }
+
+        &--product {
+            // .quote-products--heading
+            padding-left: 10px;
+        }
+
+        &--quantity {
+            // .quote-products--quantity
+            width: 123px;
+            text-align: center;
+            float: right;
+        }
+    }
+}
+
+//==============================================================================
+// Delivery Address.
+//==============================================================================
+.delivery-address {
+    // Wrapper for the delivery address form section contents
+    clear: both;
+    height: auto;
+    overflow: hidden;
+    padding: 0 2px;
+
+    &.is-collapsed {
+        // .delivery-address.is-collapsed
+        // Hides the delivery address form, applied by default
+        height: 0;
+    }
+
+    &.is-hidden {
+        // .delivery-address.is-hidden
+        // Required to remove element from the tab index.
+        visibility: hidden;
+    }
+}
+
+//==============================================================================
+// File Uploader (Version 2 feature).
+//==============================================================================
+//.uploader {
+//    // File uploader wrapper
+//    background-color: white;
+//    border-radius: 5px;
+//    border: 1px solid $grey-67;
+//    padding: 20px;
+//    margin-bottom: 20px;
+//    position: relative;
+//
+//    * {
+//        // .uploader *
+//        // all elements within .uploader
+//        transition: opacity .3s ease;
+//        opacity: 1;
+//    }
+//
+//    &__files {
+//        // .uploader__files
+//        // wrapper for uploading files
+//        display: none;
+//    }
+//
+//    &__file {
+//        // .uploader__file
+//        // A panel for each file uploading
+//        @include flexbox;
+//        @include flex-wrap(wrap);
+//        margin-bottom: 5px;
+//        min-height: 20px;
+//        padding: 19px;
+//        background-color: $grey-96;
+//        border: 1px solid $grey-86;
+//        border-radius: 4px;
+//        box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+//        border-radius: 3px;
+//
+//        &:first-child {
+//            margin-top: 20px;
+//        }
+//
+//        .file__name {
+//            // .uploader__file .file__name
+//            // contains the filename text (and file size)
+//            @extend %text-truncated;
+//            width: 100%;
+//        }
+//
+//        .file__progress {
+//            // .uploader__file .file__name
+//            // wrapper for the progress bar
+//            @include flexbox;
+//            width: 100%;
+//        }
+//    }
+//
+//    &--drag {
+//        // .uploader--drag
+//        // Applied while dragging files
+//        border: 3px dashed #cccccc;
+//        padding: 18px;
+//
+//        * {
+//            // .uploader--drag *
+//            // hides all elements within .uploader--drag
+//            opacity: 0;
+//        }
+//
+//        .drag-message {
+//            // .uploader--drag .drag-message
+//            // fades in after other elements fade out
+//            opacity: 1;
+//            transition-delay: 3s;
+//            transition: all 2s ease;
+//
+//            .drag-message__text {
+//                opacity: 1;
+//            }
+//        }
+//    }
+//
+//    &--drag-active {
+//        // .uploader-drag-active
+//        // Applied while dragging files and hovering over .uploader
+//        border-color: $tlc-blue;
+//    }
+//
+//    &--active {
+//        // .uploader-active
+//        // Applied after file dropped into .uploader
+//
+//        .uploader__files {
+//            display: block;
+//        }
+//    }
+//}
+//
+//.file-input-hidden {
+//    // input field
+//    height: 0;
+//    width: 0;
+//    position: absolute;
+//    overflow: hidden;
+//}
+//
+//.progress {
+//    // container for progress bar
+//    @include flex(1, 1, auto);
+//    height: 20px;
+//    overflow: hidden;
+//    background-color: lighten($grey-96, 1%);
+//    border-radius: 4px;
+//    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+//
+//    &__bar {
+//        // .progress__bar
+//        // The coloured progress bar itself (width % controlled by JS)
+//        float: left;
+//        width: 0;
+//        height: 100%;
+//        font-size: 12px;
+//        line-height: 20px;
+//        color: white;
+//        text-align: center;
+//        background-color: $tlc-blue;
+//        box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+//        transition: width .6s ease;
+//
+//        &--active {
+//            // .progress__bar--active
+//            // active state (when uploading)
+//            background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+//            background-size: 40px 40px;
+//            animation: progress-bar-stripes 2s linear infinite;
+//        }
+//
+//        &--success {
+//            // .progress_bar__success
+//            // completed state (when uploaded)
+//            background-color: $color-positive;
+//        }
+//    }
+//}
+//
+//.file__button-cancel {
+//    // Cancel upload button
+//    color: white;
+//    font-size: 10px;
+//    width: 20px;
+//    height: 20px;
+//    border-radius: 50%;
+//    background-color: $grey-40;
+//    cursor: pointer;
+//    margin-left: 15px;
+//    position: relative;
+//
+//    &:before {
+//        @include icon;
+//        content: "\78"; // cross icon
+//        position: absolute;
+//        left: 0;
+//        right: 0;
+//        top: 5px;
+//        margin: auto;
+//        width: 9px;
+//    }
+//
+//    &:hover {
+//        background-color: $tlc-red;
+//    }
+//}
+//
+//.drag-message {
+//    // "Drop Files Here" message visible while dragging files
+//    @include flexbox;
+//    @include align-items(center);
+//    pointer-events: none;
+//    position: absolute;
+//    left: 0;
+//    top: 0;
+//    bottom: 0;
+//    opacity: 0;
+//    text-align: center;
+//    width: 100%;
+//    font-size: 3em;
+//    color: #ccc;
+//    transition-delay: 0s;
+//    transition: 0s;
+//
+//    &__text {
+//        // .drag-message__text
+//        // <p> element containing text, horizontally and vertically centered
+//        @include flex(1, 1, auto);
+//    }
+//}
+//
+//@keyframes progress-bar-stripes {
+//    // horizontal movement of progress bar stripes
+//    from {
+//        background-position: 40px 0;
+//    }
+//
+//    to {
+//        background-position: 0 0;
+//    }
+//}

@@ -1,0 +1,98 @@
+//******************************************************************************
+// Index Page Content Wrapper.
+//
+// Main body content wrapper used on Home page, Index pages, Manufacturer pages
+// & Search Category pages.
+//******************************************************************************
+
+.index {
+    // Index Page content wrapper.
+    @include flex(1,0,auto);
+    @include clearfix;
+    clear: left;
+    background: $grey-96;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+
+    @media #{$less-than-small} {
+        padding-left: $base-padding;
+        padding-right: $base-padding;
+    }
+
+    @media #{$small} {
+        @include flexbox;
+    }
+
+    .columns-container {
+        // .index .columns-container
+        // Child of .index required to display content in multiple columns.
+        @include column-gap(10px);
+        max-width: 100%; // prevents overflow issue for narrow viewport widths.
+
+        @media #{$less-than-small} {
+            margin: 10px 0 0 0;
+        }
+    }
+
+    &--columns-2 .columns-container {
+        // .index--columns-2 .columns-container
+        // Layout modifier class used to display a 2-column layout for desktop.
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+    }
+
+    &--columns-3 .columns-container {
+        // .index--columns-3 .columns-container
+        // Layout modifier class used to display a 3-column layout for desktop.
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+        @media #{$small} {
+            @include column-count(3);
+        }
+    }
+
+    &--columns-4 .columns-container {
+        // .index--columns-4 .columns-container
+        // Layout modifier class used to display a 4-column layout for desktop.
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+        @media #{$small} {
+            @include column-count(3);
+        }
+        @media #{$medium} {
+            @include column-count(4);
+        }
+    }
+
+    &--columns-5 .columns-container {
+        // .index--columns-5 .columns-container
+        // Layout modifier class used to display a 5-column layout for desktop.
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+        @media #{$small} {
+            @include column-count(3);
+        }
+        @media #{$medium} {
+            @include column-count(5);
+        }
+    }
+
+    &--columns-6 .columns-container {
+        // .index--columns-6 .columns-container
+        // Layout modifier class used to display a 6-column layout for desktop.
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+        @media #{$small} {
+            @include column-count(3);
+        }
+        @media #{$medium} {
+            @include column-count(6);
+        }
+    }
+}

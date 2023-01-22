@@ -1,0 +1,37 @@
+//==============================================================================
+// Special Delivery Labels.
+//==============================================================================
+.special-delivery-label {
+    // For special order items. Places a red asterisk after the Order Code.
+
+    &:after {
+        // .special-delivery-label:after
+        font-size: 1.2em;
+        color: $tlc-red;
+        font-weight: bold;
+    }
+
+    &--1:after {
+        content: " *";
+    }
+
+    &--2:after {
+        content: " †";
+    }
+
+    &--3:after {
+        content: " ‡";
+    }
+
+    &--4:after {
+        content: " ‖";
+    }
+
+    &--5:after {
+        content: " §";
+    }
+
+    &--6:after {
+        content: " ¶";
+    }
+}

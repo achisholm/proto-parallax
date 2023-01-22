@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#5CBA47;}
+	.st1{fill:#DCDCDC;}
+	.st2{fill:none;stroke:#CCCCCC;stroke-width:0.51;stroke-miterlimit:10;}
+	.st3{fill:#333333;}
+	.st4{fill:none;stroke:#5CBA47;stroke-width:2.04;stroke-miterlimit:10;}
+	.st5{fill:none;stroke:#468E35;stroke-width:1.02;stroke-linejoin:bevel;}
+	.st6{fill:none;stroke:#468E35;stroke-width:0.51;stroke-linejoin:bevel;}
+</style>
+<g id="Group_1">
+	<path id="Path_899" class="st0" d="M21.8,2l-6-1.5c1,0.9,1.6,3.5,0.8,4.8L21.8,2z"/>
+	<path id="Path_900" class="st1" d="M17.8,8.8c1.5,3.7,2.6,7.6,3.3,11.6c0,1.4-2,1.4-2.4,0.4C18,16.8,17.7,12.8,17.8,8.8z"/>
+	<line id="Line_294" class="st2" x1="20" y1="20.5" x2="33.2" y2="26.3"/>
+	<g>
+		<path class="st3" d="M17.4,23.8h-5.2v-1.5c0-1.4,0.3-1.7,2.1-2c1.1-0.2,1.2-0.2,1.4-0.4c0.2-0.1,0.2-0.3,0.2-0.8
+			c0-0.8-0.2-0.9-1.1-0.9c-0.6,0-0.8,0-0.9,0.2c-0.2,0.2-0.2,0.3-0.2,1h-1.5c0-1.1,0-1.3,0.2-1.6c0.3-0.6,1-0.8,2.3-0.8
+			c2,0,2.6,0.5,2.6,2.2c0,1-0.2,1.5-0.8,1.8c-0.4,0.2-0.5,0.2-2.1,0.6c-0.6,0.1-0.7,0.3-0.8,0.9v0.2h3.7V23.8z"/>
+		<path class="st3" d="M19.9,20L19.9,20c0.3-0.7,0.6-0.9,1.5-0.9c1.1,0,1.6,0.5,1.6,1.5v3.3h-1.3V21c0-0.3,0-0.5-0.1-0.6
+			c-0.1-0.2-0.3-0.3-0.6-0.3c-0.7,0-1,0.3-1,1v2.7h-1.3v-6.7h1.3V20z"/>
+		<path class="st3" d="M25.3,19.2l-0.1,0.7h0c0.3-0.6,0.6-0.8,1.2-0.8c0.6,0,1,0.2,1.1,0.7c0.1,0.2,0.1,0.4,0.1,1.3h-1.2V21v-0.1
+			c0-0.6-0.1-0.8-0.5-0.8c-0.3,0-0.5,0.1-0.6,0.4c0,0.1-0.1,0.2-0.1,0.6v2.7h-1.3v-4.7H25.3z"/>
+	</g>
+	<path id="Path_901" class="st4" d="M22.7,2.7c9.8,1.5,16.6,10.7,15.1,20.5S27.1,39.8,17.3,38.3C7.5,36.8,0.7,27.6,2.2,17.8
+		C3.4,10,9.5,3.9,17.3,2.7"/>
+	<line id="Line_295" class="st5" x1="20.1" y1="6.5" x2="20.1" y2="10.7"/>
+	<line id="Line_296" class="st5" x1="20.1" y1="30.5" x2="20.1" y2="34.7"/>
+	<line id="Line_297" class="st5" x1="34.2" y1="20.6" x2="30" y2="20.6"/>
+	<line id="Line_298" class="st5" x1="10.1" y1="20.6" x2="6" y2="20.6"/>
+	<line id="Line_299" class="st6" x1="27.1" y1="8.4" x2="26.1" y2="10.2"/>
+	<line id="Line_300" class="st6" x1="14.1" y1="31" x2="13" y2="32.8"/>
+	<line id="Line_301" class="st6" x1="32.3" y1="27.6" x2="30.5" y2="26.6"/>
+	<line id="Line_302" class="st6" x1="9.6" y1="14.6" x2="7.8" y2="13.6"/>
+	<line id="Line_303" class="st6" x1="32.3" y1="13.6" x2="30.5" y2="14.6"/>
+	<line id="Line_304" class="st6" x1="9.6" y1="26.6" x2="7.8" y2="27.6"/>
+	<line id="Line_305" class="st6" x1="27.1" y1="32.8" x2="26.1" y2="31"/>
+	<line id="Line_306" class="st6" x1="14.1" y1="10.2" x2="13" y2="8.4"/>
+</g>
+</svg>

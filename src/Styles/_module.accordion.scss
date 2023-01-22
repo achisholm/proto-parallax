@@ -1,0 +1,76 @@
+//******************************************************************************
+// Accordion UI.
+//
+// Used on Product & Group page for 'Description' & 'Technical' content.
+//******************************************************************************
+
+.accordion__button {
+    // A clickable element that toggles the accordion state (open or closed).
+    // Mobile/Tablet view only.
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(space-between);
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-color: $grey-86;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    cursor: pointer;
+    
+    > .icon {
+        // .accordion__button > .icon
+        color: $bright-blue;
+        font-size: 13px;
+    }
+
+    &.is-active {
+        // .accordion__button.is-active
+        
+        > .icon:before {
+            // .accordion__button.is-active > .icon:before
+            content: "\e919"; // Cross icon.
+        }
+    }
+
+    @media #{$small} {
+        display: none;
+    }
+}
+
+.accordion__content {
+    // Container for content that is shown/hidden.
+    
+    @media #{$less-than-small} {
+        position: relative;
+        z-index: $z-accordion-content;
+        margin: 0;
+        padding: 20px;
+        border-style: solid;
+        border-color: $grey-86;
+        border-width: 0 0 1px 0;
+        font-size: 16px;
+        overflow: hidden;
+
+        &.is-collapsed {
+            // .accordion__content.is-collapsed
+            // Visually hides the accordion content.
+            height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-width: 0;
+            opacity: 0;
+        }
+    
+        &.is-hidden {
+            // .accordion__content.is-hidden
+            // Remove the accordion content.
+            display: none;
+        }
+    }   
+}
+
+
+

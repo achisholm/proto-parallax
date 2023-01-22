@@ -1,0 +1,204 @@
+//==============================================================================
+// Add to Basket Confirmation.
+//
+// Confirmation message and related items.
+//==============================================================================
+
+.atb-confirmation {
+    // Confirmation message and related products, shown when customer adds to
+    // basket (Desktop only).
+    
+    > td {
+        // .atb-confirmation > td
+        // Table cell spanning full width of table.
+
+        @media #{$less-than-small} {
+            display: block; // Fixes mobile layout issue in Safari.
+        }
+    }
+
+    &__wrapper {
+        // .atb-confirmation__wrapper
+        // Div surrounding confirmation message and related items.
+        overflow: hidden;
+
+        &.is-hidden {
+            // .atb-confirmation__wrapper.is-hidden
+            opacity: 0;
+            height: 0;
+        }
+    }
+    
+    &--mobile {
+        // .atb-confirmation--mobile
+        // Mobile only version of the order confirmation, used on Product page mobile-view.
+        
+        @media #{$small} {
+            display: none;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Add to Basket confirmation message.
+//
+// 
+//-----
+
+.atb-confirmation-message {
+    // .atb-confirmation-message
+    // "1 item added to your basket" confirmation message.
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    height: 40px;
+    background-color: $color-positive;
+    color: white;
+    padding: 0 10px;
+    position: relative;
+    font-size: 15px;
+    width: 100%;
+
+    &__icon {
+        // .atb-confirmation-message__icon
+        // Check/tick icon.
+        padding-right: 8px;
+    }
+
+    &__title {
+        // .atb-confirmation-message__title
+        // Confirmation text ("1 item added to your basket").
+        line-height: 1;
+
+        a {
+            // .atb-confirmation-message > a
+            // "your basket" hyperlink.
+            color: white;
+        }
+    }
+
+    &__close-control {
+        // .atb-confirmation-message__close-control
+        // "Dismiss" button that closes the confirmation.
+        @include flexbox;
+        @include align-items(center);
+        font-size: 15px;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        cursor: pointer;
+        padding-right: 10px;
+        opacity: 0.8;
+        font-size: 0.75em;
+        margin-left: auto;
+        
+        @media #{$small} {
+            position: absolute;
+            margin: auto;
+        }
+        
+        &:hover {
+            // .atb-confirmation-message__close-control:hover
+            opacity: 1;    
+        }
+
+        > .icon {
+            // .atb-confirmation-message__close-control .icon
+            // cross icon
+            position: relative;
+            padding-left: 2px;
+            top: 0px;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Add to basket confirmation related items.
+//
+// Scrollable list of related items for the item added to basket.
+//-----
+
+.atb-related {
+    // Container for related item product rows for the added item.
+    @include scrollbar;
+    background-color: white;
+    padding: 10px;
+    margin: 0 0 10px 0;
+    border-width: 0 2px 2px;
+    border-color: $color-positive;
+    border-style: solid;
+    transition: all 0.6s ease;
+    max-height: 280px;
+    overflow: auto;
+    display: none;
+
+    @media #{$x-small} {
+        display: block;
+    }
+
+    &__title {
+        // .atb-related__title
+        // "Related items you may need" title.
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    &__sub-title {
+        // .atb-related__sub-title
+        // Title for the group of related items (e.g. "Accessories" or "Lamps").
+        color: $tlc-blue;
+        font-weight: bold;
+        padding: 10px 0 5px 0;
+    }
+
+    &__table {
+        // .atb-related__table
+        // Product table of related items (.product-table).
+        
+        .product__header {
+            // .atb-related__table .product__header
+            // Override left-hand-side padding.
+            padding-left: 0px;
+        }
+
+        .product {
+            // .atb-related__table .product
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .product__image {
+            // .atb-related__table .product__image
+
+            @media #{$small} {
+                display: flex !important;
+            }
+
+            img {
+                // .atb-related__table .product__image img
+                // Product image.
+                width: auto;
+                max-height: 40px;
+            }
+        }
+
+        .product__quantity {
+            // .atb-related__table .product__quantity
+            // Override right-hand-side padding.
+            padding-right: 0px;
+        }
+        
+        .product__price {
+ 
+            .price-breaks {
+                // .atb-related__table .price-breaks
+                // Set the price breaks tables to right-aligned to help horizontal 
+                // position be more consistent.
+                
+                @media #{$small} {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

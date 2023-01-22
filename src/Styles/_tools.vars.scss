@@ -1,0 +1,185 @@
+//******************************************************************************
+// Variables.
+//
+// 
+//******************************************************************************
+
+//==============================================================================
+// Colours.
+//==============================================================================
+$tlc-blue:           #000066;
+$tlc-red:            #cc2127;
+$tlc-yellow:         #ffff00;
+$tlc-teal:           #12846e;
+
+$nav-bar-background: $tlc-blue;
+
+$light-blue:         #4898C1;
+$border-blue:        #333385;
+$bright-blue:        #0066ff;
+
+$color-positive: #5CBA47; //#48cc10;
+$color-negative: $tlc-red;
+$color-neutral:  #ed8e00;
+
+$grey-99: hsl(240, 24%, 99%);
+$grey-98: hsl(240, 22%, 98%);
+$grey-96: hsl(240, 21%, 96%);
+$grey-94: hsl(240, 20%, 94%);
+$grey-93: hsl(240, 19%, 93%);
+$grey-86: hsl(240, 18%, 86%);
+$grey-80: hsl(240, 17%, 80%);
+$grey-67: hsl(240, 16%, 67%);
+$grey-56: hsl(240, 15%, 56%);
+$grey-50: hsl(240, 14%, 50%);
+$grey-40: hsl(240, 13%, 40%);
+$grey-30: hsl(240, 12%, 30%);
+$grey-20: hsl(240, 10%, 20%);
+$grey-10: hsl(240, 8%,  10%);
+
+// background hover colour for main index menu and page links menu
+$menu-hover:        $grey-98;
+$menu-border-color: $grey-86;
+
+// Radio button colours
+$option-color:         $grey-99;
+$option-color-hover:   $grey-98;
+$option-color-checked: darken($option-color,3%);
+$option-border-color:  $grey-80;
+
+//==============================================================================
+// Fonts.
+//==============================================================================
+$base-font:         'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+
+//==============================================================================
+// Layout.
+//==============================================================================
+$site-width:        1200px;
+$menu-height:       60px;
+$base-padding:      20px;
+
+$primary-padding:   15px;
+$secondary-padding: 10px;
+
+// Used by the spacing utility classes in _tools.helpers.scss
+$spacer:   $secondary-padding !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+
+$spacers: (
+  0: (
+    x: 0,
+    y: 0
+  ),
+  1: (
+    x: $spacer-x,
+    y: $spacer-y
+  ),
+  2: (
+    x: ($spacer-x * 1.5),
+    y: ($spacer-y * 1.5)
+  ),
+  3: (
+    x: ($spacer-x * 2),
+    y: ($spacer-y * 2)
+  )
+) !default;
+
+
+$nav-bar-height:    60px;
+
+$gutter-width: 1%;
+
+// Mega Menu layout
+$menu-item-height:  40px;
+$menu-padding:      20px;
+
+$button-height: 40px;
+
+//==============================================================================
+// Responsive breakpoints.
+//==============================================================================
+$small-width: 800px;
+
+$tiny:              'print, (min-width: 415px)';
+$x-small:           'print, (min-width: 500px)';
+$small:             'print, (min-width: 800px)';
+$medium:            'print, (min-width: 950px)';
+$large:             'print, (min-width: 1050px)';
+$huge:              'print, (min-width: 1200px)';
+
+$less-than-tiny:    '(max-width: 414px)';
+$less-than-x-small: '(max-width: 499px)';
+$less-than-small:   '(max-width: 799px)';
+$less-than-medium:  '(max-width: 949px)';
+$less-than-large:   '(max-width: 1049px)';
+$less-than-huge:    '(max-width: 1199px)';
+
+$height-tiny:       '(min-width:800px) and (max-height:687px)';
+$height-short:      '(min-width:800px) and (min-height:688px) and (max-height:749px)';
+$height-medium:     '(min-width:800px) and (min-height:750px) and (max-height:860px)';
+$height-tall:       '(min-width:800px) and (min-height:861px) and (max-height:939px)';
+$height-huge:       '(min-width:800px) and (min-height:940px)';
+
+//==============================================================================
+// Z-Indexes.
+//==============================================================================
+
+$z-sticky-navbar:             20;
+
+// Mega Menu Module
+$z-top-level-button:         15;
+$z-second-level:             18;
+
+// Header listings
+$z-header-listings:         auto;
+
+// Branches Page
+$z-infobox:                    9;
+$z-infobox-image:              0;
+$z-infobox-dark-overlay:       1;
+$z-infobox-light-overlay:      1;
+
+// Accordion Module
+$z-accordion-content:          5;
+
+// Checkout
+$z-checkout-step:              1;
+$z-checkout-line:              0;
+$z-checkout-step-circle:       1;
+
+// Form Module
+$z-tooltip-bubble:             5;
+$z-select-wrapper:             0;
+$z-select-label:               1;
+
+// Group / Product Images
+$z-active-thumbnail:           1;
+$z-lightbox:                  25;
+
+// Modal
+$z-modal-background:          30;
+$z-modal-close:               31;
+
+// Search 'Refine' Button
+$z-search-refine:             12;
+
+// Navbar User Account Menu
+$z-account-menu:              16;
+$z-acccount-menu-dropdown:    20;
+$z-acccount-menu-menu-item:   21;
+
+// Navbar Touch Menu
+$z-navbar-mobile-menu:        35;
+
+// Update Cart Module
+$z-update-cart-quantity:       2;
+
+// In-page navigation menu
+$z-in-page-nav-menu:           1;
+
+// Helpers
+$z-debug:                     99;
+
+$z-live-chat:                 99;

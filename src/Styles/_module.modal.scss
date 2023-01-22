@@ -1,0 +1,106 @@
+//******************************************************************************
+// JS-driven modal wrapper.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+.modal {
+    // Full-screen popup container.
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    background: $grey-20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    z-index: $z-modal-background;
+
+    &.is-collapsed {
+        // .modal.is-collapsed
+        opacity: 0;
+    }
+
+    &.is-hidden {
+        // .modal.is-hidden
+        display: none;
+    }
+        
+    @media #{$small} {
+        background-color: rgba($grey-20, 0.9);
+    }
+}
+
+//==============================================================================
+// Modal Video.
+//
+// Video modal elements.
+//==============================================================================
+
+.modal {
+    
+    &__video {
+        // .modal__video
+        // video wrapper element resized with JS.
+        position: relative;
+        max-width: 1000px;
+        width: 80%;
+        box-shadow: 0 0 20px rgba(black,0.5);
+        background: black;
+        
+        > iframe {
+            // .modal__video > iframe
+            // video iframe stretched to fit wrapper dimensions.
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            &.loading {
+                // .modal__video > iframe.loading
+                // Size constraint forces YouTube to serve a low-resolution thumbnail.
+                width: 0;
+                height: 0;
+            }
+        }
+    }
+
+    &__close-control {
+        // .modal__close-control
+        // Close button placed at the top right corner of the video.
+        @include user-select(none);
+        display: inline-block;
+        position: absolute;
+        top: -31px;
+        right: 0;
+        color: white;
+        z-index: $z-modal-close;
+        background-color: #666;
+        height: 31px;
+        line-height: 31px;
+        padding: 0 10px;
+        cursor: pointer;
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+
+        &:hover {
+            // .modal__close-control:hover
+            background-color: #999;
+        }
+
+        > .icon--cross {
+            // .modal__close-control > .icon--cross
+            display: inline;
+            line-height: inherit;
+            padding-left: 5px;
+        }
+    }
+}

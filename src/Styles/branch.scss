@@ -1,0 +1,286 @@
+//******************************************************************************
+// Individual Branch page.
+//
+// Styles for the branch pages.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.branch-opening-times";
+
+.page-container {
+    // page container
+    // provides padding from header, footer & window sides
+    padding: 20px;
+
+    @media #{$small} {
+        padding: 20px 0;
+    }
+}
+
+.branch-content-wrapper {
+    // wrapper around 2 main columns
+    clear: both;
+    position: relative;
+    font-size: 16px;
+}
+
+.branch-title {
+    // Page heading <h1> containing the branch name
+    font-weight: bold;
+    padding-bottom: 15px;
+    color: $tlc-red;
+    font-size: 1.6em;
+
+    @media #{$small} {
+        padding-bottom: 20px;
+    }
+}
+
+.branch-info-item {
+    // Container for each heading and text pair
+    margin-bottom: 10px;
+
+    &__heading {
+        // .branch-info-item__heading
+        // <h2> heading
+        color: $tlc-blue;
+        font-weight: bold;
+        font-size: 1.3em;
+        margin-bottom: 5px;
+    }
+
+    &__secondary-heading {
+        // .branch-info-item__secondary-heading
+        // <h3> heading
+        font-weight: bold;
+    }
+
+    &__text {
+        // .branch-info-item__text
+        // <p> paragraph text
+        padding-bottom: 10px;
+        line-height: 1.5;
+
+        @media #{$small} {
+            padding-bottom: 15px;
+        }
+    }
+}
+
+//==============================================================================
+// Tablet-view responsive layout.
+//
+// Styles only applied between (x-small) 500px & (medium) 800px).
+//==============================================================================
+@media #{$x-small} {
+    @media #{$less-than-small} {
+
+        .column--branch-photo,
+        .column--branch-phone,
+        .column--branch-email {
+            // applied to photo, phone & email columns
+            clear: left;
+            width: 50%;
+        }
+
+        .column--branch-address,
+        .column--branch-fax,
+        .column--branch-manager {
+            // applied to address, fax & manager columns
+            width: 50%;
+        }
+    }
+}
+
+//==============================================================================
+// Branch Photo.
+//==============================================================================
+.column--branch-photo {
+    // Container for branch image
+    @media #{$x-small} {
+        float:right;
+    }
+}
+
+.branch-photo {
+    // 4:3 <img> element of branch photo
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+}
+
+//==============================================================================
+// Google Map showing branch location.
+//==============================================================================
+.branch-map-container {
+    // Container for branch map
+    @include flexbox;
+    @include flex-direction(column);
+    
+    @media #{$small} {
+        @include align-items(flex-end);
+    }
+}
+
+.branch-map {
+    // Google Maps <div> element populated with JS
+    border-radius: 5px 5px 0 0;
+    border: 1px solid $grey-86;
+    width: 100%;
+    height: 0;            // fluid-height hack
+    padding-bottom: 100%; // (maintains 1:1 aspect ratio at all widths)
+
+    @media #{$x-small} {
+        padding-bottom: 50%;
+    }
+    @media #{$small} {
+        border-radius: 5px 5px 0 5px;
+        padding-bottom: 100%;
+    }
+}
+
+.driving-directions {
+    // Container for driving directions link & QR code.
+    @include inline-flex;
+    @include align-items(center);
+    background-color: $grey-98;
+    border-radius: 0 0 5px 5px;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color:  $grey-86;
+    padding: 15px;
+    margin-bottom: 20px;
+
+    &__text {
+        // .driving-directions__text
+        line-height: 1.4;
+    }
+    
+    &__link {
+        // .driving-directions__link
+        position: relative;
+        padding-right: 20px;
+
+        .icon--link-external {
+            // .driving-directions__link .icon--link-external
+            // Icon for external link.
+            position: absolute;
+            top: 6px;
+            right: 0;
+            margin-right: 5px;
+            font-size: 0.7em;
+        }
+    }
+
+    &__qr-code {
+        // QR code image
+        display: none;
+        max-width: 100px;
+        box-shadow: 0 0 5px $grey-86;
+        margin-left: 20px;
+
+        @media #{$small} {
+            display: block;
+        }
+        
+        img {
+            // .driving-directions__qr-code img
+            display: block;
+            width: 100%;
+            height: auto;
+        } 
+    }
+}
+
+//==============================================================================
+// Branch Selector.
+//==============================================================================
+.branch-selector {
+    // full-width block container for branch selector dropdown
+    // and link back to Branches overview page
+    @include clearfix;
+    clear: both;
+    background: $grey-96;
+    padding: 10px 25px;
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+
+    @media #{$small} {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    @media #{$large} {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    &__title {
+        // .branch-selector--title
+        // "Find a Branch" title (left-side)
+        font-weight: bold;
+        line-height: 50px;
+        color: $tlc-blue;
+        font-size: 1.4em;
+
+        @media #{$small} {
+            width: 33.33%;
+            float: left;
+            text-align: right;
+        }
+    }
+
+    .field {
+        // Branch dropdown (center)
+        padding: 0;
+
+        @media #{$small} {
+            padding: 0 20px;
+        }
+    }
+
+    &__link {
+        // .branch-selector--link
+        // "Complete branch list" <a> link to Branches overview page
+        line-height: 50px;
+
+        @media #{$small} {
+            width: 33.33%;
+            float: left;
+            text-align: left;
+        }
+
+        .icon--arrow-right {
+            // .branch-selector--link .icon
+            // right-arrow icon
+            color: $tlc-blue;
+            position:relative;
+            top: 5px;
+        }
+
+        > a {
+            // .branch-selector--link > a
+            @include fade;
+            text-decoration: none;
+
+            &:hover {
+
+                .link__text {
+                    text-decoration: underline;
+                }
+
+                > .icon--arrow-right {
+                    color: $tlc-blue;
+                }
+            }
+        }
+    }
+}
+
+.select-nav__link {
+    // hidden <a> link
+    display: none;
+}

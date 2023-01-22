@@ -1,0 +1,218 @@
+//******************************************************************************
+// Search Autosuggest.
+//
+// Autosuggest UI for the search bar in site header/navbar.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.autosuggest {
+    // Container for autosuggest.
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate3d(0, 0, 0) translate(-50%, 0px);
+    z-index: 30;
+    width: 100%;
+    background: white;
+    color: $grey-20;
+    box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1),
+    0 0 0 -3px rgba(2, 2, 2, 0.8);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    display: none;
+    animation: search-fade-in 0.2s ease-in-out;
+    will-change: auto;
+    
+    @media #{$small} {
+        width: 125%;
+        top: 45px;
+    }
+
+    &.is-active {
+        // .autosuggest.is-active
+        // State to show the autosuggest UI.
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes search-fade-in {
+    // Animation for revealing the search autosuggest UI.
+    
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 5px, -5px) translate(-50%, 0px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) translate(-50%, 0px);
+    }
+}
+
+
+$result-height: 45px;
+
+.autosuggest-result {
+    // Container for each autosuggest result.
+    @include flexbox;
+    height: $result-height;
+    cursor: pointer;
+    border-bottom: 1px solid $grey-86;
+    @include user-select(none);
+
+    &:hover {
+        // .autosuggest-result:hover,
+        background-color: $grey-98;
+    }
+
+    &.is-active {
+        // .autosuggest-result.is-active
+        // Highlight the result on select.
+        background-color: rgba($bright-blue, 0.75);
+        color: white;
+
+        .autosuggest-result__description,
+        .autosuggest-result__badge {
+            // .autosuggest-result.is-active .autosuggest-result__description,
+            // .autosuggest-result.is-active .autosuggest-result__badge
+            color: inherit;
+        }
+        
+        .autosuggest-result__badge {
+            // .autosuggest-result.is-active .autosuggest-result__badge
+            border-color: white;
+        }
+        
+        .autosuggest-result__image {
+            // .autosuggest-result.is-active .autosuggest-result__image
+
+            &:before {
+                // .autosuggest-result.is-active .autosuggest-result__image:before
+                color: white;
+            }
+        }
+    }
+
+    &:last-child {
+        // .autosuggest-result:last-child
+        border-bottom: none;
+    }
+
+    &__image {
+        // .autosuggest-result__image
+        // Product/Manufacturer image wrapper.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        @include flex(0, 0, $result-height);
+        position: relative;
+        padding: 3px;
+        border-radius: 3px;
+
+        
+        &:before {
+            // .autosuggest-result__image:before
+            // Search icon.
+            content: "\e90e"; // .icon--magnify
+            display: block;
+            font-family: "iconfont";
+            position: absolute;
+            color: $grey-20;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        
+        &.has-image:before {
+            // .autosuggest-result__image.has-image:before
+            // Hides the search icon.
+            display: none;
+        }
+
+        img {
+            // .autosuggest-result__image img
+            display: block;
+            z-index: 2;
+            max-width: 100%;
+            max-height: 100%;
+            
+            &.is-manufacturer-image {
+                // .autosuggest-result__image img.is-manufacturer-image
+                mix-blend-mode: multiply;
+            }
+            
+            &.is-product-image {
+                // .autosuggest-result__image img.is-product-image
+                border-radius: 3px;
+            }
+        }
+    }
+
+    &__text {
+        // .autosuggest-result__text
+        // Product code & description.
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include flex(1, 1, 100%);
+        padding: 0 10px;
+        line-height: 1.2;
+        min-width: 0;
+    }
+
+    &__description {
+        // .autosuggest-result__description
+        // Product description.
+        @extend %text-truncated;
+        color: $grey-20;
+        opacity: 0.6;
+        font-size: 13px;
+    }
+
+    &__aside {
+        // .autosuggest-result__aside
+        // Container for manufacturer logo/ product count.
+        @include flex(1, 0, 50px);
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        font-size: 12px;
+        padding-right: 10px;
+    }
+    
+    &__aside-image {
+        // .autosuggest-result__aside-image
+        // Manufacturer logo.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(flex-end);
+        @include flex(0, 0, 50px);
+        padding: 3px;
+
+        img {
+            // .autosuggest-result__aside img
+            max-width: 100%;
+            max-height: 39px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+
+    &__badge {
+        // .autosuggest-result__badge
+        // "Manufacturer" label.
+        border: 1px solid $grey-56;
+        border-radius: 5px;
+        padding: 0 5px;
+        line-height: 1;
+        opacity: 0.5;
+    }
+    
+    &__count {
+        // .autosuggest-result__count
+        // Prouduct count e.g. "55 products".
+        white-space: nowrap;
+    }
+}

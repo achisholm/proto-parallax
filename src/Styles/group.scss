@@ -1,0 +1,257 @@
+//******************************************************************************
+// Group Page.
+//
+// Page-specific styles for the Group page template.
+//******************************************************************************
+
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.mega-menu";
+@import "module.alert-message";
+
+@import "module.group";
+@import "module.group-menu";
+@import "module.group-info-technical-table";
+@import "module.warranty-terms";
+@import "module.product-table";
+@import "module.accordion";
+@import "module.quantity-control";
+@import "module.price-breaks";
+@import "module.price-drop";
+@import "module.icon";
+@import "module.mobile-price-quantity";
+
+@import "module.product-image-gallery";
+
+// Non-critical styles that could be deferred...
+@import "module.out-of-stock-modal";
+@import "module.technical-modal";
+@import "module.add-to-basket-confirmation";
+
+
+.group__info {
+    // Hides the belowpic text on mobile view.
+
+    @media #{$less-than-small} {
+        display: none;
+    }
+}
+
+//==============================================================================
+// Group Page Header (mobile-view only).
+//==============================================================================
+
+.group-header {
+    // Group page header (mobile-view only).
+    line-height: 1;
+
+    @media #{$small} {
+        display: none;
+    }
+
+    &__text {
+        // .group-header__text
+        // Text container.
+        padding: 0 20px 15px 20px;
+    }
+
+    &__heading {
+        // .group-header__heading
+        // Group page title.
+        font-weight: 600;
+        font-size: 24px;
+        color: $tlc-blue;
+        padding-bottom: 10px;
+    }
+
+    &__description {
+        // .group-header__description.
+        // Description text (e.g. 'Showing 5 product groups ').
+        color: $grey-40;
+    }
+}
+
+//==============================================================================
+// Group Page Breadcrumbs.
+//
+// Overrides the default breadcrumb styles for the Group page header.
+//==============================================================================
+
+.breadcrumbs {
+    // Overrides the default styles for the breadcrumbs.
+    
+    &__item {
+        // .breadcrumbs__item
+        
+        @media #{$less-than-small} {
+            color: $bright-blue;
+        }
+        
+        &:before {
+            // .breadcrumbs__item:before
+            // Add a back chevron arrow icon.
+            
+            @media #{$less-than-small} {
+                display: inline-block;
+                font-family: 'iconfont';
+                font-size: 10px;
+                content: '\25c0';
+                width: 20px;
+                position: relative;
+                top: 2px;
+            }
+        }
+        
+        &:after {
+            // .breadcrumbs__item:after
+            // Chevron divider. Hidden on mobile.
+            display: none;
+
+            @media #{$small} {               
+                display: inline-block;
+                height: 12px;
+                width: 25px;
+                content: '';
+                position: relative;
+                top: 0px;
+                left: 2px;
+                background-image: url(/Graphics/icon-chevron.svg);
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+        }
+    }
+    
+    &__link {
+        // .breadcrumbs__link
+        // Breadcrumb's <a> element.
+        
+        @media #{$less-than-small} {
+            color: inherit;
+        }
+
+        &:hover {
+            // .breadcrumbs__link:hover
+            color: inherit;
+            
+            @media #{$small} {
+                color: red;
+            }
+
+        }
+    }
+
+    &__page-title {
+        // .breadcrumbs__page-title
+        // Page title breadcrumb, hidden on mobile-view.
+
+        @media #{$less-than-small} {
+            display: none;
+        }
+    }
+}
+
+
+//==============================================================================
+// Group header overrides (mobile-view only).
+//==============================================================================
+
+.group {
+    
+    + .group {
+        // .group + .group
+        // Divide all groups after the first one with a thick border.
+        
+        @media #{$less-than-small} {
+            border-top: 8px solid $grey-50;
+        }
+    }
+
+    &__heading {
+        // .group__heading
+        // Sticky header on mobile view.
+        
+        @media #{$less-than-small} {
+            color: $tlc-blue;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 6;
+            padding: 10px 20px;
+        }
+    }
+    
+    &__heading-text {
+        // .group__heading-text
+        // Container for title & logo.
+
+        @media #{$less-than-small} {
+            @include flexbox;
+            @include flex(1);
+            @include align-items(center);
+        }
+    }
+}
+
+
+.heading__logo {
+    // Manufacturer logo (mobile-view only).
+    padding-left: 5px;
+    margin-left: auto;
+    
+    img {
+        // .heading__logo img
+        max-width: 60px;
+        max-height: 40px;
+        width: auto;
+        height: auto;
+    }
+    
+    @media #{$small} {
+        display: none;
+    }
+}
+
+
+//==============================================================================
+// Hovercard.
+//==============================================================================
+
+.product__code-link,
+.product__description-link {
+    // Set positioning context for the hovercard element.
+    position: relative;
+}
+
+.hovercard {
+    // Container element for the product image, shown when hovering over product 
+    // code/description links.
+    background: white;
+    position: absolute;
+    bottom: 20px;
+    padding: 5px;
+    border: $grey-96;
+    border-radius: 5px;
+    animation-name: fade-in;
+    animation-duration: 0.2s;
+    pointer-events: none;
+    box-shadow: 0 1px 6px rgba(black, .05), 
+                0 5px 15px rgba(black, .01);
+    transform-origin: bottom;
+}
+
+@keyframes fade-in {
+    // Fade in animation.
+    
+    from {
+        opacity: 0;
+        transform: translate(0, -10px) scale(.9) 
+    }
+    
+    to {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) 
+    }
+}

@@ -1,0 +1,674 @@
+//******************************************************************************
+// Product table.
+//
+//
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+// Product table breakpoint widths.
+//-----
+
+$product-bp-1: 320px;
+$product-bp-2: 414px;
+$product-bp-3: 500px;
+
+//------------------------------------------------------------------------------
+// Product table column widths.
+//-----
+
+// Image widths.
+$product-image-width : 40px;
+$product-image-width-2 : 60px;
+$product-image-width-3 : 100px;
+
+// 'Order Code' width.
+$product-order-code-width : 150px;
+
+// 'Quantity' column width
+$product-qty-width: 140px;
+$product-qty-width-2: 160px;
+
+//==============================================================================
+// Product Table.
+//
+// Table of products in a product group.
+//==============================================================================
+
+.product-table {
+    font-size: 13px;
+    line-height: 1.2;
+
+    @media #{$huge} {
+        font-size: 14px;
+    }
+
+    &--desktop-images-hidden {
+        // .product-table--desktop-images-hidden
+        // Hides product images in desktop-view.
+
+        @media #{$small} {
+
+            .product-table__th--image,
+            .product__image {
+                // .product-table--desktop-images-hidden.product-table__th--image,
+                // .product-table--desktop-images-hidden .product__image
+                display: none;
+            }
+        }
+    }
+
+    &__thead {
+        // .product-table__thead
+        // Products table header.
+        width: 100%;
+        background-color: lighten($grey-86, 5%);
+
+        @media #{$less-than-small} {
+            display: none;
+        }
+    }
+
+    &__tbody {
+        // .product-table__tbody
+        // Products table body.
+        
+        @media #{$less-than-small} {
+            // Fixes mobile layout issue in Safari.
+            @include flexbox;
+            @include flex-direction(column);
+        }
+    }
+
+    &__th {
+        // .product-table__th
+        // Products table header cells.
+        color: black;
+        font-weight: bold;
+        padding: 3px 5px;
+        text-align: center;
+        white-space: nowrap;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-right: 1px solid white;
+
+        &--image {
+            // .product-table__th--image
+            min-width: 100px;
+        }
+
+        &--code {
+            // .product-table__th--code
+            text-align: left;
+            min-width: 150px;
+
+            @media #{$less-than-medium} {
+                display: none;
+            }
+        }
+
+        &--description {
+            // .product-table__th--description
+            @include flex-grow(1);
+            text-align: left;
+
+            @media #{$less-than-medium} {
+                display: none;
+            }
+        }
+
+        &--price {
+            // .product-table__th--price
+            @include flex-grow(1);
+            text-align: center;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                // .product-table__th--price:hover
+                cursor: pointer;
+                background-color: $grey-86;
+
+                .vat-preference-text__value {
+                    // .product-table__th--price:hover .vat-preference-text__value
+                    color: $bright-blue;
+                    border-bottom-color: $bright-blue;
+                }
+             }
+
+             body.is-inc-vat & {
+                // body.is-inc-vat .product-table__th--price
+                // VAT-inclusive preference selected.
+    
+                &.is-ex-vat {
+                    // body.is-inc-vat .product-table__th--price.is-ex-vat
+                    // Hides ex-VAT elements.
+                    display: none !important;
+                }
+            }
+    
+            body.is-ex-vat & {
+                // body.is-ex-vat .product-table__th--price
+                // VAT-exclusive preference selected.
+    
+                &.is-inc-vat {
+                    // body.is-ex-vat .product-table__th--price.is-inc-vat
+                    // Hides inc-VAT elements.
+                    display: none !important;
+                }
+            }
+
+        }
+
+        &--quantity {
+            // .product-table__th--quantity
+            width: $product-qty-width;
+            border-right: none;
+
+            @media #{$large} {
+                width: $product-qty-width-2;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+
+.flex-wrapper {
+    // Additonal div elements placed inside of table cells (<td>/<th> elements), 
+    // where we require display:flex, but changing the default display:table-cell
+    // property would break the layout.
+    @include flexbox;
+}
+
+
+//==============================================================================
+// Product.
+//
+// Product table row in a group product table.
+//==============================================================================
+
+.product {
+    // A <tr> product row in group's product table.
+    padding: 15px;
+    border-bottom: 1px solid $grey-86;
+
+    @media #{$less-than-small} {
+        @include flexbox;
+        @include flex-direction(column);
+    }
+
+    @media #{$small} {
+        @include flex-direction(row);
+        padding: 10px 0 10px 10px;
+
+        &:hover {
+            // .product:hover
+
+            .product__code-link,
+            .product__description-link {
+                // .product:hover.product__code-link,
+                // .product:hover .product__description-link
+                text-decoration: underline;
+                color: lighten($tlc-blue, 18%);
+ 
+                &:hover {
+                    color: $bright-blue;
+                }
+            }
+
+            .product__description-link-icon {
+                // .product:hover .product__description-link
+                opacity: 0.2;
+                color: lighten($tlc-blue, 18%);
+                
+            }
+        }
+
+        &:last-child {
+            // .product:last-child
+            // Prevent bottom border for last row in product table.
+            border-bottom: none;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // Product Header.
+    //
+    // Contains product image, product code, product title & (optional) stock alert
+    // message.
+    //-----
+
+    &__header {
+        // .product__header
+        // Container for product image, product code, description & stock alert.
+        @include flexbox;
+        @include flex-grow(1);
+        @include align-items(flex-start);
+        text-decoration: none;
+        font-weight: 600;
+
+        @media #{$small} {
+            padding: 8px 0;
+
+            @media #{$less-than-medium} {
+                padding-left: 20px;
+            }
+        }
+
+        @media #{$medium} {
+            @include align-items(center);
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Image.
+    //-----
+
+    &__image {
+        // .product__image
+        // Container for the product image.
+        @include flex (0, 0, auto);
+        display: none;
+        width: auto;
+        height: auto;
+
+        @media (min-width: $product-bp-1) {
+            @include flexbox;
+            width: $product-image-width;
+        }
+
+        @media (min-width: $product-bp-2) {
+            @include flex-basis($product-image-width-2);
+            width: $product-image-width-2;
+            max-height: $product-image-width;
+        }
+
+        @media (min-width: $product-bp-3) {
+            @include flex-basis($product-image-width-3);
+            width: $product-image-width-3;
+        }
+
+        @media #{$less-than-medium} {
+            margin-right: 10px;
+        }
+        
+        @media #{$small} {
+            max-height: none;
+        }
+
+        @media #{$medium} {
+            padding: 0 5px;
+        }
+
+        > img {
+            // .product__image > img
+            // The product image <img> element.
+            display: block;
+            max-width: 100%;
+            max-height: $product-image-width-3;
+            width: auto;
+            height: auto;
+            margin: auto;
+            object-fit: contain;
+            
+            @media (min-width: $product-bp-1) {
+                max-height: $product-image-width;
+            }
+            
+            @media (min-width: $product-bp-2) {
+                @include flex-basis($product-image-width-2);
+                max-height: $product-image-width-2;
+            }
+            
+            @media (min-width: $product-bp-3) {
+                @include flex-basis($product-image-width-3);
+                max-height: $product-image-width-3;
+            }
+
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Text.
+    // 
+    // Container for product code & product title.
+    //-----
+
+    &__text {
+        // .product__text
+        // Container for product code & product title.
+
+        @media #{$small} {
+            @include flexbox;
+            @include flex-direction(column);
+        }
+
+        @media #{$less-than-medium} {
+            font-size: 16px;
+        }
+
+        @media #{$medium} {
+            @include flex-direction(row);
+            font-weight: bold;
+            font-size: 15px;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Code.
+    //-----
+
+    &__code {
+        // .product__code
+        // The product code text link's container.
+        display: block;
+        padding-right: 10px;
+        line-height: 1;
+
+        @media #{$less-than-medium} {
+            letter-spacing: 0.05em;
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+            
+            &:before {
+                // .product__code:before
+                content: "Product Code: ";
+                font-variant: initial;
+                font-weight: normal;
+                letter-spacing: normal;
+                color: $grey-30;
+            }
+        }
+
+        @media #{$medium} {
+            min-width: 150px;
+            padding-left: 20px;
+        }
+
+    }
+
+    //---------------------------------------------------------------------
+    // Product Code Link.
+    //-----
+
+    &__code-link {
+        // .product__code
+        // The product code <a> element.
+        text-decoration: none;
+        color: inherit;
+        
+        @media #{$medium} {
+            color: $tlc-blue;
+            
+            &:hover {
+                color: $bright-blue;
+            }
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Title / Description.
+    //-----
+    &__description {
+        // .product__description
+        // Product title/description <p> element.
+        padding-right: 5px;
+
+        @media #{$medium} {
+            padding-left: 20px;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Title / Description.
+    //-----
+    &__description-link {
+        // .product__description
+        // Product title/description <a> element.
+        display: inline-block;
+        color: $tlc-blue;
+        text-decoration: none;
+
+        @media #{$less-than-small} {
+            text-decoration: underline;
+            margin-top: 1px;
+            margin-bottom: 5px;
+        }
+
+        &:hover ~ .product__description-link-icon {
+            // .product__description:hover ~ .product__description-link-icon
+            // Change icon color on link hover.
+            color: $bright-blue;
+        }
+    }
+    
+    //---------------------------------------------------------------------
+    // Description link icon.
+    //-----
+    
+    &__description-link-icon {
+        // .product__description-link-icon
+        // Icon, visible on desktop product row hover.
+        line-height: 1;
+        font-size: 13px;
+        transition: opacity 0.3s ease;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        color: $tlc-blue;
+        position: relative;
+        top: 1px;
+        padding-left: 3px;
+        
+        @media #{$less-than-small} {
+            display: none;
+        }
+        
+        &:after {
+            // .product__description-link-icon:after
+            // Pseudo-element displaying 'eye' icon.
+            font-family: "iconfont";
+            content: " \e936";
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // Product Footer.
+    //
+    // Contains inc/ex VAT price columns & Quantity input field.
+    //-----
+
+    &__footer {
+        // .product__footer
+        // Container for price and quantity columns.
+        @include flexbox;
+        @include justify-content(flex-end);
+
+        @media #{$less-than-small} {
+            @include flex-wrap(wrap);
+        }
+
+        @media #{$small} {
+            padding: 8px 0;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Labels.
+    //-----
+
+    &__label {
+        // .product__label
+        // Labels for Price & Quantity, shown on mobile & tablet when the
+        // table head is not visible.
+        display: block;
+        color: $grey-20;
+        font-size: 12px;
+        padding: 5px 0 8px;
+        -webkit-tap-highlight-color: transparent;
+
+        @media #{$small} {
+            display: none;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Price.
+    //-----
+
+    &__price {
+        // .product__price
+        // Container for each product's price break.
+        
+        @media (min-width: $product-bp-2) {
+            margin-left: auto;
+        }
+
+        @media #{$small} {
+            @include flexbox;
+            @include flex-direction(column);
+            @include justify-content(center);
+            @include align-items(center);
+            @include flex-grow(1);
+            text-align: center;
+
+            .price-breaks {
+                // .product__price .price-breaks
+                margin: auto;
+            }
+        }
+
+        @media #{$medium} {
+            padding: 0 10px;
+        }
+
+        @media #{$large} {
+            padding: 0 20px;
+        }
+
+        body.is-inc-vat & {
+            // body.is-inc-vat .product__price
+            // VAT-inclusive preference selected.
+
+            &.is-ex-vat {
+                // body.is-inc-vat .product__price.is-ex-vat
+                // Hides ex-VAT elements.
+                display: none !important;
+            }
+        }
+
+        body.is-ex-vat & {
+            // body.is-ex-vat .product__price
+            // VAT-exclusive preference selected.
+
+            &.is-inc-vat {
+                // body.is-ex-vat .product__price.is-inc-vat
+                // Hides inc-VAT elements.
+                display: none !important;
+            }
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Product Quantity.
+    //-----
+    &__quantity {
+        // .product__quantity
+        // Container for each product's quantity input control.
+        @include flexbox;
+        @include flex-direction(column);
+        
+        @media #{$less-than-small} {
+            margin-left: 15px;
+        }
+
+        @media #{$small} {
+            padding: 0 10px;
+            width: $product-qty-width;
+        }
+
+        @media #{$large} {
+            width: $product-qty-width-2;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
+// Stock alert.
+//-----
+
+.stock-alert {
+    // Message that comes after the product description in brackets.
+    color: $tlc-red;
+    display: block;
+    font-size: 12px;
+    white-space: nowrap;
+
+    @media #{$medium} {
+        display: inline;
+        font-size: 14px;
+        font-weight: normal;
+
+        &:before {
+            // .stock-alert:before
+            content: "(";
+        }
+        
+        &:after {
+            // .stock-alert:after
+            content: ")";
+        }
+    }
+}
+
+//==============================================================================
+// VAT Preference Text Labels.
+//==============================================================================
+
+.vat-preference-text {
+    // Clickable control to bring up 'VAT Preference' form in a modal dialog.
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: normal;
+
+    &__value {
+        // .vat-preference-text__value
+        // Span text wrapper containing currently selected preference ('inc VAT' 
+        // or 'ex VAT').
+        color: $tlc-blue;
+        border-bottom: 1px $tlc-blue dotted;
+        line-height: 1;
+        display: inline-block;
+        margin-bottom: -1px;
+    }
+
+    &:hover {
+        // .vat-preference-text:hover
+
+        .vat-preference-text__value {
+            // .vat-preference-text:hover .vat-preference-text__value
+            color: $bright-blue;
+            border-color: $bright-blue;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // VAT Preference table heading modifier.
+    //
+    // Style adjustments for the VAT Preference label shown in the 'Price' table 
+    // heading.
+    //-----
+
+    &--table-heading {
+        // .vat-preference-text--table-heading
+        font-size: 13px;
+
+        .vat-preference-text__value {
+            // .vat-preference-text--table-heading:hover .vat-preference-text__value
+            border-bottom-color: $grey-67;
+        }
+    }
+}

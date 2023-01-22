@@ -1,0 +1,575 @@
+//******************************************************************************
+// Group UI Component.
+//
+// The .group component displays heading, images, description, technical
+// information and a product table for a set of products.
+//
+// Groups appear on the following templates:
+//
+// Group (encompassing Type & Manufacturer), Product, Clearance, What's New &
+// Previous Purchases.
+//******************************************************************************
+
+//==============================================================================
+// Group.
+//==============================================================================
+
+.group {
+    // Wrapper class for element containing each group.
+    @include clearfix;
+    font-size: 13px;
+    line-height: 1.2;
+    
+    @media #{$small} {
+        margin: 10px 0 10px 0;
+        border: 2px solid $tlc-blue;
+        border-radius: 5px;
+    }
+
+    @media #{$huge} {
+        font-size: 14px;
+    }
+
+    &__content-wrapper {
+        // .group__content-wrapper
+        // Wrapper containing the Image column and Description text column.
+
+        @media #{$small} {
+            @include flexbox;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Group Heading.
+//-----
+
+.group__heading {
+    // Blue h1 group heading.
+    background: $tlc-blue;
+    color: white;
+    padding: 8px $base-padding;
+    font-weight: 600;
+    font-size: 1.4em;
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    @media #{$less-than-small} {
+        margin-bottom: 10px;
+    }
+
+    @media #{$small} {
+        font-size: 1.2em;
+        padding: 1px 10px 3px 10px;
+        margin: 0 0 10px 0;
+    }
+}
+
+.heading__title {
+    // <span> wrapper for the heading text.
+    @include flex-grow(1);
+}
+
+.heading__manufacturer-code {
+    // Manufacturer code right-aligned (Product pages only).
+    @include flex(0, 0, auto);
+    float: right;
+    font-weight: normal;
+    font-size: 12px;
+    display: none;
+    padding-left: 10px;
+
+    @media #{$small} {
+        display: inline;
+    }
+}
+
+
+//==============================================================================
+// Group Images.
+//
+// Product images shown in the group image column. With captions & lightbox.
+//==============================================================================
+
+.group__image-column {
+    // Left column containing image and info panel.
+    width: 100%;
+    padding: 0 $base-padding;
+    margin-bottom: 20px;
+    
+    @media #{$small} {
+        width: auto;
+        padding: 0;
+        margin: 0 10px;
+        max-width: 190px;
+    }
+
+    &--360 {
+        // .group__image-column--360
+        // Widen the image column for 360 images.
+        position: relative;
+
+        .plugins-loading & {
+            // .plugins-loading .group__image-column--360
+            // Hide image column until JS has finished loading.
+            
+            .group__image,
+            .group__info {
+                opacity: 0;
+            }
+            
+            .loading-message {
+                @include flexbox;
+            }
+        }
+        
+        @media #{$less-than-small} {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media #{$small} {
+            width: 100%;
+            max-width: 33.333%;
+        }    
+
+        @media #{$medium} {
+            max-width: 40%;
+        }
+
+        .group__image {
+            // .group__image-column--360 .group__image
+            max-width: 100%;
+            @include flexbox;
+            @include justify-content(center);
+            @include align-items(center);
+            @include flex-direction(column);
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-message {
+            // .group__image-column--360 .loading-message
+            // 'Loading...' message shown before image has loaded.
+            display: none;
+            @include flex-direction(column);
+            @include align-items(center);
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 100px;
+            height: 50px;
+            top: 25px;
+
+            @media #{$small} {
+                top: 75px;
+            }
+
+            &__spinner {
+                // .group__image-column--360 .loading-message__spinner
+                // Loading spinner.
+                display: flex;
+                margin: 0 auto 10px;
+                border-color: $grey-67 transparent $grey-67 $grey-67;
+                height: 15px;
+                width: 15px;
+                border-width: 3px;
+            }
+            
+            &__text {
+                // .group__image-column--360 .loading-message__text
+                // 'Loading...' text.
+                display: flex;
+                line-height: 1;
+                font-size: 12px;
+                color: $grey-67;
+                white-space: nowrap;
+            }
+        }
+
+        .Magic360 {
+            // .group__image-column--360 .Magic360
+            // The anchor element used by Magic 360 viewer.
+            width: 100%;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .group__image img {
+            // .group__image-column--360 .group__image img
+            // Hide image before Magic 360 viewer has loaded.
+            visibility: hidden;
+        }
+
+        .group__image .Magic360-container img {
+            // .group__image-column--360 .group__image .Magic360-container img
+            // Show image after Magic 360 viewer has loaded.
+            visibility: visible;
+        }
+    }
+
+    &--small {
+        // .group__image-column--small
+        // Widen the image column for 360 images.
+        
+        @media #{$large} {
+            max-width: 300px;
+        }
+    }
+
+    &--medium {
+        // .group__image-column--medium
+        // Widen the image column for 360 images.
+        
+        @media #{$large} {
+            max-width: 400px;
+        }
+    }
+
+    &--large {
+        // .group__image-column--large
+        // Widen the image column for 360 images.
+
+        @media #{$large} {
+           max-width: 500px;
+        }
+    }
+}
+
+
+.group__image {
+    // Container div for a collection of images and captions.
+    display: block;
+    max-width: 190px;
+    border: 1px solid $grey-93;
+    padding: 4px;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    font-size: 0;
+    line-height: 0;
+    
+    @media #{$small} {
+        background: $grey-96;
+    }
+}
+
+.group__image-caption {
+    // Contains the collection of images' captions, each in a <p> element.
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.2;
+
+    > p {
+        // .group__image-caption > p
+        // Each of the image captions. Hidden by default.
+        display: none;
+        margin-top: 5px;
+
+        &.is-active {
+            // .group__image-caption > p.is-active
+            // Visible caption state.
+            display: block;
+        }
+
+        &.no-caption {
+            // .group__image-caption > p.no-caption
+            margin-top: 0;
+        }
+    }
+}
+
+.group__info {
+    // Contains the belowpic text.
+    font-size: 95%;
+    padding-top: 10px;
+    max-width: 100%;
+    width: 100%;
+    transition: opacity 0.5s ease;
+    
+    @media #{$small} {
+        max-width: 190px;
+        margin: auto;
+    }
+}
+
+.button--modal-video {
+    // "Watch Video" button.
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    &:after {
+        // .button--modal-video:after
+        // Displays a 'video' icon.
+        content: "\1f3a5"; // video icon.
+        position: absolute;
+        right: 20px;
+        font-family: 'iconfont';
+        font-size: 1.3em;
+
+        @media #{$small} {
+            right: 10px;
+        }
+    }
+}
+
+//==============================================================================
+// Group Description.
+//==============================================================================
+.group__description {
+    // Container for the group description. Contains 6 areas for text content.
+            
+    @media #{$less-than-small} {
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid $grey-86;
+    }
+
+    @media #{$small} {
+        @include flex(1, 1, 75%);
+        padding: 0;
+        margin: 0 10px;
+    }
+
+    ol,
+    ul {
+        // .group__description ol, .group__description ul
+        // Brings the hanging bullets in alignment with the body text.
+        margin-left: 20px;
+    }
+
+    &--full-width {
+        // .group__description--full-width
+        // Flag for if there is no image column, display .group-description 100% width.
+        width: 100%;
+    }
+}
+
+.description__top-container {
+    // Contains TopContent div (TopBold, TopLeft, TopRight & MainTop) & optional manufacturer logo.
+    @include flexbox;
+
+    @media #{$less-than-small} {
+        @include flex-direction(column);
+        @include align-items(center);
+    }
+}
+
+.description__top-content {
+    // TopBold, TopLeft, TopRight & MainTop.
+    width: 100%;
+
+    @media #{$less-than-small} {
+        @include order(2);
+    }
+
+    @media #{$small} {
+        @include flex(1, 1, 100%);
+    }
+}
+
+.description__topbold {
+    // TopBold content area.
+    font-weight: 600;
+    line-height: 1.15em;
+    
+    @media #{$small} {
+        font-size: 1.4em;
+        text-align: center;
+    }
+}
+
+.description__maintop {
+    // MainTop content area.
+    clear: both;
+    
+    @media #{$small} {
+        text-align: center;
+    }
+}
+
+.description__2-columns {
+    // wrapper for topleft/right or mainleft/right
+
+    @media #{$less-than-small} {
+        display: inline-block;
+    }
+
+    @media #{$small} {
+        @include flexbox;
+        @include flex-direction(row);
+        @include justify-content(center);
+    }
+}
+
+.description__main,
+.description__2-columns,
+.description__topbold,
+.description__maintop {
+    // center and constrain some of the various description text content areas.
+    //max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    li {
+        margin-bottom: 8px;
+    }
+}
+
+.description__main,
+.description__topbold,
+.description__maintop {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    @media #{$small} {
+        padding: 0 20px;
+    }
+}
+
+.description__topleft,
+.description__topright,
+.description__mainleft,
+.description__mainright {
+    // 4 x half-width columns inside .description__2-columns.
+
+    @media #{$small} {
+        padding: 10px 20px;
+        @include flex(0, 1, auto);
+        max-width: 50%;
+    }
+}
+
+.description__mainleft,
+.description__mainright {
+
+    //  half-width columns inside .description__2-columns.
+    @media #{$less-than-small} {
+        display: inline-block;
+        float: left;
+        clear: left;
+
+        ul {
+            display: inline-block;
+        }
+    }
+}
+
+//==============================================================================
+// Related Products Group.
+//==============================================================================
+.group--related {
+    // Related items group.
+    clear: left;
+
+    @media #{$small} {
+        border-color: #cc0000;
+    }
+
+    .group__heading {
+        // .group--related .group__heading
+        // Red Group heading.
+        @extend .group__heading;
+        background-color: #cc0000;
+    }
+}
+
+//==============================================================================
+// Manufacturer Logo.
+//==============================================================================
+.group__logo {
+    // Manufacturer logo container, sits adjacent to main top content.
+
+    @media #{$small} {
+        padding-left: 10px;
+        @include flex(0, 1, 100px);
+    }
+
+    img {
+        // .group__logo img
+        // The manufacturer logo <img> element.
+        height: auto;
+        width: 100%;
+        max-width: 100px;
+    }
+}
+
+//==============================================================================
+// Mobile app button links.
+// 
+// Android & iOS app buttons displayed in belowpic text.
+//==============================================================================
+
+.app-links {
+    // Container div for Android & iOS app buttons.
+  text-align: center;
+  margin: -5px;
+  
+  br {
+    // .app-links br
+    // Ensure any <br> tags are not displayed.
+    display: none;
+  }
+  
+  &__button {
+    // .app-links__ button
+    // Anchor link containing an image.
+    display: inline-block;
+    margin: 0 2px;
+  }
+}
+
+//==============================================================================
+// Group Footer.
+//==============================================================================
+
+.group__footer {
+    // Footer at the bottom of the product page template. Contains 'Back to Top'
+    // & 'Proceed to Checkout' buttons.
+    @include flexbox;
+    @include justify-content(space-between);
+    padding: 15px 20px;
+
+    .button + .button {
+        // .group__footer .button + .button
+        margin: 0;
+    }
+
+    @media (max-width: 385px) {
+        @include flex-direction(column);
+        
+        .button + .button {
+            // .group__footer .button + .button
+            margin-top: 10px;
+        }
+    }
+
+    @media #{$small} {
+        padding: 10px 0 20px 0;
+    }
+
+    .button {
+        // .group__footer .button
+        display: inline-block;
+        width: auto;
+        padding: 0 40px 0 20px;
+        height: 40px;
+        line-height: 40px;
+        text-transform: inherit;
+        letter-spacing: normal;
+        border-radius: 40px;
+        font-size: 16px;
+
+        > .icon {
+            // .group__footer .button > .icon
+            height: 40px;
+            width: 40px;
+            line-height: 40px;
+            font-size: 80%;
+        }
+    }
+}

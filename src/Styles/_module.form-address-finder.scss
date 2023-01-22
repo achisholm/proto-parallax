@@ -1,0 +1,124 @@
+//==============================================================================
+// Address Finder.
+//
+// A set of form components that captures a user's postcode which we look up on
+// the PAF database. The user receives a list of possible delivery addresses 
+// which they can select.
+//
+// Used on:
+// - My Account > Add a New Address
+//==============================================================================
+
+.address-finder {
+
+    &__fieldset {
+        // .address-finder__fieldset
+        // Fieldset containing "Postcode" field, "Find Address" button, hidden dropdown
+        // with address finder results & "Enter address manually" control.
+        height: auto;
+        opacity: 1;
+        overflow: hidden;
+
+        &.is-collapsed  {
+            // .address-finder__fieldset.is-collapsed
+            // Hidden state for the address finder fieldset, applied by default and
+            // removed once valid AJAX response received.
+            opacity: 0;
+            height: 0;
+        }
+
+        &.is-hidden {
+            // .address-finder__select.is-hidden
+            // Required to remove element from the tab index.
+            visibility: hidden;
+        }
+    }
+
+    &__select {
+        // .address-finder__select
+        // The dropdown field to be populated with delivery addresses.
+        height: auto;
+        opacity: 1;
+        overflow: hidden;
+
+        &.is-collapsed  {
+            // .address-finder__select.is-collapsed
+            // Collapsed state - visibly hidden, still tabbable.
+            opacity: 0;
+            height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        &.is-hidden {
+            // .address-finder__select.is-hidden
+            // Required to remove element from the tab index.
+            visibility: hidden;
+        }
+    }
+}
+
+//==============================================================================
+// Hyperlink control.
+//==============================================================================
+
+.hyperlink-control {
+    // Text hyperlink-style anchor elements, used for "Enter address manually"
+    // & "I want to use the address finder" controls.
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: underline;
+    color: $grey-56;
+    font-size: 90%;
+    line-height: 1;
+}
+
+//==============================================================================
+// EU VAT Number input field.
+//==============================================================================
+
+.field.eu-vat-number {
+    // EU VAT input field.
+    overflow: hidden;
+
+    &.is-collapsed {
+        // .field.eu-vat-number.is-hidden
+        // Collapsed state - visibly hidden, still tabbable.
+        opacity: 0;
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &.is-hidden {
+        // .field.eu-vat-number.is-hidden
+        // Required to remove element from the tab index.
+        visibility: hidden;
+    }
+}
+
+//==============================================================================
+// Address Finder 'Postcode' input field & 'Find Address' button field.
+//
+// Mobile layout tweaks.
+//==============================================================================
+
+.address-finder .field--postcode.field--five-twelfths {
+    // Address Finder's Postcode input field.
+    // Enforce the desktop layout's grid system on mobile layout.
+    width: 41.666666666%; // (5 / 12 * 100%)
+}
+
+.address-finder .field--button.field--seven-twelfths {
+    // Address finder's 'Find Address' button.
+    // Enforce the desktop layout's grid system on mobile layout.
+    width: 58.333333333%; // (7 / 12 * 100%)
+
+    @media (max-width: 450px) {
+        .icon {
+            // .address-finder .field--button.field--seven-twelfths .icon
+            // Hide the target icon when there is not enough horizontal space.
+            display: none;
+        }
+    }
+}

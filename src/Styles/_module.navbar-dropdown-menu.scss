@@ -1,0 +1,117 @@
+//==============================================================================
+// Dropdown menus.
+//==============================================================================
+
+.menu-dropdown-parent {
+    // Parent element containing the dropdown menu.
+
+    &:focus, 
+    &:focus-within {
+        // .menu-dropdown-parent:focus
+        // .menu-dropdown-parent:focus-within
+        background-color: rgba(white, 0.1);
+
+        .menu-dropdown {
+            // .menu-dropdown-parent:focus .menu-dropdown
+            // .menu-dropdown-parent:focus-within .menu-dropdown
+            display: block;
+        }
+
+        .icon--chevron-down {
+            // .menu-dropdown-parent:focus .icon--chevron-down
+            // .menu-dropdown-parent:focus-within .icon--chevron-down
+           opacity: 1;
+        }
+    }
+}
+
+.menu-dropdown-container {
+    // Invisible container to help position the dropdown menu relative to the 
+    // bottom of it's parent.
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.menu-dropdown {
+    // Menu dropdown.
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    background-color: white;
+    padding: 16px 20px 16px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 5px, 
+                rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, 
+                rgba(0, 0, 0, 0.1) 0px 8px 10px -6px;
+    z-index: $z-acccount-menu-dropdown;
+    cursor: initial;
+
+    &:before {
+        // .menu-dropdown:before
+        // Speech bubble style triangle.
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -5px);
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 5px solid white;
+    }
+
+    &__link {
+        // .menu-dropdown__link
+        // Menu dropdown link.
+        display: flex;
+        white-space: nowrap;
+        color: $grey-20;
+        line-height: 25px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        text-decoration-line: underline;
+        text-underline-position: under;
+        text-decoration-color: transparent;
+        transition: 0.2s ease text-decoration;
+        align-items: center;
+
+        &:hover {
+            // .menu-dropdown__link:hover
+            text-decoration-color: $grey-86;
+
+            .badge {
+                // .menu-dropdown__link:hover .badge
+                background-color: red;
+            }
+            
+            .badge--inverted {
+                // .menu-dropdown__link:hover .badge
+                background-color: transparent;
+                box-shadow: inset 0 0 0 1px red;
+                color: red;
+            }
+        }
+
+        &:first-child {
+            // .menu-dropdown:first-child
+            padding-top: 0;
+        }
+
+        &:last-child {
+            // .menu-dropdown:last-child
+            padding-bottom: 0;
+        }
+
+        &.is-hidden {
+            // .menu-dropdown__link.is-hidden
+            display: none;
+        }
+    }
+}

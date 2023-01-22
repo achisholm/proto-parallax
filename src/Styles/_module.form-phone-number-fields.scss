@@ -1,0 +1,30 @@
+//------------------------------------------------------------------------------
+// Phone Number fields for Guest collection contact details.
+//-----
+
+.add-field-control {
+    // '(+) Provide an additional phone number' control.
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    
+    > .field__message {
+        // .add-field-control > .field__message
+        padding-top: 0;
+    }
+}
+
+.js-additional-phone-field {
+    // Additional phone number fields (hidden by default).
+    overflow: hidden;
+    
+    &.is-hidden {
+        // .js-additional-phone-field.is-hidden
+        display: none;
+    }
+    
+    &.is-collapsed {
+        // .js-additional-phone-field.is-collapsed
+        height: 0;
+        opacity: 0;
+    }
+}

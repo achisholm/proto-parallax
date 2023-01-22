@@ -1,0 +1,33 @@
+//******************************************************************************
+// Form Action Link.
+//
+// Form styled to resemble a simple text hyperlink.
+//******************************************************************************
+
+.form-action-link {
+    // Applied to a <form> element.
+    //
+    // Note: <form> elements are not allowed inside a <p>. Instead, use <div> as
+    // a substitute for parent paragraph elements.
+
+    display: inline;
+
+    &__input {
+        // Label styled to look and behave like a standard <a> hyperlink.
+        text-decoration: underline;
+        font: inherit;
+        cursor: pointer;
+        background: none;
+        padding: 0;
+        border: none;
+        font: inherit;
+        color: blue;
+        text-align: left;
+        appearance: none;
+        -webkit-appearance: none;
+
+        &:hover {
+            color: $tlc-red;
+        }
+    }
+}

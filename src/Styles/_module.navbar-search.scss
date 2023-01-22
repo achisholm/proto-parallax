@@ -1,0 +1,114 @@
+//******************************************************************************
+// Navbar - Search.
+//
+// Site search form.
+//******************************************************************************
+
+.navbar-search {
+    // The search bar <form> element.
+    grid-row: 2;
+    grid-column: 1/-1;
+    position: relative;
+    margin: 0 10px;
+
+    @media #{$small} {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        align-self: center;
+        grid-column: auto;
+        margin: 0;
+    }
+
+    &.is-populated {
+        // .navbar-search.is-populated
+        // Activated when the search bar is populated with text.
+        
+        .navbar-search__input {
+            // .navbar-search.is-populated .navbar-search__input
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(white, 0.3);
+        }
+
+        .navbar-search__button-submit {
+            // .navbar-search.is-populated .navbar-search__button-submit
+            color: $bright-blue;
+            
+            &:hover {
+                // .navbar-search.is-populated .navbar-search__button-submit:hover
+                color: $tlc-red;
+            }
+        }
+    }
+    
+    &__input {
+        // .navbar-search__input
+        // The search bar input element.
+        width: 100%;
+        height: 40px;
+        border-radius: 20px;
+        padding: 0 46px 0 16px;
+        border: none;
+        font-size: 16px;
+
+        @media (min-width: 800px) and (max-width: 920px) {
+            font-size: 13px;
+        }
+
+        &:focus::-webkit-input-placeholder {
+            // .navbar-search__input:focus::-webkit-input-placeholder
+            // Fades out the placeholder on focus.
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        &::selection {
+            // .navbar-search__input::selection
+            background: rgba(#f1c40f, 0.5);
+        }
+    }
+
+    &__button-submit {
+        // .navbar-search__button-submit
+        // The search bar submit button.
+        @include appearance(none);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0px;
+        border: none;
+        background-color: transparent;
+        height: 40px;
+        width: 40px;
+        font-size: 140%;
+        color: $grey-50;
+        border-radius: 0 20px 20px 0;
+        transition: color 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+            // .navbar-search__button:hover
+            color: $tlc-red;
+        }
+        
+        > .icon {
+            // .navbar-search__button-submit > .icon
+            // Magnifying glass icon.
+            position: relative;
+            top: 0px;
+            right: 2px;
+        }
+
+        > .ajax-spinner {
+            // .navbar-search__button-submit > .ajax-spinner
+            // Loading spinner.
+            flex: 0 0 12px;
+            border-color: $bright-blue $bright-blue $bright-blue transparent;
+            margin: auto;
+            width: 12px;
+            height: 12px;
+            border-width: 2px;
+        }
+    }
+}

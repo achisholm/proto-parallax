@@ -1,0 +1,153 @@
+//******************************************************************************
+// Notification Banner.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+.notification-banner {
+    // Notification bar above Main Index. Can be hidden by clicking 'dismiss' button.
+    font-size: 16px;
+    padding: 0 20px 0 35px;
+    width: 100%;
+    background-color: #E3F2FD;
+    color: $grey-20;
+    height: 0;
+    overflow: hidden;
+    transition-property: height, border;
+    transition-duration: 0.75s;
+    transition-timing-function: ease;
+    border-style: solid;
+    border-color: #90CAF9;
+    border-left-width: 4px;
+    clear: both;
+    
+    @media #{$x-small} {
+        font-size: 16px;
+    }
+
+    &.is-active {
+        // .notification-banner.is-active
+        // Notification bar's visible state.
+        transition-duration: 0s;
+        height: auto;
+        border-bottom-width: 1px;
+
+        .notification-banner__content {
+            // .notification-banner.is-active .notification__content
+            transition-duration: 0s;
+            opacity: 1
+        }
+    }
+
+    &__content {
+        // .notification-banner__content
+        // Container for the notification message and dismiss button.
+        @include flexbox;
+        @include align-items(center);
+        padding: 10px 0;
+        transition: opacity .75s ease;
+        opacity: 0;
+        text-align: left;
+        position: relative;
+        
+        @media #{$less-than-x-small} {
+            flex-direction: column;
+        }
+        
+        @media #{$huge} {
+            margin: 0 20px;
+        }
+        
+        &:before {
+            // .notification-banner__content:before
+            // info icon.
+            display: block;
+            position: absolute;
+            left: -25px;
+            font-family: 'iconfont';
+            color: #01579b;
+            content: "\e908"; // icon--info
+            width: 16px;
+            height: 16px;
+            top: 10px;
+            
+            @media #{$small} {
+                top: 8px;
+            }
+        }
+    }
+
+    &__message {
+        // .notification-banner__message
+        // Container div for the notfication message.
+        @include flex(1, 1, auto);
+        line-height: 1.3;
+    }
+    
+    &__message-title {
+        // .notification-banner__message-title
+        // Message title.
+        color: black;
+        font-weight: 600;
+    }
+
+    &__message-body {
+        // .notification-banner__message-body
+        
+    }
+
+    &__dismiss {
+        // .notification-banner__dismiss
+        // The clickable "dismiss" label
+        @include flex(0, 0, auto);
+        white-space: nowrap;
+        position: relative;
+        cursor: pointer;
+        font-size: 80%;
+        opacity: 0.75;
+        margin-left: auto;
+
+        &:hover {
+            // .notification-banner__dismiss:hover
+            opacity: 1;
+        }
+
+        @media #{$x-small} {
+            margin: 0 0 0 10px;
+        }
+        
+        @media (min-width: 1250px) {
+            margin-right: 20px;
+        }
+
+        > .icon {
+            // .notification-banner > .icon
+            // Close / dismiss icon.
+            display: inline-block;
+            width: 8px;
+            position: relative;
+            left: 3px;
+            top: -1px;
+            font-size: 50%;
+        }
+    }
+    
+    a {
+        // .notification-banner a
+        color: #01579b;
+
+        &:hover {
+            // .notification-banner a:hover
+            color: #1976D2;
+        }
+    }
+    
+    em {
+        // .notification-banner em
+        font-style: normal;
+        color: #01579b;
+    }
+}

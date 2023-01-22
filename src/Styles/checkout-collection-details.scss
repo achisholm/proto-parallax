@@ -1,0 +1,166 @@
+//******************************************************************************
+// Collection Details (Step 1 of 4.)
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.branch-opening-times";
+@import "module.form-section";
+@import "module.form-phone-number-fields";
+@import "module.form-checkbox-toggle-content";
+
+
+.branch-information {
+    // Container for 2-column branch info layout (branch info & map).
+    margin: 10px auto 20px auto;
+    width: 100%;
+    background-color: white;
+    border: 1px solid $grey-86;
+    border-radius: 5px;
+    font-size: 14px;
+    
+    @media #{$medium} {
+        @include flexbox;
+        margin: 0px auto 30px auto;
+    }
+    
+    &__heading {
+        // .branch-information__heading
+        // "Opening times" heading.
+        font-weight: 600;
+        color: $grey-30;
+        margin-bottom: 10px;
+    }
+    
+    &__sub-heading {
+        // .branch-information__sub-heading
+        // Sub-heading (e.g. "Branch Address:").
+        font-weight: 600;
+        color: $grey-50;
+        margin-bottom: 5px;
+    }
+    
+    &__info {
+        // .branch-information__info
+        // Container for opening times & branch info.
+        padding: 15px 20px;
+    }
+    
+    &__details {
+        // .branch-information__details
+        // Container for branch address, phone no (& mobile map).
+
+        &.is-collapsed {
+            // .branch-information__details.is-collapsed
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        &.is-hidden {
+            // .branch-information__details.is-hidden
+            visibility: hidden;
+        }
+
+        .branch-map {
+            // .branch-information__details .branch-map
+            margin-top: 10px;
+            border: none;
+        }
+    }
+
+    &__details-text {
+        // .branch-information__details-text
+        @include flexbox;
+        line-height: 1.3;
+    }
+
+    &__details-item {
+        // .branch-information__details-item
+        padding-right: 40px;
+    }
+
+    &__details-control {
+        // .branch-information__details-control
+        cursor: pointer;
+        color: $bright-blue;
+        text-decoration: underline;
+        padding-top: 10px;
+
+        .message-active {
+            // .branch-information__details-control .message-active
+            // Hide the "Hide" text.
+            display: none;
+        }
+        
+        .message-inactive {
+            // .branch-information__details-control .message-inactive
+            // Show the "Show" text.
+            display: inline;
+        }
+
+        &.is-active {
+            // .branch-information__details-control.is-active
+
+            .message-active {
+                // .branch-information__details-control.is-active
+                // Show the "Hide" text.
+                display: inline;
+            }
+
+            .message-inactive {
+                // .branch-information__details-control.is-active
+                // Hide the "Show" text.
+                display: none;
+            }
+        }
+    }
+}
+
+.branch-map {
+    // Container for embedded Google map.
+    max-width: 100%;
+    flex: auto;
+    aspect-ratio: 16/9;
+    
+    @media #{$x-small} {
+        aspect-ratio: 2.76/1;
+    }
+
+    @media #{$less-than-medium} {
+        border-radius: 0 0 4px 4px;
+        margin-top: 5px;
+        border-top: 1px solid $grey-86;
+    }
+    
+    @media #{$medium} {
+        border-radius: 0 4px 4px 0;
+        border-left: 1px solid $grey-86;
+    }
+}
+
+.opening-times-table {
+    // Override the default spacing.
+    margin-bottom: 0;
+
+    .opening-times-table__td--title {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.opening-times__toggle-content {
+    // Override the default spacing.
+    padding-top: 10px;
+}
+
+//------------------------------------------------------------------------------
+// Validation Messages.
+//-----
+
+.message-area {
+    // Prevents the validation message from stretching when inside a flex container.
+    @include flex(0);
+}

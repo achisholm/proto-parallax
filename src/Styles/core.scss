@@ -1,0 +1,62 @@
+//******************************************************************************
+// Core CSS.
+//
+// CSS required for nearly all web pages on www.tlc-direct.co.uk which includes
+// styles for:
+//
+// iconfont, global defaults, site header, site footer, index, buttons, general/
+// helper classes & print styles.
+//******************************************************************************
+
+// Include iconfont at top to initiate requests for iconfont resources early.
+@import "tools.iconfont";
+
+// Non-rendering library SASS.
+@import "tools.vars";
+@import "tools.mixins";
+
+// Global rules & resets.
+@import "base.globals";
+
+// Button UI component.
+@import "module.button";
+
+// Form UI libary.
+@import "module.form";
+
+// Site Header.
+@import "module.navbar";
+@import "module.search-autosuggest";
+
+// Site Footer.
+@import "module.footer";
+
+// Breadcrumbs.
+@import "module.breadcrumbs";
+
+// Notification bar.
+@import "module.notification-banner";
+
+// General multi-purpose classes and helpers.
+@import "module.ajax-spinner";
+@import "tools.column-grid";
+@import "tools.helpers";
+
+
+// These styles are non-critical on page load, so can be deferred.
+
+// Modal.
+@import "module.modal";
+
+// Qtip tooltip plugin styles.
+@import "vendor.qtip";
+
+// Validation plugin.
+@import "module.validation";
+
+// Print stylesheet defaults.
+@import "base.print";
+
+
+// Home page dependency. To eventually be removed and imported into homepage-specific stylesheet.
+@import "module.index";

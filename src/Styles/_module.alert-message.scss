@@ -1,0 +1,41 @@
+//******************************************************************************
+// Alert Message.
+//
+//
+//******************************************************************************
+
+.alert-message {
+    // Highlighted alert message box
+    display: block;
+    background-color: #FFC;
+    text-align: center;
+    line-height: 1.4;
+    text-decoration: none;
+    padding: 20px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #DFD8C2;
+
+    @media #{$small} {
+        margin: 10px 0 0 0;
+        padding: 10px;
+    }
+
+    h1 {
+        color: $tlc-red;
+        font-weight: bold;
+        padding-bottom: 3px;
+    }
+
+    &--discontinued {
+        // .alert-message--discontinued
+        // Discontinued alert message on the product page
+
+        @media #{$less-than-small} {
+            margin-top: -1px;
+            border-width: 1px 0;
+            border-style: solid;
+        }
+
+    }
+}

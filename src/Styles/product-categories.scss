@@ -1,0 +1,245 @@
+//******************************************************************************
+// Product Category pages.
+//
+//
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.facet-menu";
+@import "module.product-table-v2";
+@import "module.add-to-basket-confirmation";
+@import "module.out-of-stock-modal";
+@import "module.price-breaks";
+@import "module.price-drop";
+@import "module.quantity-control";
+
+.page-grey {
+    // Used to set background colour of the <body> element.
+    background-color: $grey-96;
+}
+
+//=============================================================================
+// Facet page content container.
+//=============================================================================
+
+.facets {
+    // Div wrapper containing sidebar navigation and main page content.
+    padding-top: 15px;
+    padding-bottom: 0;
+
+    @media #{$less-than-small} {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    @media #{$small} {
+        @include flexbox;
+        padding-bottom: 15px;
+    }
+}
+
+
+//=============================================================================
+// Facet page content container.
+//=============================================================================
+
+.facet-categories {
+    // Container for category panels.
+    width: 100%;
+    overflow: hidden;
+    
+    @media #{$less-than-small} {
+        padding: 10px 8px 0 8px;
+    }
+
+    .columns-container {
+        // .facet-categories .columns-container
+        max-width: none;
+
+        @media #{$small} {
+            @media #{$less-than-medium} {
+                @include column-count(2);
+            }
+        }
+    }
+}
+
+.facet-results {
+    // Container for product groups.
+    width: 100%;
+    
+    @media #{$less-than-small} {
+        padding: 0 15px;
+    }
+}
+
+//=============================================================================
+// Facet results header.
+//
+// Header for faceted results.
+//=============================================================================
+
+.facet-results-header {
+    // Results header containing description and 'Sort results by...' field.
+    margin: 20px 2px;
+
+    @media #{$small} {
+        margin: 0 2px 0 7px;
+    }
+    
+    &__fieldset {
+        // .facet-results-header__fieldset
+        // Field set containing text and select field.
+        @include flexbox;
+        @include flex-direction(column);
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: -8px;
+
+        @media #{$x-small} {
+            @include flex-direction(row);
+            @include align-items(center);
+        }
+        
+        @media #{$small} {
+            margin-bottom: 5px;
+        }
+    }
+
+    &__description {
+        // .facet-results-header__description
+        // Container for description text.
+        @include flex(1);
+        @include flexbox;
+        @include flex-wrap(wrap);
+        @include align-items(flex-end);
+        line-height: 1;
+        margin-bottom: 0;
+    }
+    
+    &__text {
+        // .facet-results-header__text
+        // Main text description (e.g. 'Viewing Brass').
+        color: $grey-20;
+        padding-right: 5px;
+    }
+
+    &__sub-text {
+        // .facet-results-header__sub-text
+        // Sub text description (e.g. '(55 products in 24 groups)').
+        display: inline;
+        font-size: 13px;
+        color: $grey-67;
+    }
+    
+    &__sort-select {
+        // .facet-results-header__sort-select
+        // 'Sort results by...' dropdown select field.
+        
+        @media #{$x-small} {
+            max-width: 210px;
+        }
+
+        @media #{$medium} {
+            max-width: 250px;
+        }
+    }
+}
+
+//=============================================================================
+// Facet results body.
+//
+// Container for faceted results (product groups) below the results header.
+//=============================================================================
+
+.facet-results-body {
+    // Results body containing product groups.
+    
+    @media #{$small} {
+        margin-left: 7px;
+    }
+}
+
+//=============================================================================
+// Group.
+//
+// New revised version of the '.group' component.
+//=============================================================================
+
+.group {
+    // Wrapper class for element containing each group.
+    @include flexbox;
+    @include flex-direction(column);
+    background-color: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 6px hsla(0, 0%, 0%, 0.05),
+                0 5px 15px hsla(0, 0%, 0%, 0.01);
+    margin-bottom: 20px;
+
+    &__header {
+        // .group__header
+        // Group header, containing title and manufacturer logo.
+        @include flexbox;
+        @include justify-content(space-between);
+        padding: 10px 15px 5px 15px;
+        position: sticky;
+        top: -5px;
+        background-color: white;
+        z-index: 2;
+        line-height: 1.15;
+        border-radius: 8px;
+    }
+    
+    &__title {
+        // .group__title
+        // Group's title heading.
+        font-size: 20px;
+        color: $tlc-blue;
+        font-weight: bold;
+    }
+
+    &__manufacturer-logo {
+        // .group__manufacturer-logo
+        // Right-aligned manufacturer logo.
+        @include flexbox;
+        @include align-items(center);
+        width: auto;
+        height: auto;
+        max-width: 75px;
+        max-height: 25px;
+        margin-left: 15px;
+    }
+
+    &__manufacturer-logo-img {
+        // .group____manufacturer-logo-img
+        // Manufacturer logo <img> element.
+        max-width: 100%;
+        max-height: 35px;
+    }
+
+    > .qty__message-area {
+        // .group > .qty__message-area
+        // Give qty field'a validation message some space when displayed above 
+        // a product table in an empty group.
+        margin-top: 10px;
+    }
+}
+
+
+//=============================================================================
+// Add to basket notification.
+//
+// Fix for revised product table breakpoints.
+//=============================================================================
+
+.atb-confirmation > td {
+    // .atb-confirmation > td
+    // Table cell spanning full width of table.
+    
+    @media #{$less-than-medium} {
+        display: block;
+    }
+}

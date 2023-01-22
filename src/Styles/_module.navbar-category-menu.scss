@@ -1,0 +1,136 @@
+//==============================================================================
+// Navbar – Category Menu.
+//
+// Dropown menu with A-Z list of top-level categories (desktop view).
+//==============================================================================
+
+.category-menu {
+    left: -80px;
+    transform: translate(0%, 10px);
+    box-shadow: rgba(black, 0.25) 0px 25px 50px -12px;
+    max-width: 93vw;
+    padding-top: 10px;
+    
+    &:before {
+        // .category-menu:before
+        // Adjust the position of triangle.
+        left: 135px;
+        
+        @media (min-width: 1001px) {
+            left: 156.8px;
+        }
+    }
+
+    @media (min-width:800px) and (max-width:920px) {
+        // Tablet breakpoint layout.
+        left: 0;
+        
+        &:before {
+            // .category-menu:before
+            left: 55px;
+        }
+    }
+
+    &.is-active {
+        // .category-menu.is-active
+        // Open/active state.
+        display: block;
+    }
+    
+    &.is-loading {
+        // .category-menu.is-loading
+        // Loading state.
+        min-height: 400px;
+        min-width: 60vw;
+    }
+    
+    .ajax-spinner {
+        // .category-menu .ajax-spinner
+        position: absolute;
+        right: 0%;
+        left: 0%;
+        margin: auto;
+        top: 180px;
+        border-width: 3px;
+    }
+    
+    &__grid-container {
+        // .category-menu__grid-container
+        // Container for the category menu items (desktop view).
+        padding: 0 8px;
+        min-height: 100px;
+
+        @media #{$x-small} {
+            @include column-count(2);
+        }
+    
+        @media #{$medium} {
+            @include column-count(3);
+        }
+
+        @media #{$large} {
+            @include column-count(4);
+        }
+    }
+}
+
+//==============================================================================
+// Category Menu Item.
+//==============================================================================
+
+.category-menu-item {
+    // A category menu item.
+    @include user-select(none);
+    @include break-inside(avoid);
+    display: flex;
+    overflow: hidden;
+    height: 45px;
+    line-height: 45px;
+    color: $grey-20;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(black, 0);
+    border-radius: 8px;
+    text-decoration-line: underline;
+    text-underline-position: under;
+    text-decoration-color: transparent;
+    transition: 0.2s ease text-decoration;
+    cursor: pointer;
+
+    &:hover {
+        // .category-menu-item:hover
+        color: inherit;
+
+        @media #{$small} {
+            color: $tlc-red;
+            background-color: rgba(black, 0.009);
+            text-decoration-color: $grey-86;
+        }
+    }
+
+    &:active {
+        // .category-menu-item:active
+        background-color: $grey-98;
+        color: $tlc-red;
+
+    }
+
+    &__image {
+        // .navbar-mobile-menu__image
+        // A category image container.
+        @include flex(0, 0, 45px);
+        width: 45px;
+
+        img {
+            // .navbar-mobile-menu__image img
+            // Category image.
+            max-width: 100%;
+        }
+    }
+
+    &__title {
+        // .navbar-mobile-menu__title
+        // Category title.
+        @extend %text-truncated;
+        padding-left: 8px;
+    }
+}

@@ -1,0 +1,197 @@
+//******************************************************************************
+// Card Table.
+//
+//******************************************************************************
+
+.card-table {
+    // Generic styles for tables displayed inside a card.
+    width: 100%;
+    font-size: 0.8em;
+    position: relative;
+
+    @media #{$small} {
+        font-size: inherit;
+    }
+
+    thead {
+        // .card-table thead
+        
+        tr th {
+            // .card-table thead tr th
+            position: sticky;
+            top: 0;
+            background-color: white;
+            box-shadow: 0 1px 0 0 $grey-93;
+            z-index: 20;
+
+            &:first-child {
+                // .card-table thead tr th:first-child
+                border-radius: 8px 0 0 0;
+            }
+    
+            &:last-child {
+                // .card-table thead tr th:last-child
+                border-radius: 0 8px 0 0;
+            }
+        }
+    }
+    
+    tfoot {
+        // .card-table tfoot
+        
+        tr {
+            
+            
+            td {
+                // .card-table tfoot tr td
+                border-bottom: none;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            
+            
+            &:first-child {
+                td {
+                    padding-top: 20px;
+                }
+            }
+
+            &:last-child {
+                td {
+                    padding-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    tr {
+        // .card-table tr
+
+        > :first-child {
+            // .card-table tr > :first-child
+            padding-left: 10px;
+
+            @media #{$small} {
+                padding-left: 30px;
+            }
+
+        }
+
+        > :last-child {
+            // .card-table tr > :last-child
+            padding-right: 10px;
+
+            @media #{$small} {
+                padding-right: 30px;
+            }
+        }
+    }
+
+    th {
+        // .card-table th
+        // Card table heading cells.
+        font-weight: 600;
+    }
+
+    th,
+    td {
+        // .card-table th
+        // .card-table td
+        // All card table cells.
+        border-bottom: $grey-93 1px solid;
+        vertical-align: middle;
+        padding: 10px 5px;
+
+        @media #{$small} {
+             padding: 14px 10px;
+        }
+
+        @media #{$large} {
+            padding: 16px 12px;
+        }
+
+        @media #{$huge} {
+            padding: 20px 15px;
+        }
+
+    }
+
+    //------------------------------------------------------------------------------
+    // Hoverable table style.
+    //
+    // Modifier to display table rows as clickable elements with a hover state.
+    //-----
+
+    &--hover {
+        // .card-table--hover
+        // Hover state for table rows.
+
+        tbody tr:hover {
+            // .card-table--hover tbody tr:hover
+            cursor: pointer;
+
+            > td {
+                // .card-table--hover tbody tr:hover > td
+                background-color: $grey-98;
+
+                .card-table__link-icon {
+                    // .card-table--hover tbody tr:hover > td .card-table__link-icon
+                    color: $grey-50;
+                }
+            }
+        }
+        
+        // No hover table rows.
+        // Can be applied to table rows to disable hover styles.
+
+        .tr-no-hover:hover {
+            // .card-table--hover .tr-no-hover:hover
+            cursor: inherit;
+
+            > td {
+                // .card-table--hover .tr-no-hover:hover > td
+                background-color: inherit;
+
+                .card-table__link-icon {
+                    // .card-table--hover .tr-no-hover:hover > td .card-table__link-icon
+                    color: inherit;
+                }
+            }
+        }
+    }
+
+    &__link-icon {
+        // .card-table__link-icon
+        // Arrow signifier included in last td where a table row is clickable.
+        font-size: 14px;
+        text-decoration: none;
+        color: $grey-86;
+
+        &:hover {
+            // .card-table__link-icon:hover
+            color: $grey-50;
+        }
+    }
+
+    &__link-column {
+        // .card-table__link-column
+        width: 1%;
+    }
+
+    //------------------------------------------------------------------------------
+    // Not bottom-border table style.
+    //
+    // Modifier to display table last row without a bottom border. Used where table 
+    // is last element in a card.
+    //-----
+
+    &--no-border-bottom {
+        // .card-table--no-border-bottom
+        // Don't show bottom border for the last table row.
+
+        tr:last-child td {
+            // .card-table--no-border-bottom tr:last-child td
+            border-bottom: none;
+        }
+    }
+}

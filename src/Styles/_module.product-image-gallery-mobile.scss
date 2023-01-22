@@ -1,0 +1,234 @@
+//******************************************************************************
+// Product Image Gallery (mobile).
+//
+// A swipeable product image gallery shown on mobile view only.
+//******************************************************************************
+
+@import "vendor.tinyslider";
+
+.image-gallery {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: $grey-86;
+    min-height: 100vw;
+
+    @media #{$small} {
+        display:none;
+    }
+    
+    &__slider {
+        // .image-gallery__slider
+        // Container element for product image slides.
+        position: relative;
+        overflow: hidden;
+        max-height: 100vw;
+    }
+}
+
+.image-gallery-slide {
+    // A slide in the product image gallery.
+    @include user-select(none);
+    @include flexbox;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100vw;
+    width: 100%;
+
+    > img {
+        // .image-gallery-slide > img
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: auto;
+        width: auto;
+        max-height: 100%;
+        max-width: 100%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__caption {
+        // .image-gallery-slide__caption
+        @include user-select(none);
+        position: absolute;
+        bottom: 10px;
+        max-width: 90%;
+        background: rgba(white, 0.5);
+        padding: 5px 8px;
+        border-radius: 8px;
+    }
+
+    &__play-icon {
+        // .image-gallery-slide__play-icon
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        width: 60px;
+        height: 60px;
+        z-index: 1;
+        opacity: 0.4;
+
+        &:before {
+            // .image-gallery-slide__play-icon:before
+            font-family: 'iconfont';
+            content: "\1f3a5"; // video icon
+            position: absolute;
+            font-size: 3em;
+            z-index: 1;
+            color: white;
+            text-shadow: 0 0 10px rgba(black, 0.5);
+        }
+    }
+
+    &__zoom-control {
+        // .image-gallery-slide__zoom-control
+        @include user-select(none);
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        top: 0px;
+        right: 0px;
+
+        &:before {
+            // .image-gallery-slide__zoom-control:before
+            font-family: 'iconfont';
+            content: "\e90c"; // zoom-in icon
+            position: block;
+            height: 30px;
+            width: 30px;
+            font-size: 1.8em;
+            z-index: 1;
+            color: rgba(black, 0.2);
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Adjustments to Tinyslider library styles.
+//-----
+
+.tns-nav {
+    @include flexbox;
+    padding: 15px 20px;
+    z-index: 1;
+    height: 38px;
+
+    > [aria-controls] {
+        // .tns-nav > [aria-controls]
+        width: 16px;
+        height: 20px;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        
+        &:hover:before {
+            // .tns-nav > [aria-controls]:hover:before
+            background-color: $grey-80;
+        }
+        
+        &:before {
+            // .tns-nav > [aria-controls]:before
+            content: "";
+            display: block;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            background-color: $grey-86;
+            margin: auto;
+        }
+    }
+
+    .tns-nav-active {
+        // .tns-nav .tns-nav-active
+        
+        &:before,
+        &:hover:before {
+            // .tns-nav .tns-nav-active:hover:before,
+            // .tns-nav .tns-nav-active:hover:before
+            background-color: $tlc-blue;
+        }
+    }
+}
+
+.tns-outer {
+    position: relative;
+    background: $grey-98;
+}
+
+.tns-controls {
+    // .tns-controls
+    position: absolute;
+    z-index: 1;
+    margin: 0 auto;
+    top: 0;
+    width: 100%;
+    
+    &:focus {
+        // .tns-controls:focus
+        outline: none;
+    }            
+
+    [data-controls] {
+        // .tns-controls [data-controls]
+        @include user-select(none);
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 80px;
+        color: $bright-blue;
+        background-color: rgba(white, 0.2);
+        text-align: center;
+        transition-duration: 0.3s;
+        transition-property: color, background-color;
+        text-indent: 100%;
+        overflow: hidden;
+        top: 50vw;
+        margin-top: -40px;
+        border: none;
+                
+        &:before {
+            // .tns-controls [data-controls]:before
+            font-family: "iconfont";
+            text-indent: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        &:hover,
+        &:focus {
+            // .tns-controls [data-controls]:hover
+            outline: none;
+        }            
+    }
+    
+    [data-controls="prev"] {
+        // .tns-controls [data-controls="prev"]
+        left: 0;
+        border-radius: 0 5px 5px 0;
+        
+        &:before {
+            // .tns-controls [data-controls="prev"]:before
+            content: "\25c0";
+        }
+    }
+    
+    [data-controls="next"] {
+        // .tns-controls [data-controls="next"]
+        right: 0;
+        border-radius: 5px 0px 0 5px;
+
+        &:before {
+            // .tns-controls [data-controls="next"]:before
+            content: "\25b6";
+        }
+    }
+}
+

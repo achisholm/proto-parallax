@@ -1,0 +1,331 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('/fonts/iconfont.eot?vy4b9v');
+    src: url('/fonts/iconfont.eot?vy4b9v#iefix') format('embedded-opentype'),
+    url('/fonts/iconfont.ttf?vy4b9v') format('truetype'),
+         url('/fonts/iconfont.woff?vy4b9v') format('woff'),
+         url('/fonts/iconfont.svg?vy4b9v#iconfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.icon {
+    font-family: 'iconfont';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    // Better Font Rendering
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon--copy:before {
+  content: "\e93b";
+}
+.icon--share:before {
+  content: "\e93a";
+}
+.icon--chat:before {
+  content: "\e938";
+}
+.icon--mail:before {
+  content: "\e939";
+}
+.icon--ev:before {
+  content: "\e937";
+}
+.icon--eye:before {
+  content: "\e936";
+}
+.icon--trash:before {
+    content: "\e935";
+}
+.icon--uk:before {
+    content: "\e931";
+}
+.icon--world:before {
+    content: "\e932";
+}
+.icon--instagram:before {
+  content: "\e930";
+}
+.icon--address-book:before {
+    content: "\e92f";
+}
+.icon--credit-card:before {
+    content: "\e92c";
+}
+.icon--history:before {
+    content: "\e92d";
+}
+.icon--orders:before {
+    content: "\e92e";
+}
+.icon--orders-open:before {
+    content: "\e933";
+}
+.icon--orders-history:before {
+    content: "\e934";
+}
+ .icon--i:before {
+    content: "\e92b";
+}
+.icon--star:before {
+    content: "\f02a";
+}
+.icon--printer:before {
+    content: "\e954";
+}
+.icon--book:before {
+    content: "\e91d";
+}
+.icon--cable:before {
+    content: "\e91f";
+}
+.icon--calculator:before {
+    content: "\e920";
+}
+.icon--drill:before {
+    content: "\e921";
+}
+.icon--duck:before {
+    content: "\e922";
+}
+.icon--fan:before {
+    content: "\e923";
+}
+.icon--flame:before {
+    content: "\e924";
+}
+.icon--fuse:before {
+    content: "\e925";
+}
+.icon--lamp:before {
+    content: "\e926";
+}
+.icon--meter:before {
+    content: "\e927";
+}
+.icon--network:before {
+    content: "\e928";
+}
+.icon--tape:before {
+    content: "\e929";
+}
+.icon--wifi:before {
+    content: "\e92a";
+}
+.icon--plus-circle-2:before {
+    content: "\e913";
+}
+.icon--plus-2:before {
+    content: "\e914";
+}
+.icon--cross-circle:before {
+    content: "\e918";
+}
+.icon--cross-2:before {
+    content: "\e919";
+}
+.icon--check-2:before {
+    content: "\43";
+}
+.icon--filter:before {
+    content: "\e910";
+}
+.icon--tlc-logo:before {
+    content: "\e911";
+}
+.icon--zoom-in:before {
+    content: "\e90c";
+}
+.icon--zoom-out:before {
+    content: "\e90f";
+}
+.icon--cart:before {
+    content: "\e902";
+}
+.icon--email:before {
+    content: "\65";
+}
+.icon--post:before {
+    content: "\e91e";
+}
+.icon--download-file:before {
+    content: "\64";
+}
+.icon--facebook:before {
+    content: "\e904";
+}
+.icon--twitter:before {
+    content: "\74";
+}
+.icon--google-plus:before {
+    content: "\e905";
+}
+.icon--pinterest:before {
+    content: "\e90b";
+}
+.icon--linkedin:before {
+    content: "\6c";
+}
+.icon--headset:before {
+    content: "\e906";
+}
+.icon--info:before {
+    content: "\e908";
+}
+.icon--pdf-file:before {
+    content: "\e909";
+}
+.icon--pin:before {
+    content: "\e90a";
+}
+.icon--link-external:before {
+    content: "\e900";
+}
+.icon--question-mark:before {
+    content: "\e90d";
+}
+.icon--question-circle:before {
+    content: "\3f";
+}
+.icon--help:before {
+    content: "\e907";
+}
+.icon--magnify:before {
+    content: "\e90e";
+}
+.icon--target:before {
+    content: "\e901";
+}
+.icon--triangle-down:before {
+    content: "\45";
+}
+.icon--home:before {
+    content: "\68";
+}
+.icon--edit:before {
+    content: "\46";
+}
+.icon--sign-in:before {
+    content: "\73";
+}
+.icon--exit:before {
+    content: "\58";
+}
+.icon--grid:before {
+    content: "\67";
+}
+.icon--menu:before {
+    content: "\4d";
+}
+.icon--user:before {
+    content: "\75";
+}
+.icon--user-circle:before {
+    content: "\e915";
+}
+.icon--lock:before {
+    content: "\4c";
+}
+.icon--phone:before {
+    content: "\70";
+}
+.icon--complaints:before {
+    content: "\e916";
+}
+.icon--export:before {
+    content: "\1f69a";
+}
+.icon--speech-bubbles:before {
+    content: "\e917";
+}
+.icon--people:before {
+    content: "\1f46b";
+}
+.icon--returns:before {
+    content: "\1f4e6";
+}
+.icon--catalogue:before {
+    content: "\e91a";
+}
+.icon--clearance:before {
+    content: "\e91b";
+}
+.icon--special-offers:before {
+    content: "\e91c";
+}
+.icon--megaphone:before {
+    content: "\1f4e3";
+}
+.icon--video:before {
+    content: "\1f3a5";
+}
+.icon--calendar:before {
+    content: "\1f4c5";
+}
+.icon--wrench:before {
+    content: "\1f527";
+}
+.icon--recycle:before {
+    content: "\267b";
+}
+.icon--chevron-left:before {
+    content: "\25c0";
+}
+.icon--chevron-down:before {
+    content: "\25bc";
+}
+.icon--chevron-up:before {
+    content: "\25b2";
+}
+.icon--chevron-right:before {
+    content: "\25b6";
+}
+
+//==============================================================================
+// Deprecated Icons.
+//
+// These icons are expected to be removed entirely sometime in the future.
+// You should work to remove their use from any code in tlc-web.
+//==============================================================================
+.icon--arrow-down:before {
+    // Deprecated. Use .icon--chevron-down instead.
+    content: "\76";
+    font-size: 150%;
+}
+.icon--arrow-left:before {
+    // Deprecated. Use .icon--chevron-left instead.
+    content: "\3c";
+    font-size: 150%;
+}
+.icon--arrow-right:before {
+    // Deprecated. Use .icon--chevron-right instead.
+    content: "\3e";
+    font-size: 150%;
+}
+.icon--arrow-up:before {
+    // Deprecated. Use .icon--chevron-up instead.
+    content: "\5e";
+    font-size: 150%;
+}
+.icon--cross:before {
+    // Deprecated. Use .icon--cross-2 instead.
+    content: "\78";
+}
+.icon--check:before {
+    // Deprecated. Use .icon--check-2 instead.
+    content: "\43";
+}
+.icon--plus:before {
+    content: "\e903";
+}
+.icon--plus-circle:before {
+    content: "\e912";
+}

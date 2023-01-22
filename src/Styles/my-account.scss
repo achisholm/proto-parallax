@@ -1,0 +1,180 @@
+// *************************************************************************
+// My Account
+//
+// Account Settings page.
+// *************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+$my-account-breakpoint-1: 450px;
+$my-account-breakpoint-2: 670px;
+$my-account-breakpoint-3: 1000px;
+
+//==============================================================================
+// My Account Overview Menu.
+//==============================================================================
+.my-account {
+    // My Account page content container.
+    @include flex-shrink(0);
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    padding: $base-padding $base-padding 0 $base-padding;
+    background-color:$grey-96;
+    margin: auto auto 0 auto;
+    
+    //------------------------------------------------------------------------------
+    // My Account Headings.
+    //-----
+    &__primary-heading {
+        // .my-account__primary-heading
+        // Main heading, centre-aligned ("My Account").
+        text-align: center;
+        color: black;
+        font-weight: 700;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    
+    &__secondary-heading {
+        // .my-account__secondary-heading
+        // Sub-heading text, centre-aligned.
+        text-align: center;
+        color: $grey-40;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+//------------------------------------------------------------------------------
+// My Account Overview Menu.
+//-----
+nav.my-account-menu {
+    // Wrapper for the My Account menu items.
+    @include flex-shrink(0);
+    max-width: 800px;
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+    
+    @media (min-width: $my-account-breakpoint-1) {
+        @include flexbox;
+        @include flex-wrap(wrap);
+    }
+
+    @media (min-width: $my-account-breakpoint-3) {
+        max-width: 1000px
+    }
+}
+
+//==============================================================================
+// My Account Menu Item.
+//==============================================================================
+.my-account-menu-item {
+    // .my-account-menu-item
+    // Anchor link panel containing an icon, title and description.
+    @include flexbox;
+    @include flex-direction(row);
+    background-color: white;
+    padding: 8px 20px 8px 8px;
+    height: auto;
+    text-decoration: none;
+    border: 1px solid $grey-86;
+    margin: 10px;
+    
+    &:hover {
+        background-color: $grey-98;
+        
+        .my-account-menu-item__title {
+            color: $bright-blue;
+        }
+        
+        .my-account-menu-item__description {
+            color: black;
+        }
+    }
+    
+    @media (min-width: $my-account-breakpoint-1) {
+        @include flex-direction(column);
+        text-align: center;
+        padding: $base-padding;
+        width: 100%;
+    }
+    
+    // Tablet.
+    @media (min-width: $my-account-breakpoint-1) {
+        // 2-Column Layout.
+        width: calc(50% - 20px);
+    }
+    
+    // Desktop.
+    @media (min-width: $my-account-breakpoint-2 ) {
+        // 3-Column Layout.
+        width: calc(33.333% - 20px);
+    }
+    
+    // Wide Desktop.
+    @media (min-width: $my-account-breakpoint-3 ) {
+        // 3-Column Layout.
+        width: calc(25% - 20px);
+    }
+    
+    //------------------------------------------------------------------------------
+    // Menu Item Icon.
+    //-----
+    &__icon {
+        // .my-account-menu-item__icon
+        @include flex(0, 0, 50px);
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+        margin-right: 8px;
+        
+        @media (min-width: $my-account-breakpoint-1) {
+            margin-right: 0;
+        }
+        
+        > .icon {
+            // .my-account-menu-item__icon > .icon
+            // The iconfont icon in My Account menu items.
+            font-size: 40px;
+            color: $tlc-blue;
+        }
+    }
+    
+    &__content {
+        // .my-account-menu-item__content        
+        @include flex(1, 1, auto);
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+    }
+    
+    &__title {
+        // .my-account-menu-item__title
+        font-weight: bold;
+        color: $bright-blue;
+        padding-bottom: 5px;
+    }
+    
+    &__description {
+        // .my-account-menu-item__description
+        // Description text <p> element describing menu item's features. 
+        font-size: 12px;
+        color: $grey-40;
+        line-height: 1.3;
+        
+        > br {
+            // .my-account-menu-item__description > br
+            // Line breaks used in descriptions disabled for mobile view so text wraps naturally.
+            display: none;
+            
+            @media (min-width: $my-account-breakpoint-1) {
+                display: block;
+            }
+        }
+    }
+}

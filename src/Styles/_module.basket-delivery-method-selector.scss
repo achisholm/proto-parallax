@@ -1,0 +1,304 @@
+//******************************************************************************
+// Delivery Method Selector.
+//
+// UI component for selecting either Collection or Delivery, situated at the top
+// of the Your Order (basket) page.
+//******************************************************************************
+
+.delivery-selector {
+        // .delivery-selector__options
+        // Radio select form - captures customer's choice (either collection
+        // or delivery).
+        @include flex(0, 1, auto);
+        border-radius: 5px;
+        overflow: hidden;
+        font-size: 15px;
+        
+        @media #{$less-than-small} {
+            background-color: $grey-98;
+            border: 1px solid $grey-67;
+        }
+        
+        @media #{$small} {
+            // 2-column layout.
+            @include flexbox;
+            @include flex-wrap(wrap);
+            margin-bottom: -10px;
+        }
+
+//==============================================================================
+// Proceed to Checkout Button.
+//==============================================================================
+
+    &__proceed-button {
+        // .delivery-selector__proceed-button
+        // Proceed to Checkout button, positioned along the baseline of the
+        // container.
+        @include flex(1, 1, 50%);
+        align-self: flex-end;
+
+        @media #{$less-than-small} {
+            margin-top: 20px;
+        }
+    }
+
+//==============================================================================
+// Radio select option.
+//==============================================================================
+
+    &__option {
+        // .delivery-selector__option    
+        // The radio select options.
+        
+
+        @media #{$small} {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        &:nth-child(2) {
+            // .delivery-selector__option:
+            //  The last radio select option (Delivery).
+            @media #{$less-than-small} {
+                border-top: 1px solid $grey-67;
+            }
+        }
+
+        &:hover {
+            // .delivery-selector.is-active:hover
+
+            .delivery-selector__text-selected {
+                // .delivery-selector.is-active:hover .delivery-selector__text-selected
+                color: blue;
+            }
+
+            .delivery-selector__edit-icon {
+                // .delivery-selector.is-active:hover .delivery-selector__edit-icon
+                color: $tlc-blue;
+            }
+        }
+
+//------------------------------------------------------------------------------
+// Radio option's "Selected" state.
+//-----
+
+        &.is-active {
+            // .delivery-selector__option.is-active
+            // Radio option's selected state.
+
+            .delivery-selector__option-label {
+                // .delivery-selector__option.is-active .delivery-selector__option-label
+                // Checked / Selected state.
+                background-color: $option-color-checked;
+                
+                @media #{$small} {
+                    background-color: white;
+                    border-color: $grey-86;
+                }
+                
+                &:before {
+                    // .delivery-selector__option.is-acive .option__label:before
+                    // The radio button - Selected/Expanded state.
+                    border-color: $tlc-blue;
+                    border-width: 5px;
+                }
+            }
+        }
+    }
+
+    &__text-selected {
+        // .delivery-selector__text-selected
+        // Hyperlink-style text wrapper used in selected option containing current
+        // delivery method selection.
+        white-space: nowrap;
+        display: inline-block;
+        position: relative;
+        color: $grey-20;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-decoration-color: $grey-40;
+        padding-right: 16px;
+
+        @media #{$small} {
+            color: $grey-40;
+            text-decoration-color: $grey-67;
+        }
+    }
+
+    &__edit-icon {
+        // .delivery-selector__edit-icon
+        // Edit icon used in selected option positioned at the end of the .text-selected
+        // text.
+        color: $grey-40;
+        top: 2px;
+        right: 0;
+        position: absolute;
+        font-size: 0.8em;
+
+        @media #{$small} {
+            color: $grey-67;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    // Hidden input field.
+    //-----
+    &__option-input {
+        // .delivery-selector__option-input
+        // Hidden <input type="radio"> element that stores the option's
+        // checked state.
+        display: none;
+    }
+
+//------------------------------------------------------------------------------
+// Radio select option - Option label (including circular radio select button).
+//-----
+    &__option-label {
+        // .delivery-selector__option-label
+        // The <label> element - the clickable area containing radio button,
+        // icon & text.
+        @include flexbox;
+        @include align-items(center); 
+        border: 1px solid transparent;
+        cursor: pointer;
+
+        @media #{$small} {
+            border-radius: 5px;
+
+            &:hover {
+                background-color: $grey-98;
+            }
+        }
+        
+        &:before {
+            // .delivery-selector__option-label:before
+            // Default state of the pseudo-element that forms the circular
+            // radio button.
+            @include flex(0, 0, auto);
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid $grey-86;
+            margin: 17px 10px 17px 17px;
+            background-color: white;
+            transition-property: background-color, border-width;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+
+            @media #{$small} {
+                // Darken the radio button's border to increase contrast on the
+                // grey background.
+                border-color: $grey-67;
+            }
+        }
+
+        .delivery-selector__option:first-child & {
+            // .delivery-selector__option:first-child .delivery-selector__option-label
+            // Rounded top corners for first on mobile layout.
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .delivery-selector__option:last-child & {
+            // .delivery-selector__option:last-child .delivery-selector__option-label
+            // Rounded bottom corners for last on mobile layout.
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Radio select option - Icon (for both Collection & Delivery icons).
+//-----
+    &__option-icon {
+        // .delivery-selector__option-icon
+        // block span element with svg background-image icon.
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+        background-position: center center;
+        background-repeat: no-repeat;
+
+        @media #{$small} {
+            width: 40px;
+            height: 40px;
+        }
+        
+        &--collect {
+            // .delivery-selector__option-icon
+            // Shopping bag & mouse cursor - Collection icon.
+            background-image: url(/Graphics/icon-click-and-collect.svg);
+        }
+        
+        &--deliver {
+            // .delivery-selector__option-icon
+            // Speeding van - Delivery icon.
+            background-image: url(/Graphics/icon-deliver.svg);
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Radio select option - Option text.
+//-----
+    &__option-text {
+        // .delivery-selector__option-text
+        // Container for option's title text and description text.
+        padding: 10px 20px 10px 0;
+        line-height: 1;
+    }
+
+    &__option-text-title {
+        // .delivery-selector__option-text-title
+        // The option's title text.
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    &__option-text-description {
+        // .delivery-selector__option-text-description
+        // The option's description text.
+        display: block;
+    }
+
+    //==============================================================================
+    // Delivery Selector 'Error' State.
+    //==============================================================================
+
+    &.is-error {
+        // .delivery-selector.is-error
+        // Error state with red background colour and borders. Class applied
+        // by JS when the validation plugin's response is invalid.
+
+        .delivery-selector__option-label,
+        .delivery-selector__option.is-active .delivery-selector__option-label {
+            background-color: #f2dede;
+        }
+
+        .delivery-selector__options,
+        .delivery-selector__option-label:before {
+            border-color: #cc2127;
+        }
+
+        @media #{$less-than-small} {
+            
+            .delivery-selector__option:nth-child(2) {
+                border-color: #cc2127;
+            }
+        }
+
+        @media #{$small} {
+            .delivery-selector__option-label {
+                background-color: #f2dede;
+                border-color: #cc2127;
+            }
+
+            .delivery-selector__option.is-active .delivery-selector__option-label {
+                border-color: #cc2127;
+            }
+        }
+    }
+}

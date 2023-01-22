@@ -1,0 +1,389 @@
+//******************************************************************************
+// Order & Order Items.
+//
+// 
+//******************************************************************************
+
+//==============================================================================
+// Order Container / Table.
+//==============================================================================
+.order-items {
+    // Wrapper for .order-item panels.
+    // Mobile & Tablet view only.
+    @include flexbox;
+    @include flex-wrap(wrap);
+    font-size: 15px;
+
+//------------------------------------------------------------------------------
+// Modifier class to adjust column widths when 2 Qty columns are present.
+//-----    
+    &--qty-columns-2 {
+        // .order-items--qty-columns-2
+
+        @media #{$medium} {
+            .order-items__th--description,
+            .order-item__td--description {
+                @include flex-basis(44.875%);
+            }
+        
+            .order-item__price-tds {
+                @include flex-basis(36.375%);
+            }
+
+            .order-item__td--price {
+                @include flex-basis(31.270%);
+            }
+            
+            .order-item__td--qty {
+                @include flex-basis(17.183%);
+            }
+            
+            .order-item__td--total {
+                @include flex-basis(34.364%);
+            }
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Modifier class to adjust column widths when 3 Qty columns are present.
+//-----    
+    &--qty-columns-3 {
+        // .order-items--qty-columns-3
+        @media #{$medium} {
+            .order-items__th--description,
+            .order-item__td--description {
+                @include flex-basis(34.875%);
+            }
+            
+            .order-items__th--qty {
+                @include flex-basis(7.5%);
+            }
+            
+            .order-item__price-tds {
+                @include flex-basis(46.375%);
+            }
+
+            .order-item__td--price {
+                @include flex-basis(24.527%);
+            }
+            
+            .order-item__td--qty {
+                @include flex-basis(16.173%);
+            }
+            
+            .order-item__td--total {
+                @include flex-basis(26.954%);
+            }
+        }
+    }
+
+
+    
+//------------------------------------------------------------------------------
+// Order Table Header Row.
+//-----
+    &__thead {
+        // .order-items__thead
+        // Order Items table header row.
+        font-weight: bold;
+        display: none;
+        width: 100%;
+        
+        @media #{$medium} {
+            @include flexbox;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Order Table Header Row Cell.
+//-----
+    &__th {
+        // .order-items__th
+        // Order Items table header row cell.
+        @include flex(0, 0, auto);
+        @extend %text-truncated;
+        padding: 10px 0;
+        border-bottom: 1px solid $grey-86;
+        
+        &--image {
+            // .order-items__th--image
+            // Image table header cell (empty).
+            @include flex-basis(6.25%);
+        }
+        
+        &--order-code {
+            // .order-items__th--order-code
+            // Order Code table header cell.
+            @include flex-basis(12.5%);
+        }
+        
+        &--description {
+            // .order-items__th--description
+            // Description table header cell.
+            @include flex-basis(51.125%);
+            @include flex-grow(1);
+        }
+
+        &--price {
+            // .order-items__th--price
+            // Price table header cell.
+            @include flex-basis(11.375%);
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        &--qty {
+            // .order-items__th--sent
+            // Sent table header cell.
+            @include flex-basis(6.25%);
+            text-align: center;
+        }
+
+        &--total {
+            // .order-items__th--total
+            // Total table header cell.
+            @include flex-basis(12.5%);
+            text-align: right;
+            padding-right: 20px;
+        }
+    }
+}
+
+//==============================================================================
+// Order Item.
+//==============================================================================
+.order-item {
+    // Panel for each product
+    // Mobile/tablet view only
+    @include flex(0, 1, 100%);
+    @include flex-direction(column);
+    @include justify-content(space-between);
+    display: block;
+    padding: $secondary-padding $primary-padding;
+    width: 100%;
+    margin: 0;
+    position: relative;
+    border-bottom: 1px solid $grey-93;
+
+    &:last-child {
+        // Prevent border line for last table row.
+        border-bottom: 0;
+    }
+
+    //------------------------------------------------------------------------------
+    // Desktop (Table) Layout.
+    //-----
+
+    @media #{$medium} {
+        // A order item displayed as a table row.
+        @include flexbox;
+        @include flex-direction(row);
+        @include justify-content(initial);
+        @include align-items(stretch);
+        padding: 0;
+    }
+    
+    //------------------------------------------------------------------------------
+    // Order Item Item Number.
+    //-----
+
+    &__item-no {
+        // .order-item__item-no
+        // Label in the top-right corner that reads "Item #xx".
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+        height: 25px;
+        line-height: 25px;
+        font-size: 11px;
+        text-align: center;
+        color: $grey-40;
+        border-radius: 0 4px 0 4px;
+        padding: 0 10px;
+
+        &:before {
+            // .order-item__item-no:before
+            display: inline;
+            color: $grey-40;
+            content: "Item #";
+        }
+
+        @media #{$medium} {
+            // Hidden item number for desktop-view.
+            display: none;
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Order Item Price, Quantity & Sub-Total Cells Wrapper.
+//-----
+    &__price-tds {
+        // .order-item__price-tds
+        // Wrapper for Price, Qty & Sub-Total cells.
+        @include flexbox;
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+
+        @media #{$medium} {
+            // Display as adjacent table cells.
+            @include flex(1, 1, 30.125%);
+            @include flex-wrap(nowrap);
+            margin: 0;
+        }
+
+        .order-item__td {
+            // .order-item__price-tds .order-item__td
+            margin-right: 40px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            @media #{$medium} {
+                @include flex-shrink(0);
+                margin-right: 0;
+            }
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Order item field (label/text) / Table cell.
+//-----
+    &__td {
+        // .order-item__td
+        // Wrapper for each set of __label and __text elements
+        margin-bottom: 8px;
+
+        @media #{$medium} {
+            // Displayed as adjacent table cells in a table row.
+            @include flexbox;
+            @include flex-grow(0);
+            @include flex-shrink(0);
+            @include align-items(center);
+            margin: 0;
+            overflow: hidden;
+            
+            &--order-code {
+                // .order-item__td--order-code
+                // Order Code table cell.
+                @include flex-basis(12.5%);
+            }
+            
+            &--description {
+                // .order-item__td--description
+                // Description table cell.
+                @include flex-basis(51.125%);
+                @include flex-grow(1);
+            }
+
+            &--price {
+                // .order-item__td--price
+                // Price table cell.
+                @include flex-basis(37.759%);
+                text-align: right;
+                padding-right: 10px;
+            }
+            
+            &--qty {
+                // .order-item__td--ordered
+                // Ordered table cell.
+                @include flex-basis(20.747%);
+                text-align: center;
+            }
+                        
+            &--total {
+                // .order-item__td--total
+                // Total table cell.
+                @include flex-basis(41.494%);
+                text-align: right;
+                padding-right: 20px;
+            }
+                
+            a:hover {
+                // .order-item__td a:hover
+                // Hover style for links in table cells (Order Code & Description).
+                text-decoration: underline;
+            }
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Order Item Text Label
+//-----
+    &__label {
+        // .order-item__label
+        color: black;
+        font-weight: 600;
+        margin-bottom: 5px;
+        
+        @media #{$medium} {
+            display: none;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Order Item Text.
+//-----
+    &__text {
+        // .order-item__text
+        // Paragraph or anchor element that contains text for each field/table cell.
+        display: block;
+        line-height: 1.1;
+        color: $grey-67;
+
+        @media #{$medium} {
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            color: black;
+            text-decoration: none;
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Order Item Image.
+//-----
+    &__image {
+        // .order-item__image
+        // Image wrapper / table cell.
+        max-width: 33.333%;
+        float: right;
+        margin: 20px 0 10px 10px;
+        box-shadow: 0 0 3px rgba(black, 0.2);
+
+        &:hover {
+            // .order-item__image:hover
+            box-shadow: 0 0 4px rgba(black, 0.3);
+        }
+
+        @media #{$medium} {
+            // Product image table cell.
+            @include flex(0, 0, 6.25%);
+            max-width: 100%;
+            float: none;
+            margin: 0;
+            padding: 5px 10px;
+            box-shadow: none;
+            
+            &:hover {
+                box-shadow: none;
+            }
+        }
+        
+        img {
+            // .order-item__image img
+            // img element of a size 1 product image.
+            display: block;
+            max-width: 100%;
+            max-height: 100px;
+        }
+    }
+}
+
+a.order-item__text {
+
+    @media #{$less-than-medium} {
+        color: $bright-blue;
+    }
+}

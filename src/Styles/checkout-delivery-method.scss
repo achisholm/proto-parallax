@@ -1,0 +1,69 @@
+//******************************************************************************
+// Delivery Method Checkout page.
+//
+// Logged in & out Delivery Method pages
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.option-label-address {
+    // Address text wrapper for radio group options on Delivery Method page
+    font-weight: normal;
+    margin-top: 5px;
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.option-label-address__controls {
+    // Container for 'edit' & 'delete' address controls
+    display: block;
+    margin-top: 5px;
+}
+
+//==============================================================================
+// Postal Address Finder.
+//==============================================================================
+.address-finder__stage-1,
+.address-finder__stage-2 {
+    /* Stage 1 & Stage 2 */
+    overflow: hidden;
+}
+
+.address-finder__stage-1.is-hidden,
+.address-finder__stage-2.is-hidden {
+    /* Stage 1 & Stage 2 hidden states */
+    opacity: 0;
+    height: 0;
+}
+
+.address-finder__no-postcode-link {
+    /* enter address manually control */
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+//==============================================================================
+// EU VAT Number.
+//==============================================================================
+.eu-vat-number {
+    /* EU VAT input field*/
+    overflow: hidden;
+}
+
+.eu-vat-number.is-hidden {
+    /* Active / Visible state*/
+    opacity: 0;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+//==============================================================================
+// Submit button.
+//==============================================================================
+.checkout-footer__forward-link.is-hidden {
+    /* Hidden state of the submit button */
+    height: 0;
+    opacity: 0;
+}

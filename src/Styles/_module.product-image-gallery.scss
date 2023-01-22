@@ -1,0 +1,208 @@
+//******************************************************************************
+// Product Image Gallery.
+//
+//
+//******************************************************************************
+
+.sp-loading {
+    // CSS for the loading div.
+    @include flexbox;
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    color: $grey-67;
+
+    .ajax-spinner {
+        // Add space between spinner and loading text.
+        margin-bottom: 10px;
+        border-color: $grey-67 transparent $grey-67 $grey-67;
+    }
+}
+
+.sp-wrap {
+    // Element wrapper.
+    display: none;
+    line-height: 0;
+    font-size: 0;
+    text-align: center;
+    width: 180px;
+}
+
+//==============================================================================
+// Thumbnails.
+//==============================================================================
+.sp-thumbs {
+    // Image thumbnails.
+    margin-top: 5px;
+
+    & a,
+    & a:visited {
+        width: 45px;
+        height: 45px;
+        display: inline-block;
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: white;
+        transform: scale(0.75);
+        -webkit-tap-highlight-color: transparent;
+
+        &:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 0 2px white inset,
+                        0 0 0 3px white;
+        }
+    }
+
+    & a:active {
+        transform: scale(0.8);
+    }
+
+    & a.sp-current,
+    & a.sp-current:hover {
+        // Styles for the currently selected thumbnail.
+        opacity: 1;
+        z-index: $z-active-thumbnail;
+        transform: scale(1);
+        box-shadow: 0 0 0 3px white inset,
+                    0 0 2px 1px rgba(black, 0.09);
+        transition-property: transform, box-shadow;
+        transition-duration: 0.25s;
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+}
+
+//==============================================================================
+// Image currently being viewed.
+//==============================================================================
+.sp-large {
+    position: relative;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+
+    & a img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    & a {
+        display: block;
+        box-shadow: 0 0 0 2px white inset;
+    }
+}
+
+//==============================================================================
+// Panning zoomed image.
+//==============================================================================
+.sp-zoom {
+    position: absolute;
+    left: -50%;
+    top: -50%;
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in;
+    display: none;
+    background-color: $grey-96;
+}
+
+//==============================================================================
+// Lightbox.
+//==============================================================================
+.sp-lightbox {
+    // Full-screen container for full-size image slideshow.
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: $grey-20;
+    background-color: rgba($grey-20, 0.9);
+    z-index: $z-lightbox;
+    display: none;
+    cursor: pointer;
+
+    img {
+        // Full-size image centered horizontally and vertically.
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 0 20px rgba(black,0.5);
+    }
+}
+
+.sp-lightbox-caption {
+    // Lightbox image caption positioned below image.
+    width: 100%;
+    text-align: center;
+    color: white;
+    position: absolute;
+    margin: auto;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    padding: 0 70px;
+}
+
+#sp-prev,
+#sp-next {
+    // Next / Previous lightbox buttons.
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    z-index: $z-lightbox + 1;
+    color: white;
+    padding: 14px;
+    text-decoration: none;
+    background: black;
+    border-radius: 25px;
+    border: 2px solid white;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    transition: 0.2s;
+
+    &:hover {
+        background: $grey-20;
+    }
+
+    @media #{$less-than-small} {
+        top: auto;
+	margin-top: 0;
+	bottom: 25px;
+    }
+}
+
+#sp-prev {
+    left: 10px;
+
+    &:before {
+        content: '';
+        border: 7px solid transparent;
+        border-right: 15px solid white;
+        position: absolute;
+        top: 16px;
+        left: 7px;
+    }
+}
+
+#sp-next {
+    right: 10px;
+
+    &:before {
+        content: '';
+        border: 7px solid transparent;
+        border-left: 15px solid white;
+        position: absolute;
+        top: 16px;
+        left: 18px;
+    }
+}

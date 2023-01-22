@@ -1,0 +1,118 @@
+//==============================================================================
+// My Account Sidebar Menu.
+//
+//
+//==============================================================================
+
+
+.navbar.is-fixed ~ .site-width-wrapper .orders-menu {
+    // Fix for when the sticky navbar is active.
+    top: 100px;
+}
+
+.orders-menu {
+    // Sidebar menu displayed on My Account > Orders pages.
+    background-color: white;
+    color: $grey-50;
+    z-index: 1;
+    
+    @media #{$less-than-medium} {
+        @include inline-flex;
+        border-radius: 8px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    @media #{$medium} {
+        margin-top: 30px;
+        background-color: transparent;
+        margin-right: 27px;
+        border-right: 1px solid $grey-93;
+        position: sticky;
+        top: 0;
+    }
+
+    &__list {
+        // .orders-menu__list
+        // Sidebar nav menu's ul element.
+        list-style: none;
+        margin: 0;
+    }
+    
+    &__item {
+        // .orders-menu__item
+        // Sideber nav menu's li elements.
+
+        @media #{$less-than-medium} {
+            border-bottom: 1px solid $grey-86;
+            
+            &:last-child {
+                // .orders-menu__item:last-child
+                // Prevent bottom border for the last item.
+                border-bottom: none;
+            }
+        }
+
+        @media #{$medium} {
+            margin-bottom: 5px;
+        }
+    }
+    
+    &__link {
+        // .orders-menu__link
+        // Sidebar nav menu's anchor elements
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(center);
+        color: inherit;
+        text-decoration: none;
+        line-height: 42px;
+        padding: 0 15px;
+        white-space: nowrap;
+        
+        @media #{$medium} {
+            border-right: transparent 5px solid;
+            border-radius: 20px 0 0 20px;
+        }
+            
+        &:hover {
+            // .orders-menu__link:hover
+            color: $grey-20;
+
+            @media #{$medium} {
+                background-color: $grey-98;
+            }
+        }
+
+        &.is-active,
+        &.is-active:hover {
+            // .orders-menu__link.is-active
+            // .orders-menu__link.is-active:hover
+            // Menu itsm active (current page) state.
+            color: $tlc-blue;
+            cursor: default;
+            font-weight: 600;
+
+            @media #{$medium} {
+                background-color: white;
+                border-right-color: $grey-86;
+            }
+        }
+    }
+
+    &__badge {
+        // .orders-menu__badge
+        // Modifies the badge UI component style when displayed in the sidebar menu.
+        margin-left: 10px;
+        font-size: 12px;
+        border-color: $tlc-red;
+        color: $tlc-red;
+        border-radius: 12px;
+        background-color: transparent;
+
+        &.badge--highlight {
+            background-color: $tlc-red;
+            color: white;
+        }
+    }
+}

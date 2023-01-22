@@ -1,0 +1,511 @@
+//******************************************************************************
+// Start a Return form.
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.returns-form-wrapper {
+    // Returns form container div.
+    @include flexbox;
+    @include flex-direction(column);
+    
+    .message-area {
+        // .returns-form-wrapper .message-area
+        // Override defaults for validation message to prevent a vertical sizing layout issue.
+        @include flex-basis(auto);
+    }
+}
+
+.returns-form {
+    // <form> element.
+    @include flexbox;
+    @include flex-direction(column);
+    @include flex(1);
+    
+    &__product-selector {
+        // .returns-form__product-selector
+        // Container for selectable products.
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+    
+    //--------------------------------------------------------------------------
+    // 'Loading' state.
+    //
+    // Shown while AJAX request is in process.
+    //--------------------------------------------------------------------------
+
+    &[data-state='loading'] {
+        // .returns-form[data-state='loading']
+        
+        .returns-form__product-selector {
+            // .returns-form[data-state='loading'] .returns-form__product-selector
+            // Hide while loading.
+            opacity: 0;
+            height: auto;
+        }
+    
+        .field--order-number .field__message--tooltip {
+            // .returns-form[data-state='loading'] .field--order-number .field__message--tooltip
+            // Hide the order number tooltip
+            opacity: 0;
+            
+            .tooltip-icon {
+                // .returns-form[data-state='loading'] .field--order-number .field__message--tooltip .tooltip-icon
+                pointer-events: none;
+                cursor: default;
+            }
+        }
+                
+        .field--button-continue {
+            // .returns-form[data-state='loading'] .field--button-continue
+            
+            .content-loading {
+                // .returns-form[data-state='loading'] .field--button-continue .content-loading
+                visibility: visible;
+            }
+            
+            .content-default {
+                // .returns-form[data-state='loading'] .field--button-continue .content-default
+                visibility: hidden;
+            }
+        }
+        
+        .returns-form__customer-service-message {
+            // .returns-form[data-state='loading'] .returns-form__customer-service-message
+            display: none;
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // 'Loaded' state.
+    // 
+    // Shown once an order's products have succesfuly been fetched.
+    //--------------------------------------------------------------------------
+
+    &[data-state='loaded'] {
+        // .returns-form[data-state='loaded']
+        
+        .field--order-number {
+            // .returns-form[data-state='loaded'] .field--order-number
+            
+            .field__message--tooltip {
+                // .returns-form[data-state='loaded'] .field--order-number .field__message--tooltip
+                // Hide the order number field's tooltip hover icon.
+                opacity: 0;
+
+                .tooltip-icon {
+                    pointer-events: none;
+                    cursor: default;
+                }
+            }
+            
+            .loaded-indicator {
+                // .returns-form[data-state='loaded'] .field--order-number  .loaded-indicator
+                // Show the order number field's green tick icon.
+                opacity: 1;
+            }
+        }
+
+        .returns-form__product-selector {
+            // .returns-form[data-state='loaded'] .returns-form__product-selector
+            // Show the product selector.
+            opacity: 1;
+            height: auto;
+        }
+        
+        .returns-form__customer-service-message {
+            // .returns-form[data-state='loaded'] .returns-form__customer-service-message
+            // Hide message when loaded.
+            display: none;
+        }
+    }
+    
+    &__customer-service-message {
+        // .returns-form__customer-service-message
+        // Container for Customer Service contact details text.
+        padding: 10px 0;
+        margin: auto;
+    }
+}
+
+
+.field--order-number {
+    // .field--order-number
+    // 'Order Number' field.
+    
+    .field__message--tooltip {
+        // .field--order-number .field__message--tooltip
+        // 'Order Number' field's hover tooltip.
+        transition: opacity 0.3s ease;
+    }
+    
+    .field__message:not(.field__message--tooltip) {
+        // .field--order-number .field__message:not(.field__message--tooltip)
+        // The standard field message element, containing a visual 'loaded' indicator.
+        position: static;
+    }
+    
+    .loaded-indicator {
+        // .field--order-number .loaded-indicator
+        // 'Order Number' field's green tick icon.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        width: 20px;
+        height: 20px;
+        background: $color-positive;
+        border-radius: 50%;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        
+        &:after {
+            // .field--order-number .loaded-indicator&:after
+            // Check icon.
+            content: "\43"; // 'check' icon
+            font-family: "iconfont";
+            color: white;
+            font-size: 11px;
+            position: relative;
+            top: 1px;
+        }
+    }
+}
+    
+//==============================================================================
+// 'Continue' button.
+//==============================================================================
+
+.field--button-continue {
+    // 'Continue' button.
+    
+    .ajax-spinner {
+        // .field--button-continue .ajax-spinner
+        pointer-events: none;
+        visibility: hidden;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+//==============================================================================
+// Product Selector.
+//==============================================================================
+
+.return-product {
+    // A selectable product in the product selector.
+    display: block;
+    padding: 10px;
+    position: relative;
+    border-top: 1px solid $grey-86;
+    transition-property: background-color, margin;
+    transition-timing-function: ease;
+    transition-duration: 0.3s;
+        
+    &:hover {
+        // .return-product:hover
+        background-color: $grey-93;
+    }
+    
+    &:first-child {
+        // .return-product:first-child
+        border-top-width: 0;
+    }
+    
+    //--------------------------------------------------------------------------
+    // Active / Selected state.
+    //
+    // State when product checkbox has been checked.
+    //--------------------------------------------------------------------------
+    
+    &.is-active {
+        // .return-product.is-active
+        border: 1px solid $grey-86;
+        border-radius: 5px;
+        background-color: $grey-98;
+        
+        + .return-product {
+            // .return-product.is-active + .return-product
+            border-top-width: 0;
+            
+            &.is-active {
+                // .return-product.is-active + .return-product.is-active
+                border-top-width: 1px;
+                margin-top: 10px;
+            }
+        }
+        
+        .return-product__select-button {
+            // .return-product.is-active .return-product__select-button
+            // When active, hide 'Select' button.
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+    
+    &__label {
+        // .return-product__label
+        // Label element providing clickable area.
+        @include flexbox;
+        @include align-items(center);
+        cursor: pointer;
+        line-height: 1;
+    }
+    
+    &__checkbox {
+        // .return-product
+        // Product's Checkbox input element.
+        @include flexbox;
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex(0, 0, 40px);
+        width: 40px;
+        height: 40px;
+
+        @media #{$less-than-small} {
+            margin-left: -10px;
+        }
+    }
+    
+    &__image {
+        // .return-product
+        // Product image.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        width: 30px;
+        margin: 0 10px 0 0;
+        
+        > img {
+            // .return-product > img
+            width: auto;
+            height: auto;
+            max-width: 30px;
+            max-height: 30px;
+        }
+    }
+    
+    &__text {
+        // .return-product__text
+        // Container element for product code & product description.
+        @include flex(1);
+    }
+    
+    &__code {
+        // .return-product
+        // Product code.
+        display: block;
+        color: $tlc-blue;
+        font-weight: 600;
+    }
+    
+    &__description {
+        // .return-product
+        // Product description.
+        display: block;
+        padding-top: 3px;
+    }
+    
+    &__select-button {
+        // .return-product
+        // 'Select' button.
+        @include flex(0, 0, auto);
+        
+        @media #{$less-than-small} {
+            display: none;
+        }
+    }
+    
+    &__fields {
+        // .return-product__fields
+        // Product fieldset, revealed when product is selected.
+        overflow: hidden;
+        
+        @media #{$small} {
+            margin-top: -26px;
+            padding-top: 26px;
+        }
+        
+        &.is-hidden {
+            // .return-product__fields.is-hidden
+            display: none;
+        }
+        
+        &.is-collapsed {
+            // .return-product__fields.is-collapsed
+            height: 0;
+            opacity: 0;
+        }
+    }
+    
+    &__field-quantity {
+        // .return-product__field-quantity
+        
+        @media #{$small} {
+            position: relative;
+            top: -26px;
+            margin-bottom: -26px;
+            
+            .field__label {
+                // .return-product__field-quantity .field__label
+                text-align: center;
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Form's 'Submit' button.
+//==============================================================================
+
+.checkout-footer {
+    // Container for form's submit button.
+    
+    &.is-hidden {
+        // .checkout-footer.is-hidden
+        // Default state (hidden).
+        display: none;
+    }
+}
+
+
+//==============================================================================
+// Customer Service Message.
+//==============================================================================
+
+.secondary-message-panel {
+    // Message panel with link to returns info.
+    border: 1px solid $grey-86;
+    color: $grey-50;
+    margin: auto;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: $grey-93;
+    
+    @media #{$large} {
+        padding: 20px;
+    }
+    
+    a { 
+        // .secondary-message-panel a
+        color: $grey-30;
+        
+        &:hover {
+            // .secondary-message-panel a:hover
+            color: $tlc-red;
+        }
+    }
+}
+
+//==============================================================================
+// Contact Form Page Footer.
+//
+// Alternative contact details, placed after the returns form.
+//==============================================================================
+
+.order-contact-footer {
+    // Container for the page footer content.
+    padding-top: 30px;
+
+    &__title {
+        // .order-contact-footer__title
+        // H2 heading reading "Other ways you can contact TLC".
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        padding-bottom: 3px;
+    }
+    
+    &__sub-title {
+        // .order-contact-footer__sub-title
+        // h3 heading reading "Any questions? We're always happy to help!"
+        text-align: center;
+        color: $grey-40;
+        margin-bottom: 25px;
+    }
+
+    &__details {
+        // .order-contact-footer__details
+        // Container for both phone number and email address.
+        @include flexbox;
+        @include flex-direction(column);
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 1.2;
+        text-align: center;
+
+        @media (min-width: 550px) {
+            @include flex-direction(row);
+            text-align: left;
+        }
+        
+        .icon {
+            // .order-contact-footer__details .icon
+            // Both headset & email icons.
+            padding-right: 6px;
+            color: $tlc-blue;
+            position: relative;
+            top: 3px;
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Phone contact details.
+//-----
+    &__phone {
+        // .order-contact-footer__phone
+        // Contains a headset icon and phone number.
+        padding: 0 20px 20px 20px;
+        
+        @media #{$small} {
+            padding: 0 20px
+        }
+    }
+    
+    &__small-text {
+        // .order-contact-footer__small-text
+        // Small text under the phone number showing opening hours.
+        font-weight: normal;
+        font-size: 14px;
+        color: $grey-56;
+        padding-left: 33px;
+    }
+
+//------------------------------------------------------------------------------
+// Email contact details.
+//-----
+    &__email {
+        // .order-contact-footer__email
+        // Contains an email icon and email address hyperlink.
+        padding: 0 20px;
+
+        a {
+            // .order-contact-footer__email a
+            // Email link style.
+            text-decoration: none;
+            color: black;
+
+            &:hover {
+                // .order-contact-footer__email a:hover
+                text-decoration: underline;
+                color: $tlc-red;
+            }
+            
+        }
+    }
+}

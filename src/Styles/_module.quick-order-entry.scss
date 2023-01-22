@@ -1,0 +1,556 @@
+//******************************************************************************
+// Quick Order Entry Form.
+//
+// Form for adding products to basket.
+//******************************************************************************
+
+.quick-entry-forms {
+    // Wrapper div element for quick order entry form & reusable bag entry form.
+    grid-column: 1/-1;
+    grid-row: 1/2;
+    
+    @media (min-width: $basket-bp-6) {
+        grid-column: 1/1;
+    }
+}
+
+.quick-order-entry {
+    // Quick Order Entry wrapper div element.
+    border-style: solid;
+    border-color: $grey-86;
+    border-width: 0 0 1px 0;
+    margin: 0 0 10px 0;
+    background-color: $grey-98;
+
+    @media (min-width: $basket-bp-6) {
+        border-width: 1px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    @media #{$large} {
+        max-width: 600px;
+    }
+
+    &__form {
+        // .quick-order-entry__form
+        // Quick Order Entry form.
+        @include flexbox;
+        @include flex-wrap(wrap);
+        padding: 8px 10px 12px;
+        font-size: 15px;
+        line-height: 1;
+        line-height: 1.54;
+        width: 100%;
+
+        @media (min-width: $basket-bp-6) {
+            grid-column: 1/1;
+            padding: 8px;
+        }
+        
+        @media (min-width: $basket-bp-4) and (max-width: $basket-bp-6 - 1) {
+            @include flex-wrap(nowrap);
+            padding: 5px;
+        }
+        
+        @media #{$large} {
+            @include flex-wrap(nowrap);
+        }
+    }
+
+//==============================================================================
+// Title.
+//
+// H1 heading for the form ("Quick Order Entry").
+//==============================================================================
+
+    &__title {
+        // .quick-order-entry__title
+        // "Quick Order Entry" heading.
+        @include flex(1, 1, 100%);
+        @include flexbox;
+        @include align-items(center);
+        font-weight: bold;
+        white-space: nowrap;
+        font-size: 14px;
+        font-variant: small-caps;
+        font-variant: all-small-caps;
+        text-transform: lowercase;
+        letter-spacing: 0.1em;
+        color: $grey-40;
+        margin-bottom: 0;
+        
+        @media (min-width: $basket-bp-4) and (max-width: $basket-bp-6 - 1) {
+            @include flex(0, 0, auto);
+        }
+        
+        @media #{$large} {
+            @include flex(1, 0, auto);
+        }
+    }
+
+//==============================================================================
+// Form fields.
+//
+//==============================================================================
+
+    &__field {
+        // .quick-order-entry__field
+        // Wrapper containing label and input elements
+        @include flex(1, 1, 100%);
+        width: auto;
+        
+        .field__label {
+            // .quick-order-entry__field .field__label
+            margin-top: 4px;
+            font-size: 0.75em;
+        }
+        
+        .field__input {
+            // .quick-order-entry__field .field__input
+            height: 35px;
+            line-height: 1;
+        }
+
+        &.field--show-label .field__input {
+            // .quick-order-entry__field.field--show-label .field__input
+            padding-top: 20px;
+            padding-bottom: 8px;
+        }
+
+        .button {
+             // .quick-order-entry__field .button
+            line-height: 35px;
+            height: 35px;
+        }
+
+//------------------------------------------------------------------------------
+// Quantity Spinner Field.
+//-----
+
+        &.field--quantity-spinner {
+            // .quick-order-entry__field.field--quantity-spinner
+            max-width: auto;
+            margin: auto;
+
+            .field__spinner-button {
+                // .quick-order-entry__field.field--quantity-spinner
+                height: 35px;
+                line-height: 35px;
+                @include flex-basis(25px);
+                opacity: 1;
+
+                @media #{$small} {
+                    @include flex-basis(15px);
+                }
+            }
+        
+            .field__input {
+                // .quick-order-entry__field.field--quantity-spinner
+                padding: 0;
+                height: 35px;
+                box-shadow: 0 0 0 1px $grey-67;
+                border-radius: 0;
+            }
+
+            &.field--active .field__input {
+                // .quick-order-entry__field.field--quantity-spinner.field--active .field__input
+                box-shadow: 0 0 0 2px $tlc-blue;
+            }
+            
+            &.field--error .field__input {
+                // .quick-order-entry__field.field--quantity-spinner.field--error .field__input
+                box-shadow: 0 0 0 2px $tlc-red;
+            }
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Product Code input field.
+//-----
+
+    &__product-code {
+        // .quick-order-entry__product-code
+        // The 'Product Code' input field.
+        @include flex-basis(100%);
+        
+        @media (min-width: $basket-bp-3) {
+            @include flex-basis(auto);
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Quantity input field.
+//-----
+
+    &__quantity {
+        // .quick-order-entry__quantity
+        // The quantity input field.
+        @media (min-width: $basket-bp-1) {
+            @include flex(0, 1, 110px);
+        }
+    }
+
+//==============================================================================
+// 'Add +' submit button.
+//==============================================================================
+
+    &__add-button {
+        //  .quick-order-entry__button
+        // The "Add +" button field.
+        @include flex(1, 1, 100%);
+
+        @media (min-width: $basket-bp-1) {
+            @include flex-basis(auto);
+        }
+
+        @media (min-width: $basket-bp-3) {
+            @include flex-grow(0);
+            @include flex-basis(auto);
+        }
+
+        .button {
+            // .quick-order-entry__button .button
+            padding: 0 20px;
+            background-color: $grey-40;
+            min-width: 80px;
+        }
+        
+        .ajax-spinner {
+            // .quick-order-entry__button .ajax-spinner
+            // Adjust ajax spinner for dark background color.
+            border-color: white transparent white white;
+            width: 15px;
+            height: 15px;
+            opacity: 0;
+        }   
+    }
+}
+
+//------------------------------------------------------------------------------
+// Product Details panel.
+//
+// Revealed on entry of a recognised product code.
+//--------------------------
+
+.qe-product {
+    // Product information panel.
+    position: relative;
+    font-size: 15px;
+    line-height: 1;
+    min-height: 71px;
+    display: none;
+
+    @media #{$x-small} {
+        @include flexbox;
+    }
+
+    &.is-hidden {
+        // .qe-product.is-hidden
+        // Hidden on page load. Revealed on entry of a recognised product code.
+        display: none;
+    }
+
+    &.is-loaded {
+        // .qe-product.is-loaded
+        // State that shows product details and hides placeholder.
+        
+        .qe-product__placeholder {
+            // .qe-product.is-loading .qe-product__placeholder
+            display: none;
+            opacity: 0;
+        }
+        
+        .qe-product__wrapper {
+            // .qe-product.is-loading .qe-product__wrapper
+            @include flexbox;
+        }
+    }
+
+    &__placeholder {
+        // .qe-product__placeholder
+        opacity: 1;
+        display: block;
+        @include user-select(none);
+        background-image: url(/Graphics/quick-entry-placeholder-left.svg),
+                          url(/Graphics/quick-entry-placeholder-right.svg);
+        background-position: top left, top right;
+        background-repeat: no-repeat;
+        width: 100%;
+        margin: 5px 10px;
+    }
+    
+    &__wrapper {
+        // .qe-product__wrapper
+        @include flex(1);
+        padding: 5px 10px;
+        border-top: 1px solid $grey-93;
+        display: none;
+    }
+    
+    &__image {
+        // .qe-product__image
+        @include flex(0, 0, 60px);
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        width: 60px;
+        height: 60px;
+        background-color: $grey-93;
+
+        img {
+            // .qe-product__image img
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
+    &__text {
+        // .qe-product__text
+        // Text wrapper for product code & description.
+        @include flex(1, 1, auto);
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        padding: 0 5px;
+    }
+
+    &__code {
+        // .qe-product__code
+        // Product code.
+        color: black;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    &__description {
+        // .qe-product__description
+        // Product description.
+        color: $grey-50;
+    }
+
+    &__label {
+        // .qe-product__label
+        // Price label.
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+}
+
+
+//==============================================================================
+// Product Code Autosuggest.
+//==============================================================================
+
+.qe-autosuggest {
+    // The Quick Entry product code autosuggest UI.
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 5;
+    color: black;
+    font-size: 15px;
+    box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1),
+                0 0 0 -3px      rgba(2, 2, 2, 0.8);
+    opacity: 0;
+    display: none;
+    animation: fade-in 0.3s ease;
+    will-change: auto;
+
+    @media (min-width: $basket-bp-6) {
+        width: 418px;
+    }
+
+    &.is-active {
+        // .qe-autosuggest.is-active
+        // Show the autosuggest UI.
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    // Animation for showing the Quick Entry product code autosuggest UI.
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 5px, -5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.qe-autosuggest-result {
+    // product code autosuggest result.
+    @include flexbox;
+    height: 50px;
+    cursor: pointer;
+    border-bottom: 1px solid $grey-86;
+    @include user-select(none);
+
+    &:hover {
+        // .qe-autosuggest-result:hover,
+        // Highlight the result on hover.
+        background-color: rgba($bright-blue, 0.75);
+        color: white;
+
+        .qe-autosuggest-result__description {
+            color: inherit;
+        }
+    }
+
+    &.is-active {
+        // .qe-autosuggest-result.is-active
+        // Highlight the result on selection.
+        background-color: $bright-blue;
+        color: white;
+
+        .qe-autosuggest-result__description {
+            color: inherit;
+        }
+    }
+
+    &:last-child {
+        // .qe-autosuggest-result:last-child
+        border-bottom: none;
+    }
+
+    &__image {
+        // .qe-autosuggest-result__image
+        // Product image wrapper.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        @include flex(0, 0, 50px);
+        background: rgba($grey-20, 0.1);
+
+        img {
+            // .qe-autosuggest-result__image img
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
+    &__text {
+        // .qe-autosuggest-result__text
+        // Product code & description.
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include flex(1, 1, auto);
+        padding: 0 10px;
+    }
+
+    &__product-code {
+        // .qe-autosuggest-result__product-code
+        font-weight: 600;
+    }
+
+    &__description {
+        // .qe-autosuggest-result__description
+        @include line-clamp(2);
+        color: $grey-56;
+        line-height: 1;
+        min-height: 18px;
+    }
+
+    &__manufacturer {
+        // .qe-autosuggest-result__manufacturer
+        // Manufacturer logo.
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        @include flex(0, 0, 50px);
+        padding-right: 5px;
+
+        img {
+            // .qe-autosuggest-result__manufacturer img
+            max-width: 100%;
+            max-height: 40px;
+            mix-blend-mode: multiply;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
+// 'Product Code' input field.
+//--------------------------
+
+.quick-order-entry__product-code {
+    position: relative;
+
+    .field__message {
+        // .quick-order-entry__product-code .field__message
+        position: static;
+        padding-top: 0;
+    }
+
+    &.is-valid {
+        // .quick-order-entry__product-code.is-valid
+        // Shows green checkmark when product code is valid.
+        
+        .is-valid-indicator {
+            // .quick-order-entry__product-code.is-valid .is-valid-indicator
+            opacity: 1;
+        }
+    }
+
+    &.is-loading {
+        // .quick-order-entry__product-code.is-loading
+        // Shows loading spinner when product code is being validated.
+        
+        .ajax-spinner {
+            // .quick-order-entry__product-code.is-loading .ajax-spinner
+            display: block;
+        }
+    }
+
+    .ajax-spinner {
+        // .quick-order-entry__product-code .ajax-spinner
+        @include user-select(none);
+        pointer-events: none;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 12px;
+        bottom: 0;
+        border-color: $grey-67 transparent $grey-67 $grey-67;
+        height: 11px;
+        width: 11px;
+        border-width: 2px;
+        display: none;
+    }
+}
+
+.is-valid-indicator {
+    // Green checkmark shown for valid product codes.
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    @include user-select(none);
+    pointer-events: none;
+    width: 19px;
+    height: 19px;
+    background: $color-positive;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &:after {
+        // .is-valid-indicator:after
+        // Check icon.
+        content: "\43"; // 'check' icon
+        font-family: "iconfont";
+        color: white;
+        font-size: 11px;
+        position: relative;
+        top: 1px;
+    }
+}

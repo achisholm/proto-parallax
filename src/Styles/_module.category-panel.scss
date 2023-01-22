@@ -1,0 +1,333 @@
+//*****************************************************************************
+// Category Panel.
+//
+//
+//*****************************************************************************
+
+
+//=============================================================================
+// Category Panel Wrapper.
+//=============================================================================
+
+.category-panel-wrapper {
+    // wrapper <div> required to add a bottom margin that doesn't break onto
+    // next column.
+    @include break-inside(avoid);
+    padding-bottom: 8px;
+}
+
+//=============================================================================
+// Category Panel.
+//=============================================================================
+
+.category-panel {
+    // A category panel containing a heading and a list of menu items.
+    @include clearfix;
+    background: white;
+    padding: 0 7px;
+    border: 1px solid $grey-93;
+    
+    &__content-wrapper {
+        // .category-panel__content-wrapper
+        // wrapper <div> containing <h1> heading and <ul> menu.
+        @include break-inside(avoid);
+    }
+
+    &__heading {
+        // .category-panel__heading
+        // Heading for a category panel.
+        @extend %text-truncated;
+        font-weight: 600;
+        padding: 3px 0;
+        font-size: 15px;
+        line-height: 1.3;
+    }
+
+    &__menu {
+        // .category-panel__menu
+        // <ul> menu containing menu items.
+        @include break-inside(avoid);
+        list-style: none;
+    }
+
+    li {
+        // .category-panel li
+        @include clearfix;
+    }
+
+    //-------------------------------------------------------------------------
+    // Advert Category Panel.
+    //-----
+
+    &--advert {
+        //.category-panel--advert
+        // An inline advert.
+        background-color: #FFFFCC;
+        text-align: center;
+        padding: 10px;
+    }
+
+    //-------------------------------------------------------------------------
+    // Minimal Category Panel.
+    //-----
+
+    &--minimal {
+        // .category-panel--minimal
+        // Cleaner redesign with rounded corners and no borders.
+        background: transparent;
+        border: none;
+        
+        .category-panel__heading {
+            // .category-panel--minimal .category-panel__heading
+            padding: 0 0 3px 0;
+        }
+    
+        li {
+            // .category-panel--minimal li
+            padding-bottom: 10px;
+        }
+        
+        .menu-item-wrapper {
+            // .category-panel--minimal .menu-item-wrapper
+            padding-bottom: 0;
+        }
+
+        .menu-item {
+            // .category-panel--minimal .menu-item
+            border: none;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05),
+                        0 5px 15px rgba(0, 0, 0, 0.01);
+        }
+    }
+
+    //=========================================================================
+    // Column modifier classes.
+    //=========================================================================
+
+    &--columns-2 {
+        // .category-panel--columns-2
+        // Displays a 2-column layout for desktop.
+        
+        .category-panel__menu {
+            // .category-panel--columns-2 .category-panel__menu
+            
+            @media #{$small} {
+                @include column-count(2);
+            }
+        }
+    }
+
+    &--columns-3 {
+        // .category-panel--columns-3
+        // Displays a 3-column layout for desktop.
+        
+        .category-panel__menu {
+            // .category-panel--columns-3 .category-panel__menu
+
+            @media #{$small} {
+                @include column-count(2);
+            }
+            
+            @media #{$medium} {
+                @include column-count(3);
+                
+            }
+        }
+    }
+
+    &--columns-4 {
+        // .category-panel--columns-4
+        // Displays a 4-column layout for desktop.
+        
+        .category-panel__menu {
+            // .category-panel--columns-4 .category-panel__menu
+
+            @media #{$small} {
+                @include column-count(2);
+            }
+            
+            @media #{$medium} {
+                @include column-count(4);
+            }
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+// Menu Item.
+//
+// Category panel menu items.
+//-----
+
+.menu-item-wrapper {
+    // wrapper <div> required to add a bottom margin that doesn't break onto
+    // next column.
+    @include break-inside(avoid);
+    padding-bottom: 5px;
+}
+
+.menu-item {
+    // An <section> element menu item inside an <li> that contains link, image
+    // and text
+    border: $grey-86 1px solid;
+    overflow: hidden;
+    font-size: 14px;
+    position: relative;
+    
+    &__link {
+        // menu-item__link
+        // An <a> wrapper.
+        display: table;
+        width: 100%;
+        line-height: 1.3;
+        text-decoration: none;
+        color: black;
+        
+        &:hover {
+            // menu-item__link:hover
+            background: $grey-98;
+            
+            .menu-item__text {
+                // menu-item__link:hover .menu-item__text
+                color: black;
+            }
+        }
+    }
+    
+    &__image {
+        // menu-item__image
+        // Div wrapper for the product image.
+        display: table-cell;
+        background-color: gainsboro;
+        height: 100%;
+        width: 200px;
+        vertical-align: middle;
+        
+        img {
+            // menu-item__image img
+            // The product image.
+            display: block;
+            margin: 0 auto;
+            max-height: 100%;
+        }
+    }
+    
+    &__text {
+        // menu-item__text
+        // The description/title text.
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        
+        p {
+            // menu-item__text p
+            @include line-clamp(3);
+            padding: 0 12px;
+            margin: 0;
+            line-height: 1.1;
+        }
+    }
+}
+
+
+//==============================================================================
+// Column-break helper classes.
+//==============================================================================
+
+@media #{$medium} {
+    // Modifier classes for category-panels. Apply for manual column breaks.
+    // Always forces a column break before the element.
+    
+    .column-break-before {
+        break-before: column;
+        -webkit-column-break-before: always;
+    }
+    
+    .column-break-before-avoid {
+        // Avoids a column break before the element.
+        // Only supported by IE10 - unsure if this works or is required.
+        break-before: avoid-column;
+        -webkit-column-break-before: avoid;
+    }
+}
+
+
+//==============================================================================
+// Advert panels.
+//==============================================================================
+$advert-bg-color: #ffffcc;
+$advert-hover-color: #ffffaa;
+$advert-border-color: #dfd8c2;
+
+.index-adverts {
+    // Area directly below the header used to display 2,3 or 4 adverts.
+    @include clearfix;
+    margin: 0 0 10px 0;
+    max-width: $site-width;
+    overflow: hidden;
+    border: solid #dfd8c2;
+    border-width: 0px 1px 4px 2px;
+    background-color: $advert-border-color;
+    
+    @media #{$small} {
+        margin: 0 auto 10px auto;
+    }
+}
+
+.advert {
+    // An individual advert (<a> element).
+    display: block;
+    float: left;
+    background-color: $advert-bg-color;
+    text-align: center;
+    border-width: 4px 2px;
+    border-style: solid;
+    border-color: $advert-border-color;
+    width: 100%;
+    padding-bottom: 99px;
+    margin-bottom: -99px;
+    line-height: 1.4;
+    font-size: 15px;
+    text-decoration: none;
+    
+    p {
+        // Advert description text.
+        display: block;
+        color: black;
+    }
+    
+    &:hover {
+        background-color: $advert-hover-color;
+        
+        .advert__heading {
+            color: lighten($tlc-blue,35%);
+            text-decoration: underline;
+        }
+    }
+    
+}
+
+.advert__heading {
+    // Advert heading text.
+    font-weight: bold;
+    display: block;
+    color: lighten($tlc-blue,20%);
+}
+
+//------------------------------------------------------------------------------
+// Set of modifier classes to change the advert panel widths according to
+// number of adverts.
+//-----
+
+@media #{$small} {
+    .index-adverts--adverts-1 .advert {width:100%}
+    .index-adverts--adverts-2 .advert {width:50%}
+    .index-adverts--adverts-3 .advert {width:33.333%}
+    .index-adverts--adverts-4 .advert {width:50%}
+}
+
+@media #{$medium} {
+    .index-adverts--adverts-4 .advert {width:25%}
+}

@@ -1,0 +1,278 @@
+//******************************************************************************
+// Reusable Bag Entry Form.
+//
+// Form for adding products to basket.
+//******************************************************************************
+
+.reusable-bag-entry {
+    // Quick Order Entry wrapper div element.
+    @include flexbox;
+    @include align-items(center);
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+    font-size: 15px;
+    line-height: 1.2;
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    padding: 8px 10px 12px;
+    background-color: $grey-98;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: $grey-86;
+    width: 100%;
+    margin: 0 0 10px 0;
+    
+    
+    @media (min-width: $basket-bp-3) {
+        @include flex-wrap(nowrap);
+    }
+    
+    @media (max-width: $basket-bp-6 - 1) {
+        margin-top: -10px;
+    }
+
+    @media (min-width: $basket-bp-6) {
+        grid-column: 1/1;
+        border-width: 1px;
+        border-radius: 5px;
+        padding: 8px;
+    }
+    
+    @media (min-width: $basket-bp-4) and (max-width: $basket-bp-6 - 1) {
+        @include flex-wrap(nowrap);
+        padding: 5px;
+    }
+    
+    @media #{$large} {
+        @include flex-wrap(nowrap);
+        max-width: 600px;
+    }
+
+//==============================================================================
+// Image.
+//==============================================================================
+
+    &__image {
+        @include flex(0, 1, auto);
+        padding-right: 15px;
+        padding-left: 10px;
+        
+        @media #{$small} {
+            padding-left: 13px;
+        }
+        
+        @media (min-width: $basket-bp-6) {
+            padding-left: 0px;
+        }
+        
+    }
+
+//==============================================================================
+// Description text.
+//==============================================================================
+
+    &__text {
+        // .reusable-bag-entry__text
+        // "Quick Order Entry" heading.
+        font-size: 15px;
+        
+        @media (min-width: $basket-bp-3) {
+            @include flex(1, 1, auto);
+        }
+    }
+    
+    &__title {
+        // .reusable-bag-entry__title
+        color: black;
+        display: inline;
+        
+        @media (min-width: $basket-bp-1) {
+            display: block;
+        }
+        
+        @media (min-width: $basket-bp-3) {
+            display: inline;
+        }
+        
+        @media (min-width: $basket-bp-4) {
+            display: block;
+        }
+    }
+    
+    &__sub-title {
+        // .reusable-bag-entry__sub-title
+        color: $grey-56;
+        display: inline;
+        
+        @media (min-width: $basket-bp-1) {
+            display: block;
+        }
+        
+        @media (min-width: $basket-bp-3) {
+            display: inline;
+        }
+        
+        @media (min-width: $basket-bp-4) {
+            display: block;
+        }
+    }
+
+//==============================================================================
+// Form fields.
+//
+//==============================================================================
+
+    &__fields {
+        // .reusable-bag-entry__fields
+        // Wrapper containing label and input elements
+        @include flex(1);
+        @include flexbox;
+        @include flex-direction(column);
+        
+        @media (min-width: $basket-bp-1) {
+            @include flex-direction(row);
+        }
+        
+        @media (min-width: $basket-bp-3) {
+            width: 198px;
+            margin-left: auto;
+            @include align-items(center);
+            @include flex(0, 0, auto);
+        }
+        
+        @media #{$small} {
+            width: 175px;
+        }
+    }
+
+    &__field {
+        // .reusable-bag-entry__field
+        // Wrapper containing label and input elements
+        @include flex(1, 1, 100%);
+        width: auto;
+        
+        .field__label {
+            // .reusable-bag-entry__field .field__label
+            margin-top: 4px;
+            font-size: 0.75em;
+        }
+        
+        .field__input {
+            // .reusable-bag-entry__field .field__input
+            height: 35px;
+            line-height: 1;
+        }
+
+        &.field--show-label .field__input {
+            // .reusable-bag-entry__field.field--show-label .field__input
+            padding-top: 20px;
+            padding-bottom: 8px;
+        }
+
+        .button {
+             // .reusable-bag-entry__field .button
+            line-height: 35px;
+            height: 35px;
+        }
+
+//------------------------------------------------------------------------------
+// Quantity Spinner Field.
+//-----
+
+        &.field--quantity-spinner {
+            // .reusable-bag-entry__field.field--quantity-spinner
+            // max-width: auto;
+            // margin: auto;
+
+            .field__spinner-button {
+                // .reusable-bag-entry__field.field--quantity-spinner
+                height: 35px;
+                line-height: 35px;
+                @include flex-basis(25px);
+                opacity: 1;
+
+                @media #{$small} {
+                    @include flex-basis(15px);
+                }
+            }
+        
+            .field__input {
+                // .reusable-bag-entry__field.field--quantity-spinner
+                padding: 0;
+                height: 35px;
+                box-shadow: 0 0 0 1px $grey-67;
+                border-radius: 0;
+            }
+
+            &.field--active .field__input {
+                // .reusable-bag-entry__field.field--quantity-spinner.field--active .field__input
+                box-shadow: 0 0 0 2px $tlc-blue;
+            }
+            
+            &.field--error .field__input {
+                // .reusable-bag-entry__field.field--quantity-spinner.field--error .field__input
+                box-shadow: 0 0 0 2px $tlc-red;
+            }
+        }
+    }
+    
+//------------------------------------------------------------------------------
+// Product Code input field.
+//-----
+
+    &__product-code {
+        // .reusable-bag-entry__product-code
+        // The 'Product Code' input field.
+        @include flex-basis(100%);
+        
+        @media (min-width: $basket-bp-3) {
+            @include flex-basis(auto);
+        }
+    }
+
+//------------------------------------------------------------------------------
+// Quantity input field.
+//-----
+
+    &__quantity {
+        // .reusable-bag-entry__quantity
+        // The quantity input field.
+        @media (min-width: $basket-bp-1) {
+            @include flex(0, 1, 110px);
+        }
+    }
+
+//==============================================================================
+// 'Add +' submit button.
+//==============================================================================
+
+    &__add-button {
+        //  .reusable-bag-entry__button
+        // The "Add +" button field.
+        @include flex(1, 1, 100%);
+
+        @media (min-width: $basket-bp-1) {
+            @include flex-basis(auto);
+        }
+
+        @media (min-width: $basket-bp-3) {
+            @include flex-grow(0);
+            @include flex-basis(auto);
+        }
+
+        .button {
+            // .reusable-bag-entry__button .button
+            padding: 0 20px;
+            background-color: $grey-40;
+            min-width: 80px;
+        }
+        
+        .ajax-spinner {
+            // .reusable-bag-entry__button .ajax-spinner
+            // Adjust ajax spinner for dark background color.
+            border-color: white transparent white white;
+            width: 15px;
+            height: 15px;
+        }   
+    }
+}

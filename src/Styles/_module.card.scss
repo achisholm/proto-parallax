@@ -1,0 +1,89 @@
+//******************************************************************************
+// Card.
+//
+//
+//******************************************************************************
+
+.card {
+    // Generic card used for containing content.
+    display: block;
+    @include flex(1);
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 5px 12px -3px rgba(0, 0, 0, 0.05), 
+                0 0px 5px -3px rgba(0, 0, 0, 0.04);
+    z-index: 2;
+    position: relative;
+    font-size: 16px;
+
+    @media #{$large} {
+        font-size: 17px;
+    }
+
+    @media #{$huge} {
+        font-size: 18px;
+    }
+
+    &--padded {
+        // .card--padded
+        // Card with standardised padding.
+        padding: 30px;
+    }
+
+    &--hover {
+        // .card--hover
+        // Card with a hover state.
+        text-decoration: none;
+        transition: box-shadow 0.1s ease;
+
+        &:hover {
+            box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1), 
+                        0px 0 0px -3px rgba(2, 2, 2, 0.8);   
+        }
+    }
+    
+    &__title {
+        // .card__title
+        // Card title.
+        color: $grey-40;
+        font-weight: 600;
+        font-variant: all-small-caps;
+        font-size: 20px;
+        letter-spacing: 1.3px;
+        margin-bottom: 5px;
+        position: relative;
+        top: -15px;
+    }
+
+    &__label {
+        // .card__label
+        // Card label.
+        line-height: 1.25em;
+        color: black;
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    &__value {
+        // .card__value
+        // Card value.
+        line-height: 1.25em;
+        color: $grey-56;
+        font-size: 15px;
+        overflow-wrap: anywhere;
+
+        a {
+            // .card__value a
+            color: $bright-blue;
+        }
+    }
+
+    // .button ~ .button {
+    //     // When adjacent button are displayed stacked, add space between them.
+
+    //     @media #{$small} {
+    //         margin-top: 10px;
+    //     }
+    // }
+}

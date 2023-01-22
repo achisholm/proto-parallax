@@ -1,0 +1,915 @@
+//******************************************************************************
+// Form Module
+//
+// See /Templates/forms/form-ui-library.html for usage.
+//******************************************************************************
+
+@import "tools.vars";
+@import "tools.mixins";
+
+@import "module.button";
+@import "module.form-action-link";
+@import "module.form-address-finder";
+
+//==============================================================================
+// Fieldset
+//
+// Wrapper for a set of form fields with floating labels.
+//==============================================================================
+.fieldset {
+    // Wrapper for a set of .field components
+    @include clearfix;
+    margin: 0 -8px;
+    zoom: 1;
+
+    &__title {
+        // .fieldset__title
+        // Fieldset Secondary title (<h2>)
+        // Caps & lined heading
+        // Used to break checkout pages into separate sections
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 8px 5px 8px;
+        padding: 10px 0 5px 0;
+        text-transform: lowercase;
+        font-variant: small-caps;
+        font-variant: all-small-caps;
+        letter-spacing: 1px;
+        border-bottom: 2px solid $grey-86;
+        color: #333;
+        clear: both;
+
+        @media #{$small} {
+            font-size: 24px;
+            padding-top: $secondary-padding;
+        }
+    }
+
+    &__text {
+        // .fieldset__text
+        // Standard fieldset paragraph text
+        margin-bottom: $secondary-padding;
+        padding: 0 8px;
+        clear: both;
+    }
+
+    &--toggle {
+        // .fieldset--toggle
+        // An expandable fieldset. Closed/hidden by default
+        transition-property: height, opacity;
+        transition-duration: 500ms;
+        transition-timing-function: ease-in-out;
+        opacity: 0;
+        height: 0;
+        overflow:hidden;
+    }
+
+    &--active {
+        // .fieldset--active
+        // Expanded state toggle class
+        opacity: 1;
+        height: auto;
+    }
+    
+    //==============================================================================
+    // Compact fieldset.
+    //
+    // Fieldset with half-width column gutters (4px space between input fields
+    // instead of standard 8px).
+    //==============================================================================
+    
+    &--compact {
+        // Fieldset variation with less space between fields.
+        margin-left: -4px;
+        margin-right: -4px;
+        
+        .field {
+            // .fieldset--compact .field
+            padding: 4px;
+            
+            &.is-hidden {
+                // .fieldset--compact .field.is-hidden
+                padding: 0;
+            }
+        }
+        
+        .fieldset__text {
+            // .fieldset--compact .fieldset__text
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+    }
+}
+
+//==============================================================================
+// Field component.
+//
+// A form input field
+//==============================================================================
+.field {
+    // .fieldset .field
+    // Container wrapper for a form field
+    @include clearfix;
+    width: 100%;
+    float: left;
+    padding: 8px;
+
+//==============================================================================
+// Field - Wrapper.
+//==============================================================================
+    &__wrapper {
+        // .field__wrapper
+        // Wrapper to contain the label and input field
+        position: relative;
+    }
+
+//==============================================================================
+// Field - Label.
+//
+// The <label> element, hidden by default. Shown by adding the
+// .field--show-label class to the .field component
+//==============================================================================
+    &__label {
+        // .field__label
+        @extend %text-truncated;
+        margin: 5px 0 10px 0;
+        transform: translateY(-3px);
+        -webkit-transform: translateY(-3px);
+        display: block;
+        font-size: 0.85em;
+        font-weight: 700;
+        text-align: left;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        padding: 0 10px;
+        color: $tlc-blue;
+        opacity: 0;
+        transition: all .2s ease-out;
+        pointer-events: none;
+        z-index: 1;
+    }
+//==============================================================================
+// Field - Input Field.
+//
+// The <input> element of the .field component.
+//==============================================================================
+    &__input {
+        // .field__input
+        @extend %text-truncated;
+        border-radius: 3px;
+        display: block;
+        width: 100%;
+        padding: 15px 10px;
+        color: inherit;
+        font: inherit;
+        margin: 0;
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        background: white;
+        line-height: normal;
+        box-shadow: 0 0 0 1px $grey-67;
+        transition-property: all;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-out;
+        height: 50px;
+
+        &::-webkit-date-and-time-value {
+            // .field__input::-webkit-date-and-time-value
+            text-align: left;
+        }
+
+        &::-ms-expand {
+            // .field__input::-ms-expand
+            display: none;
+        }
+
+        &:focus {
+            // .field__input:focus
+            box-shadow: 0 0 0 2px $tlc-blue;
+            outline: none;
+        }
+    }
+
+//==============================================================================
+// Field - Message.
+//
+// Container for any additional information or message for the field.
+//==============================================================================
+    &__message {
+        // .field__message
+        position: relative;
+        padding-top: 5px;
+        display: block;
+        color: $grey-50;
+        font-weight: normal;
+        font-size: 90%;
+        line-height: 1.2;
+
+        &--inline {
+            // A message displayed inline, inside the input field, right-aligned
+            // Start with standard layout on smaller mobile screens
+            color: #a9a9a9;
+            padding-top: 0;
+
+            @media (min-width:400px) {
+                // Upgrade to inline layout on smaller mobile screens
+                position: absolute;
+                top: 16px;
+                right: 15px;
+                pointer-events: none;
+            }
+        }
+
+        &--tooltip {
+            // .field__message--tooltip
+            // Tooltip bubble viewable on hover
+            // Inline question mark icon
+            position: absolute;
+            width: 100%;
+            max-width: 330px;
+            top: 0;
+            right: 0;
+            transition: all 0.3s ease;
+            padding-top: 0;
+            pointer-events: none;
+
+            .tooltip-icon:hover {
+                // .field__message--tooltip:hover .tooltip-icon
+                background-color: rgba(black, 0.5);
+
+                & + .tooltip-bubble {
+                    // .field__message--tooltip:hover .tooltip-bubble
+                    bottom: 0px;
+                    opacity: 1;
+
+                    &:before {
+                        // .field__message--tooltip:hover .tooltip-bubble
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .tooltip-icon {
+            // .tooltip-icon
+            display: block;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 20px;
+            height: 20px;
+            background-color: $grey-86;
+            border-radius: 50%;
+            background-image: url(/Graphics/icon-question-mark-white.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 20px;
+            transition-property: background-color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .tooltip-bubble {
+            // floating bubble containing a message
+            // hidden by default
+            transition-property: opacity, bottom;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            position: absolute;
+            bottom: 10px;
+            right: -10px;
+            display: inline-block;
+            opacity: 0;
+            max-width: 100%;
+            border-radius: 5px;
+            background: black;
+            color: white;
+            padding: 10px;
+            pointer-events: none;
+            font-size: 14px;
+            line-height: 1.4;
+            z-index: $z-tooltip-bubble;
+
+            &:before {
+                // tooltip speech mark triangle
+                content: "";
+                position: absolute;
+                bottom: -20px;
+                right: 30px;
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+            }
+        }
+    }
+
+//==============================================================================
+// Field - Quantity Spinner
+//
+// Numeric text input with buttons to increase/decrease value.
+//==============================================================================
+    &--quantity-spinner {
+        // .field--quantity-spinner
+
+        .field__label {
+            // .field--quantity-spinner .field__label
+            // Make label static, placed above input field
+            position: static;
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            white-space: normal;
+            font-weight: 600;
+            pointer-events: auto;
+        }
+
+        .field__input-wrapper {
+            // .field--quantity-spinner .field__input-wrapper
+            @include flexbox;
+
+            .field__input {
+                //  .field--quantity-spinner .field__input
+                @include flex(1, 1, 1px); // 1px flex-basis fixes a bug in IE & Edge
+                position: relative;
+                z-index: 2;
+                text-align:center;
+                padding: 15px 10px;
+
+                @media #{$less-than-small} {
+                    border-radius: 0;
+                }
+            }
+        }
+
+
+
+        .field__spinner-button {
+            // .field--quantity-spinner .field__spinner-button
+            // decrease / increase buttons, positioned left / right
+            @include flex(0, 0, 50px);
+            @include user-select(none);
+            height: 50px;
+            line-height: 50px;
+            display: block;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            padding: 0;
+            background-color: $grey-93;
+            color:  $grey-67;
+            box-shadow: 0 0 0 1px $grey-67;
+            transition: color, background-color, box-shadow, opacity;
+            transition-duration: 0.1s, 0.01s, 0.2s, 0.2s;
+            transition-timing-function: ease-out;
+
+            @media #{$small} {
+                @include flex-basis(20px);
+                opacity: 0;
+            }
+
+            &:hover {
+                background-color: darken($grey-93, 7%);
+                color: darken($grey-93, 40%);
+            }
+
+            &--down {
+                // .field--quantity-spinner .field__spinner-button--down
+                // Decremental button (left-hand side)
+                border-width: 1px 0 1px 1px;
+                border-radius: 3px 0 0 3px;
+                padding-right: 1px;
+            }
+
+            &--up {
+                // // .field--quantity-spinner .field__spinner-button--up
+                // Incremental button (right-hand side)
+                border-width: 1px 1px 1px 0;
+                border-radius: 0 3px 3px 0;
+                padding-left: 1px;
+            }
+        }
+
+        &:hover {
+            // .field--quantity-spinner:hover
+
+            .field__spinner-button {
+                opacity: 1;
+            }
+
+            .field__input {
+                border-radius: 0;
+                border-color: $grey-67;
+            }
+        }
+
+        &.field--error,
+        &.field--error.field--active {
+            // .field--quantity-spinner.field--error
+            // .field--quantity-spinner.field--error.field--active
+
+            .field__spinner-button  {
+                box-shadow: 0 0 0 2px $tlc-red;
+            }
+        }
+
+        &.field--active {
+            // .field--quantity-spinner.field--active
+            // The on focus state of the quantity spinner
+
+            .field__spinner-button {
+                box-shadow: 0 0 0 2px $tlc-blue;
+                background-color: $grey-93;
+                color: $grey-56;
+
+                &:hover {
+                    background-color: $grey-86;
+                    color: $grey-40;
+                }
+
+                &:active {
+                    // Button pressed - white text on blue bg
+                    background-color: $tlc-blue;
+                    color: white;
+                    border-color: $tlc-blue;
+                }
+            }
+        }
+    }
+
+//==============================================================================
+// Field - Dropdown Select Field.
+//
+// A <select> version of .input__field.
+//==============================================================================
+    &--select {
+        //.field--select
+        .field__input-wrapper {
+            // wrapper around the <select> element used to position the dropdown control image
+            position:relative;
+            z-index: $z-select-wrapper;
+
+            &:before {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 50px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                pointer-events: none;
+                background-image: url(/Graphics/dropdown-arrow-down-dark.svg);
+            }
+        }
+
+        .field__label {
+            // .field--select .field__input-wrapper .field__label
+            opacity: 1;
+            z-index: $z-select-label;
+        }
+
+        .field__input {
+            // .input__field--select
+            padding-top: 25px;
+            padding-bottom: 5px;
+            padding-right: 44px;
+            font-size: 16px;
+            -webkit-backface-visibility: hidden; // Hack to fix bug in Chrome v71-72, where select element text would not render correctly inside a radio group.
+        }
+    }
+
+//==============================================================================
+// Field - Textarea.
+//
+// A <textarea> version of .input__field.
+//==============================================================================
+    &--textarea {
+        // .field--textarea
+
+        .field__label {
+            // .field--textarea.field--active .field__label
+            border-radius: 3px 3px 0 0;
+        }
+
+        .field__label {
+            // .field--textarea .field__label
+            // Label fixed for multi-line textarea content
+            background-color: white;
+            top: -2px;
+        }
+
+        .field__input {
+            // .field--textarea .field__input--textarea
+            min-height: 100px;
+            max-width: 100%;
+            white-space: pre-wrap;
+            overflow: auto;
+            resize: vertical;
+        }
+    }
+
+//==============================================================================
+// Field - Checkbox component.
+//==============================================================================
+    &--checkbox {
+        padding: 0 8px;
+        position: relative;
+        width: auto;
+        clear: both;
+
+        .field__message--tooltip {
+            top: -10px;
+            right: -35px;
+        }
+    }
+
+    &__checkbox-wrapper {
+        // .field__checkbox-wrapper
+        // wrapper for a Checkbox form component
+        @include flexbox;
+        @include align-items(center);
+        min-height: 36px; // matches height of a single line of text.
+    }
+
+    &__checkbox-input {
+        // .field___checkbox-input
+        // Contains the <input type="checkbox"> element
+        @include flex(0, 0, auto);
+        margin: 0;
+        border-radius: 3px;
+        font-size:  12px;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px $tlc-blue;
+        }
+    }
+
+    &__checkbox-label {
+        // .field__checkbox-label
+        // Vertically centered label that sits next to the checkbox
+        @include flex(1, 1, auto);
+        font-weight: bold;
+        padding-left: 10px;
+        line-height: 1;
+    }
+
+//==============================================================================
+// Field - Button.
+//
+// Field Buttons extended from the .button component.
+//==============================================================================
+    &__button {
+        // .field__button
+        @extend .button;
+        @extend .button--large;
+        @extend .button--rounded;
+    }
+
+    &--button-small {
+        // .field--button-small
+        .field__button {
+            @extend .button--small;
+        }
+    }
+
+    &--button-medium {
+        // .field--button-medium
+        .field__button {
+            @extend .button--medium;
+        }
+    }
+
+    &--button-large {
+        // .field--button-large
+        .field__button {
+            @extend .button--large;
+        }
+    }
+
+    &--button-positive {
+        // .field--button-positive
+        .field__button {
+            @extend .button--positive;
+        }
+    }
+
+    &--button-negative {
+        // .field--button-negative
+        .field__button {
+            @extend .button--negative;
+        }
+    }
+
+    &--button-muted {
+        // .field--button-muted
+        .field__button {
+            @extend .button--muted;
+        }
+    }
+
+    &--button-dark {
+        // .field--button-dark
+        .field__button {
+            @extend .button--dark;
+        }
+    }
+
+    &--button-paypal {
+        // .field--button-paypal
+        .field__button {
+            @extend .button--paypal;
+        }
+    }
+
+//==============================================================================
+// Field Variations.
+//
+// Field modifier classes.
+//==============================================================================
+    &--disabled {
+        // .field--disabled
+        // A greyed out/ disabled version of an input field.
+
+        .field__label,
+        .field__checkbox-label {
+            color: rgba(black, 0.4);
+        }
+
+        &.field--textarea .field__label {
+            background-color: $grey-96;
+        }
+
+        .field__input {
+            box-shadow: 0 0 0 1px rgba(black, 0.2);
+            background: $grey-96;
+            color: rgba(black, 0.4);
+            cursor: not-allowed;
+        }
+
+        .field__input, .field__checkbox-input, .field__button {
+            cursor: not-allowed;
+        }
+
+        .field__button,
+        .field__button:hover,
+        .field__button:focus,
+        .field__button:active {
+            background: $grey-86;
+            color: $grey-40;
+            border: 1px solid $grey-40;
+        }
+
+    }
+
+    &--show-label,
+    &--always-show-label {
+        // Flags for the .field populated state.
+        // .field--show-label is toggled via JavaScript
+        // .field--always-show-label provides a way to always display the label
+
+        .field__label {
+            opacity: 1;
+        }
+
+        .field__input {
+            padding-top: 25px;
+            padding-bottom: 5px;
+        }
+    }
+
+    &--non-editable {
+        // .field--non-editable
+        // Version of the .field component that shows a non-editable label/value pair
+        margin-top: 13px;
+        margin-left: 10px;
+
+        .field__label {
+            // .field--non-editable .field__label
+            // Stacked label placed above the value
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            white-space: normal;
+            font-weight: 700;
+            top: -13px;
+            pointer-events: auto;
+            color: $grey-50;
+        }
+
+        .field__value {
+            // .field--non-editable .field__value
+            // Value text placed below label
+            color: $grey-50;
+            font-size: 0.9em;
+        }
+    }
+
+    &--static-label {
+        // .field--static-label
+        // Version of the .field component that displays the label at all times,
+        // above the input field.
+        margin-top: 26px;
+
+        .field__label {
+            // .field--static-label .field__label
+            // Standard, stacked label placed above the input field
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            white-space: normal;
+            font-weight: 600;
+            top: -26px;
+            pointer-events: auto;
+        }
+
+        &.field--textarea .field__label {
+            background-color: transparent;
+        }
+
+        .field__input {
+            // .field--static-label .field__input
+            padding: 15px 10px;
+
+            &:focus {
+                padding: 15px 10px;
+            }
+        }
+    }
+
+    &--no-label {
+        //.field--no-label
+        .field__input {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left:10px;
+        }
+
+        .field__label {
+            display: none;
+        }
+    }
+
+    &--no-label-desktop {
+        // .field--no-label-desktop
+        // Hide label on desktop view
+        @media #{$small} {
+            margin-top: 0;
+
+            .field__input {
+                padding: 15px 10px;
+            }
+
+            .field__label {
+                display: none;
+            }
+        }
+    }
+
+    &--error {
+        // .field--error
+        .field__label {
+            color: $tlc-red;
+        }
+
+        .field__input {
+            box-shadow: 0 0 0 2px $tlc-red;
+        }
+
+        &.field--active {
+            // .field--error.field--active
+
+            .field__input {
+                box-shadow: 0 0 0 2px $tlc-red, inset 0 0 0 1px $tlc-blue;
+            }
+        }
+
+    }
+
+    &--active {
+        // .field--active
+        .field__label {
+            color: $tlc-blue;
+        }
+
+        .field__input {
+            box-shadow: 0 0 0 2px $tlc-blue;
+        }
+    }
+
+    &--postcode,
+    &--uppercase {
+        // .field--postcode, .field--uppercase
+        // Change input field text text to ALL CAPS.
+        
+        .field__input {
+            // .field--postcode .field__input
+            text-transform: uppercase;
+            
+            &::placeholder {
+                // .field--postcode::placeholder
+                // Don't affect label text.
+                text-transform: none;
+            }
+            // Vendor-prefixed selectors for the above...
+            &::-webkit-input-placeholder {text-transform: none}
+            &::-moz-placeholder          {text-transform: none}
+            &:-moz-placeholder           {text-transform: none}
+            &:-ms-input-placeholder      {text-transform: none}
+            &::-ms-input-placeholder     {text-transform: none}
+        }
+    }
+    
+
+//==============================================================================
+// Field - Grid System.
+//
+// Modifier classes for the .field component.
+//==============================================================================
+    @media #{$small} {
+        &--sixth {
+            // .field--sixth
+            width: 16.666666666%; // (1 / 6 * 100%)
+        }
+
+        &--five-sixths {
+            // .field--five-sixths
+            width: 83.333333333%; // (5 / 6 * 100%)
+        }
+        
+        &--fifth {
+            // .field--fifth
+            width: 20%; // (1 / 5 * 100%)
+        }
+
+        &--quarter {
+            // .field--quarter
+            width: 25%; // (100% / 4)
+        }
+
+        &--three-quarters {
+            // .field--three-quarters
+            width: 75%; // (100% / 4) * 3
+        }
+
+        &--third {
+            // .field--third
+            width: 33.333333333%; // (100% / 3)
+        }
+
+        &--five-twelfths {
+            width: 41.666666666%; // (5 / 12 * 100%)
+        }
+
+        &--seven-twelfths {
+            width: 58.333333333%; // (7 / 12 * 100%)
+        }
+
+        &--half {
+            // .field--half
+            width: 50%; // (100% / 2)
+        }
+
+        &--two-thirds {
+            // .field--two-thirds
+            width: 66.6666666667%; // (100% / 3) * 2
+        }
+
+        &--full-width {
+            // .field--full-width
+            width: 100%;
+        }
+    }
+}
+
+//==============================================================================
+// Credit/Debit Card validation.
+//==============================================================================
+.cc-validation {
+    // Message that appears below the "Place Order" button
+    padding: 0 8px;
+    font-weight: bold;
+    font-size: 13px;
+
+    @media #{$small} {
+        text-align: center;
+    }
+
+    &.text-negative:after {
+        color: $color-negative;
+        content: 'Some of the information you provided is not valid. Please check your card details and try again.';
+    }
+
+    &.text-success:after {
+        color: $color-positive;
+        content: 'Validation passed';
+    }
+}

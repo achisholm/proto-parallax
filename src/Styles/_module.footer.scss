@@ -1,0 +1,193 @@
+//******************************************************************************
+// Page Footer.
+//
+//
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+//==============================================================================
+// Page Footer Container.
+//==============================================================================
+.page-footer {
+    // The blue bar footer at the bottom of all pages.
+    @include clearfix;
+    clear: both;
+    background-color: $tlc-blue;
+    color: white;
+    margin-top: auto;
+    
+    > .site-width-wrapper {
+        padding: 0;
+
+        @media #{$small} {
+            // Add left & right padding for desktop
+            padding: 0 $base-padding;
+        }
+    }
+}
+
+//==============================================================================
+// Footer Panel.
+//==============================================================================
+.page-footer__panel {
+    // An individual <a> menu item or <div> element in the footer.
+    @include flexbox;
+    @include justify-content(center);
+    @include align-items(center);
+    float: left;
+    width: 100%;
+    text-align: center;
+    border-style: solid;
+    border-color: $border-blue;
+    border-bottom-width: 1px;
+    height: 60px;
+    line-height: 60px;
+    color: white;
+    text-decoration: none;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    @media #{$x-small} {
+        // Apply a right-hand border for all panels (for two-column layout & up).
+        border-right-width: 1px;
+
+        &:nth-last-child(-n+2) {
+            border-bottom: 0;
+        }
+    }
+
+    @media (min-width:1024px) {
+        // 6 column, 1 row layout
+        width: 16.666%; // 100% / 6
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 0;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    @media (min-width:801px) and (max-width:1023px) {
+        // 3 column, 2 row layout
+        width: 33.333%; // 100% / 3
+        height: 50px;
+        line-height: 50px;
+
+        &:nth-child(3n) {
+            // Remove right border for every third panel (last in row).
+            border-right: none;
+        }
+
+        &:nth-child(4n){
+            // Clear float for first panel in every row (apart from first).
+            clear: left;
+        }
+
+        &:nth-last-child(-n+3) {
+            // remove bottom border for all panels in the last row.
+            border-bottom: 0;
+        }
+    }
+
+    @media (min-width:501px) and (max-width: $small-width) {
+        // 2 column, 3 row layout
+        width: 50%; // 100% / 2
+
+        &:nth-child(odd){
+            // Clear float for first panel in every row.
+            clear: left;
+        }
+
+        &:nth-child(even) {
+            // Remove right border for every other panel (last in row).
+            border-right: none;
+        }
+    }
+
+    @media (min-width: $small-width) and (max-height:767px) {
+        height: 35px;
+        line-height: 35px;
+    }
+}
+
+a.page-footer__panel:hover {
+    // Hover state of clickable footer panels.
+    color: white;
+    background-color: $border-blue;
+}
+
+//==============================================================================
+// Panel Text.
+//==============================================================================
+.page-footer__panel-text {
+    // Text for the footer panels
+    @extend %text-truncated;
+    display: inline;
+    font-weight: bold;
+
+    @media #{$small} {
+        font-size: 13px;
+    }
+}
+
+//==============================================================================
+// Icons / Images.
+//==============================================================================
+.page-footer__panel-icon {
+    // Iconfont icons inside the footer panels.
+    @include flexbox;
+    @include justify-content(center);
+    margin-right: 10px;
+    font-size: 120%;
+}
+
+.icon-social {
+    // Container for each of the social media icons.
+    display: block;
+    float: left;
+    width: 25%;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        background-color: $border-blue;
+
+        > .icon {
+            color: white
+        }
+    }
+
+    > .icon {
+        position: relative;
+        top: 2px;
+        font-size: 1.1em;
+    }
+
+    > .icon--facebook {
+        color: #ffffff;
+    }
+
+    > .icon--twitter {
+        color: #4099ff;
+    }
+
+    > .icon--pinterest {
+        color: #c92228;
+    }
+
+    > .icon--instagram {
+        color: #e4405f;
+    }
+}
+
+.trustpilot-logo {
+    // TrustPilot logo used in one of the footer panels.
+    max-width: 200px;
+    width: 100%;
+    padding: 0 15px 4px 15px;
+}

@@ -1,0 +1,343 @@
+//******************************************************************************
+// Price breaks.
+//
+// 
+// The price breaks table UI component, shown inside product tables on the
+// following templates:
+//
+// * Product
+// * Group
+// * Search
+// * Clearance
+// * What's New
+// * Previous Purchases
+//
+//******************************************************************************
+
+.price-breaks {
+    // Price breaks table element.
+    position: relative;
+    border-collapse: separate;
+    box-shadow: 0 1px 4px rgba(black, 0.3),
+                0 0 40px rgba(black, 0.1) inset;
+
+    @media #{$small} {
+        width: auto;
+    }
+
+    body.is-inc-vat & {
+        // body.is-inc-vat .price-breaks
+        // VAT-inclusive preference selected.
+
+        .is-ex-vat {
+            // body.is-inc-vat .price-breaks .is-ex-vat
+            // Hides ex-VAT price break.
+            display: none !important;
+        }
+    }
+
+    body.is-ex-vat & {
+        // body.is-ex-vat .price-breaks
+        // VAT-exclusive preference selected.
+
+        .is-inc-vat {
+            // body.is-ex-vat .price-breaks .is-inc-vat
+            // Hides inc-VAT price.
+            display: none !important;
+        }
+    }
+
+
+    &:before,
+    &:after {
+        // .price-breaks:before, .price-breaks:after
+        content: "";
+        position: absolute;
+        z-index: -1;
+        box-shadow: 0 0 20px rgba(black, 0.8);
+        top: 10px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        border-radius: 100px / 10px;
+        height: 3px;
+    }
+    
+    &:after {
+        // .price-breaks:before, .price-breaks:after
+        right: 10px;
+        left: auto;
+        transform: skew(8deg) rotate(3deg);
+    }
+
+    &__quantity,
+    &__price {
+        // .price-breaks__quantity, .price-breaks__price
+        // Styles common to both quantity (th) & price (td) cells.
+        line-height: 1;
+        text-align: center;
+        font-weight: bold;
+        white-space: nowrap;
+        vertical-align: middle;
+        border-width: 0 1px;
+        border-style: solid;
+    }
+
+    &__quantity {
+        // .price-breaks__quantity
+        // Black background heading table cells (<th>).
+        background-color: black;
+        color: white;
+        letter-spacing: 1px;
+        padding: 3px 5px;
+        border-width: 0 2px;
+        border-color: white;
+        line-height: 9px;
+
+        &:first-child {
+            // .price-breaks__quantity:first-child
+            // Ensure first cell in price break row doesn't show an outside border.
+            border-left: none;
+        }
+
+        &:last-child {
+            // .price-breaks__quantity:last-child
+            // Ensure last cell in price break row doesn't show an outside border.
+            border-right: none;
+        }
+
+        p {
+            // .price-breaks__quantity p
+            // Paragraph element containing the unit of quantity text
+            // (e.g. "EACH", "per 50m").
+            font-size: 0.8em;
+        }
+
+    }
+
+    &__price {
+        // .price-breaks__price
+        // White background price cells (e.g. "£10.00").
+        background: white;
+        font-weight: bold;
+        padding: 6px 15px;
+        font-size: 14px;
+        line-height: 12px;
+        border-color: transparent;
+
+        @media #{$small} {
+            padding: 3px 15px;
+        }
+    }
+}
+
+//==============================================================================
+// .price-breaks--discount
+//
+// A discount version of the price preaks UI component in yellow.
+//==============================================================================
+
+$discount-yellow: #ffe201;
+
+.price-breaks--discount {
+    // Modifier class for the .price-break table.
+    border: none;
+    box-shadow: none;
+
+    &:before,
+    &:after {
+        content: normal;
+    }
+
+    .price-breaks__quantity,
+    .price-breaks__price {
+        // .price-breaks--discount .price-breaks__quantity,
+        // .price-breaks--discount .price-breaks__price
+        border-left: none;
+        border-right: 1px solid rgba(black, 0.05);
+
+        &:last-child {
+            // .price-breaks__quantity:last-child, .price-breaks__price:last-child
+            // Ensure last cell in price break row doesn't have an outside border.
+            border-right: none;
+        }
+    }
+
+    .price-breaks__quantity {
+        // .price-breaks--discount .price-breaks__quantity
+        background-color: darken($discount-yellow, 5%);
+        color: black;
+    }
+
+    .price-breaks__price {
+        // .price-breaks--discount .price-breaks__price
+        background-color: $discount-yellow;
+    }
+    
+    .price-breaks__price--old-price {
+        // .price-breaks--discount .price-breaks__price--old-price
+        // Cells with old prices, faded back with strike-through.
+        position: relative;
+        background-color: darken($discount-yellow, 3%);
+        font-size: 12px;
+        color: darken($discount-yellow, 20%);
+        padding-top: 3px;
+        padding-bottom: 3px;
+
+        &:after {
+            // .price-breaks--discount .price-breaks__price--old-price:after
+            // An overlayed diagonal strike-through effect implemented via
+            // linear gradient with hard stops.
+            user-select: none;
+            content: "";
+            display: block;
+            height: 60%;
+            width: 60%;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            background-image: repeating-linear-gradient(
+                to top left,
+                transparent 0%,
+                transparent 47%,
+                rgba(black, 0.2) 47%,
+                rgba(black, 0.2) 53%,
+                transparent 53%,
+                transparent 100%
+            );
+        }
+    }
+}
+
+//==============================================================================
+// Price Breaks (Old Price).
+//
+// A striked-out version of the standard price breaks table. Used for discounted
+// single price-point products. Shown inside the .discount-price UI component
+// along-side the saving and the discounted price-break.
+//==============================================================================
+
+.price-breaks--old-price {
+    // .price-breaks--old-price
+
+    &:after {
+        // .price-breaks--old-price:after
+        // An overlayed diagonal strike-through effect implemented via a
+        // linear gradient with hard stops.
+        user-select: none;
+        content: "";
+        display: block;
+        height: 120%;
+        width: 120%;
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        background-image: repeating-linear-gradient(
+            to top left,
+            transparent 0%,
+            transparent 49%,
+            hsla(0, 0%, 67%, 0.5) 49%,
+            hsla(0, 0%, 67%, 0.5) 51%,
+            transparent 51%,
+            transparent 100%
+        );        
+        box-shadow: none;
+        z-index: 1;
+    }
+}
+
+//==============================================================================
+// Price Breaks discount labels.
+//
+// Table cells in row below price breaks showing saving in percent (e.g. "20%").
+//==============================================================================
+
+.price-breaks__discount-label {
+    // Text labels displayed on the left side of price breaks.
+    background-color: transparent;
+    font-weight: bold;
+    padding: 0 5px;
+    text-align: right;
+    letter-spacing: 0.03em;
+    font-size: 11px;
+
+    &--was {
+        // .price-breaks__discount-label--was
+        // "WAS" label.
+        color: $grey-56;
+    }
+
+    &--now {
+        // .price-breaks__discount-label--now
+        // "NOW" label.
+        color: $grey-20;
+    }
+    
+    &--save {
+        // .price-breaks__discount-label--save
+        // "SAVE" label.
+        color: $tlc-red;
+    }
+}
+
+//==============================================================================
+// Price Breaks Saving.
+//
+// Table cells in row below price breaks showing saving in percent (e.g. "20%").
+//==============================================================================
+.price-breaks__saving {
+    // Price saving in percent ("20%").
+    font-weight: bold;
+    color: $tlc-red;
+    text-align: center;
+    padding: 2px 10px;
+    font-size: 11px;
+}
+
+//==============================================================================
+// Discount Price.
+//
+// Product's price for a single price-point, showing the old price, savings
+// message and the discounted price.
+//==============================================================================
+
+.discount-price {
+    // The container for the two price breaks (old & discounted), interspersed
+    // by the savings message in between.
+    @include inline-flex;
+    @include justify-content(center);
+
+    &__saving {
+        // .discount-price__saving
+        // The savings text wrapper containing .discount-price__saving-value
+        // & .discount-price__saving-percentage (both unstyled).
+        @include flexbox;
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include flex(0, 1, auto);
+        color: $tlc-red;
+        padding: 0 5px;
+        line-height: 1;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: center;
+
+        @media #{$small} {
+            white-space: nowrap;
+            padding: 0 10px;
+        }
+    }
+
+    &__saving-percentage {
+        // .discount-price__saving-percentage
+        // The second paragraph with saving as a percentage (e.g. "15% off").
+        white-space: nowrap;
+    }
+
+    .price-breaks {
+        // Make the price breaks display inline rather than full-width.
+        width: auto;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

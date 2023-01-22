@@ -1,0 +1,187 @@
+//******************************************************************************
+// Technical Section.
+//
+// Technical Section overview page.
+//******************************************************************************
+@import "tools.vars";
+@import "tools.mixins";
+
+.page-technical {
+    // page identifier class assigned to the body element
+    background-color: $grey-96;
+}
+
+.technical-index {
+    // Page content wrapper
+    padding-top: 20px;
+    padding-bottom: 10px;
+
+    @media #{$less-than-small} {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    &__primary-heading {
+        // .technical-index__primary-heading
+        // Main heading, centre-aligned.
+        text-align: center;
+        color: black;
+        font-weight: 700;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    &__secondary-heading {
+        // .technical-index__secondary-heading
+        // Sub-heading text, centre-aligned.
+        text-align: center;
+        color: $grey-40;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: $base-padding;
+    }
+
+    &__columns-container {
+        // .technical-index__column-container
+        @include column-count(1);
+        padding-bottom: 20px;
+
+        @media #{$x-small} {@include column-count(2)}
+        @media #{$medium}  {@include column-count(3)}
+        @media #{$large}   {@include column-count(4)}
+    }
+}
+
+.technical-category-wrapper {
+    // Wrapper element required to prevent margin-bottom of each
+    // techincal-category from breaking across columns
+    @include break-inside(avoid);
+    overflow: hidden;
+}
+
+.technical-category {
+    // Category panel containing heading and list of links
+    @include clearfix;
+    list-style: none;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid $grey-86;
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+    &__heading {
+        // .technical-category__heading
+        @extend %text-truncated;
+        display: block;
+        font-size: 17px;
+        font-weight: bold;
+        color: $tlc-red;
+        border-bottom: 1px solid $grey-86;
+        margin-bottom: 5px;
+        height: 50px;
+        line-height: 50px;
+
+        &:before {
+            // .technical-category__heading:before
+            // The icon appearing next to the category heading
+            font-family: "iconfont";
+            font-size: 1.3em;
+            display: block;
+            float: left;
+            width: 35px;
+            height: 50px;
+            line-height: 50px;
+            text-align: left;
+            color: $tlc-blue;
+            padding-left: 1px;
+        }
+
+        // Applies iconfont character to each individual technical category panel...
+        &--aerial:before          {content:"\e92a"}
+        &--calculators:before     {content:"\e920"}
+        &--fire-and-smoke:before  {content:"\e924"}
+        &--heat-tape:before       {content:"\e929"}
+        &--information:before     {content:"\e908"}
+        &--lighting:before        {content:"\e926"}
+        &--networking:before      {content:"\e928"}
+        &--ponds:before           {content:"\e922"}
+        &--power-tools:before     {content:"\e921"}
+        &--ventilation:before     {content:"\e923"}
+        &--telephones:before      {content:"\70"}
+        &--switchgear:before      {content:"\e925"}
+        &--test-meters:before     {content:"\e927"}
+        &--regulations:before     {content:"\e91d"}
+        &--sound:before           {content:"\e906"}
+        &--wiring:before          {content:"\e91f"}
+        &--ev:before              {content:"\e937"}
+    }
+
+    &__list {
+        // .technical-category__list
+        // Unordered list of links
+        list-style: none;
+    }
+
+    &__link {
+        // .technical-category__link
+        // The li element
+
+        a {
+            // .technical-category__link a
+            display: block;
+            line-height: 1;
+            border-bottom: 1px solid $grey-93;
+            text-decoration: none;
+            padding: 10px 0;
+            color: $tlc-blue;
+
+            &:hover {
+                color: $tlc-red;
+            }
+
+            .icon {
+                // .technical-category__link a .icon
+                // icon placed after link text to indicate the type of link (external or pdf file)
+                padding-left: 4px;
+                font-size: 0.7em;
+            }
+        }
+
+        &:last-child a {
+            // Remove the border-bottom on the last link
+            border-bottom: none;
+        }
+    }
+
+    &--wiring-regs {
+        // .technical-category--wiring-regs
+        // advert panel for 16th/17th Edition wiring regs
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+        @include flexbox;
+        @include flex-direction(row-reverse);
+        @include align-items(center);
+        text-decoration: none;
+        color: $tlc-blue;
+
+        &:hover {
+            color: $tlc-red;
+        }
+
+        .wiring-regs-text {
+            // .technical-category--wiring-regs .wiring-regs-text
+            // Paragraph of text with hyperlinks to 16th & 17th editions.
+            @include flex(1,1,auto);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .wiring-regs-book-image {
+            // .technical-category--wiring-regs .wiring-regs-book-image
+            // Image of the Guide to the 17th Edition book
+            @include flex(0,0,auto);
+            float: right;
+        }
+    }
+}

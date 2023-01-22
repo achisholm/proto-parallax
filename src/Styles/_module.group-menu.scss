@@ -1,0 +1,140 @@
+//******************************************************************************
+// Group Menu.
+//
+// Group page index menu (mobile-view only).
+//******************************************************************************
+
+.group-menu-control {
+    // Text link to activate/deactivate the group menu.
+    display: inline-block;
+    cursor: pointer;
+    color: $bright-blue;
+    text-decoration: underline;
+    white-space: nowrap;
+
+    .icon {
+        // .group-menu-control .icon
+        position: absolute;
+        font-size: 0.7em;
+        margin: auto;
+        padding: 4px;
+    }
+
+    &__active {
+        // .group-menu-control__active
+        // Text shown when active.
+        display:none;
+    }
+
+    &.is-active {
+        // .group-menu-control.is-active
+        // Active state.
+        
+        .group-menu-control__active {
+            // .group-menu-control.is-active .group-menu-control__active
+            display: inline;
+        }
+
+        .group-menu-control__default {
+            // .group-menu-control.is-active .group-menu-control__default
+            display: none;
+        }
+
+    }
+}
+
+//==============================================================================
+// Group menu.
+//==============================================================================
+
+.group-menu {
+    // Group index menu.
+    
+    &.is-collapsed {
+        // .group-menu.is-collapsed
+        // Visually hides content.
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-width: 0;
+        opacity: 0;
+    }
+
+    &.is-hidden {
+        // .group-menu.is-hidden
+        // Removes the content.
+        display: none;
+    }
+}
+
+
+.group-menu-item {
+    // Group index menu item.
+    @include flexbox;
+    @include align-items(center);
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid $grey-86;
+    padding: 10px;
+
+    &:hover {
+        // .group-menu-item:hover
+        color: inherit;
+
+        .group-menu-item__title {
+            // .group-menu-item:hover .group-menu-item__title
+            text-decoration: underline;
+            color: $bright-blue;
+        }
+    }
+
+    &__image {
+        // .group-menu-item__image
+        @include flex(0, 0, 60px);
+        @include flexbox;
+        @include align-items(flex-start);
+        @include justify-content(center);
+        width: 50px;
+        padding-right: 10px;
+
+        img {
+            // .group-menu-item__image img
+            max-width: 100%;
+            max-height: 37px;
+        }
+    }
+
+    &__text {
+        // .group-menu-item__text
+        // Text container.
+        @include flex(1);
+    }
+
+    &__title {
+        // .group-menu-item__title
+        font-weight: 600;
+        color: $tlc-blue;
+        padding-bottom: 5px;
+    }
+
+    &__count {
+        // .group-menu-item__count
+        color: $grey-56;
+    }
+
+    &__logo {
+        // .group-menu-item__logo
+        @include flex(0, 0, 60px);
+        @include flexbox;
+        @include align-items(flex-start);
+        @include justify-content(center);
+        width: 50px;
+
+        img {
+            // .group-menu-item__logo img
+            width: auto;
+            max-width: 100%;
+            max-height: 37px;
+        }
+    }
+}

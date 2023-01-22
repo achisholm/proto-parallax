@@ -1,0 +1,145 @@
+//******************************************************************************
+// Your Order - Promo Code Form.
+//
+// Promo code form component on the Your Order page.
+//******************************************************************************
+
+.promo-code {
+    // Wrapper for the promo code form component.
+    text-align: center;
+
+//==============================================================================
+// Promo code text link.
+//==============================================================================
+    &__text-link {
+        // .promo-code__text-link
+        // Clickable "I have a promo code" text link that toggles visibility of
+        // the promo code form.
+        display: inline-block;
+        color: $tlc-blue;
+        cursor: pointer;
+        margin: 5px 0;
+        text-decoration: underline;
+        font-size: 12px;
+        line-height: 30px;
+
+        &:hover {
+            color: $tlc-red;
+        }
+    }
+
+//==============================================================================
+// Promo code tooltip.
+//==============================================================================
+    &__tooltip {
+        // .promo-code__tooltip
+        // Toolip component activated on hover.
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        position: relative;
+        top: 6px;
+        left: 3px;
+        pointer-events: none;
+        
+        .tooltip-icon {
+            // .promo-code__tooltip .tooltip-icon
+            // Circular button hit area with question mark icon.
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: $grey-86;
+            border-radius: 50%;
+            background-image: url(/Graphics/icon-question-mark-white.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 20px;
+            transition-property: background-color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            pointer-events: auto;
+            cursor: pointer;
+            
+            &:hover {
+                // .promo-code__tooltip .tooltip-icon:hover
+                background-color: rgba(0,0,0,0.5);
+
+                & + .tooltip-bubble {
+                    // .promo-code__tooltip .tooltip-icon:hover + .tooltip-bubble
+                    // Reveal and reposition the tooltip text bubble on hover.
+                    bottom: 23px;
+                    opacity: 1;
+                    
+                    &:before {
+                        // .promo-code__tooltip .tooltip-icon:hover + .tooltip-bubble:before
+                        // Text bubble's triangular wedge.
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .tooltip-bubble {
+            // .promo-code__tooltip .tooltip-bubble
+            // Text bubble, hidden by default.
+            transition-property: opacity, bottom;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            position: absolute;
+            bottom: 10px;
+            right: -45px;
+            display: inline-block;
+            opacity: 0;
+            width: 270px;
+            border-radius: 5px;
+            background: black;
+            color: white;
+            padding: 10px;
+            pointer-events: none;
+            font-size: 14px;
+            line-height: 1.4;
+            z-index: $z-tooltip-bubble;
+
+            @media (max-width:350px) {
+                width: 150px
+            }
+
+            &:before {
+                // .promo-code__tooltip .tooltip-bubble
+                // Text bubble's triangular wedge.
+                content: "";
+                position: absolute;
+                bottom: -20px;
+                right: 30px;
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+            }
+        }
+    }
+
+//==============================================================================
+// Promo code form.
+//==============================================================================
+    &__form {
+        // .promo-code__form
+        // Promo code form containing "Promo Code"input field and "Apply" button.
+        opacity: 1;
+        height: auto;
+        overflow: hidden;
+        padding: 0 2px;
+        margin: -4px 0px 4px 0px;
+        line-height: 1.54;
+        
+        &.is-hidden {
+            // .promo-code__form.is-hidden
+            // Form's hidden state applied by default.
+            margin-top: 0;
+            opacity: 0;
+            height: 0;
+        }
+    }
+}

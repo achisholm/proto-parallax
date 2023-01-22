@@ -1,0 +1,213 @@
+//==============================================================================
+// Price Breaks & Quantity Input Controls.
+//
+//
+//==============================================================================
+
+.mobile-price-quantity {
+    // Container for the mobile-view price and quantity input control.
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);
+    margin: 20px 20px;
+
+    @media #{$small} {
+        display: none;
+    }
+
+    .oos-alert {
+        // .oos-alert
+        // Override default max-width when shown in mobile view.
+        
+        @media #{$less-than-small} {
+            @include flexbox;
+            @include flex-direction(column);
+            @include justify-content(center);
+            height: 60px;
+            max-width: none;
+            margin: 0;
+            text-align: left;
+            
+            &__message {
+                // .mobile-price-quantity .oos-alert__message
+                padding-right: 8px;
+            }
+        }
+    }
+
+    .product__label {
+        // Overrides base .product__label component (affects mobile-view only).
+        font-size: inherit;
+        padding: 0 0 5px 0;
+        color: $grey-40;
+    }
+
+    //==============================================================================
+    // Product Page Price Breaks.
+    //==============================================================================
+
+    .product__price {
+        // Container for product price and label.
+
+        @media #{$less-than-small} {
+            @include flex(0, 0, 40%);
+            margin: 0 0 15px 0;
+            max-width: 100%;
+            padding-right: 10px;
+        }
+    }
+
+    .price-breaks {
+        // Overrides for the base .price-breaks component (affects mobile-view only).
+        @media #{$less-than-small} {
+            width: auto;
+            border-radius: 8px;
+            margin-right: 20px;
+
+            &__quantity {
+                // .price-breaks__quantity
+                line-height: 16px;
+
+                &:first-child {
+                    // .price-breaks__quantity:first-child
+                    border-top-left-radius: 8px;
+                }
+                
+                &:last-child {
+                    // .price-breaks__quantity:last-child
+                    border-top-right-radius: 8px;
+                }
+                
+                p {
+                    // .price-breaks__quantity p
+                    font-size: 16px;
+                }
+            }
+        
+            &__price {
+                // .price-breaks__price
+                // White background price cells (e.g. "£10.00").
+                background-color: white;
+                font-size: 18px;
+                line-height: 25px;
+                border-radius: 0 0 8px 8px;
+
+                &--old-price {
+                    // .price-breaks__price--old-price
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+
+    .vat-preference-text {
+        // Text indicator for VAT setting, e.g. '(inc VAT)'.
+        @media #{$less-than-small} {
+            font-size: inherit;
+        }
+    }
+
+
+    //==============================================================================
+    // Quantity Input Control.
+    //
+    // Overrides base UI component with Product page styles (mobile layout).
+    //==============================================================================
+
+    .product__quantity {
+        // Container for quantity control and label.
+
+        @media #{$less-than-small} {
+            @include flex(1, 0, 60%);
+            @include justify-content(flex-end);
+            min-width: 50%;
+            margin: 0 0 15px 0;
+
+            @media (min-width: 650px) {
+                @include flex-basis(50%);
+            }
+        }
+    }
+
+    .qty {
+        // Overrides for the base .qty control (affects mobile-view only).
+
+        @media #{$less-than-small} {
+            font-size: inherit;
+            margin: 0;
+            height: auto;
+            max-width: none;
+
+            &__controls {
+                // .qty__controls
+                @include flex(1, 0, auto);
+            }
+            
+            &__input {
+                // .qty__input
+                @include flex(0, 0, 62px);
+                height: 60px;
+                margin-right: 10px;
+                font-size: 18px;
+            }
+            
+            &__control {
+                // .qty__control
+                width: 100%;
+            }
+            
+            &__control-amount {
+                // .qty__control-amount
+                width: calc(100% - 5px);
+            }
+
+            &__button {
+                // .qty__button
+                @include flex(1, 0, 100%);
+                height: 60px;
+            }
+            
+            &__spinner-button {
+                // .qty__spinner-button
+                @include flex(1, 0, 50%);
+                height: 60px;
+                width: auto;
+                font-size: 20px;
+                color: $bright-blue;
+                border-color: rgba($tlc-blue, 0.4);
+            }
+        }
+    }
+}
+
+//==============================================================================
+// Special product information (mobile-view).
+//==============================================================================
+
+.special-info {
+    // Mobile-version of the special info text (e.g. "Special Order — 3-4 Week 
+    // Delivery").
+    @include flexbox;
+    @include align-items(center);
+    width: 100%;
+    
+    &__icon {
+        // .special-info__icon
+        // Circular 'info' icon.
+        padding-right: 5px;
+    }
+    
+    &__text {
+        // .special-info__text
+        // Information message text.
+        line-height: 1;
+    }
+}
+
+.belowpic-mobile {
+    // Container div for belowpic text (mobile-view only).
+    
+    @media #{$small} {
+        display: none;
+    }
+}
